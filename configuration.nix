@@ -97,7 +97,8 @@
 
     packages = with pkgs; [
       pkgs.nerd-fonts.jetbrains-mono
-
+      pkgs.nerd-fonts.commit-mono
+      pkgs.maple-mono.NF
     ];
   };
 
