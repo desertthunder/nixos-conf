@@ -5,10 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -78,15 +78,28 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.zsh.enable = true;
   users.users.owais = {
     isNormalUser = true;
     description = "Owais";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
+  fonts = {
+    fontconfig.enable = true;
+
+    packages = with pkgs; [
+      pkgs.nerd-fonts.jetbrains-mono
+
+    ];
+  };
 
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -94,14 +107,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  		vim
-  		git
-  		wget
-  		curl
-  		vscode
-      alacritty
-      neovim
-      zsh
+    vim
+    git
+    wget
+    curl
+    vscode
+    alacritty
+    neovim
+    zsh
+    pkgs.nixfmt-rfc-style
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -129,6 +143,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.05";
 
 }

@@ -1,0 +1,5 @@
+[book]
+authors = ["Owais Jamil"]
+language = "en"
+src = "src"
+title = "NixOS Notes & Configuration"

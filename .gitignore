@@ -1,0 +1,88 @@
+# ─────────────────────────────────────────────
+# Nix / Flakes
+# ─────────────────────────────────────────────
+
+# Nix build artifacts
+result
+result-*
+*.drv
+
+# Direnv + Nix development environment caches
+.direnv/
+.envrc
+.nix-gc-roots/
+
+# Nix shell history caches
+.nix-shell-history
+
+# ─────────────────────────────────────────────
+# Home Manager (optional; safe to ignore)
+# ─────────────────────────────────────────────
+
+# HM activation backups (if you enabled backupFileExtension)
+*.backup
+
+# Generated HM state paths (only if you ever export them manually)
+home-manager-path
+
+# ─────────────────────────────────────────────
+# Secrets (if you use agenix or sops-nix)
+# ─────────────────────────────────────────────
+
+# DO NOT ignore encrypted files, only ignore decrypted ones.
+*.age.key
+secrets/*.json
+secrets/*.yaml
+secrets/*.yml
+secrets/*.env
+*.gpg
+
+# ─────────────────────────────────────────────
+# Editors & IDEs
+# ─────────────────────────────────────────────
+
+# VSCode
+.vscode/
+.vscode-server/
+
+# JetBrains
+.idea/
+*.iml
+
+# Neovim swap & session files
+*.swp
+*.swo
+.session
+
+# Vim temporary files
+tags
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/emacs-backup-*
+
+# ─────────────────────────────────────────────
+# System
+# ─────────────────────────────────────────────
+
+.DS_Store
+
+*.log
+Thumbs.db
+
+# mdBook builds
+book/
+book/*
+
+# Hugo/Static site builds
+public/
+
+
+local.nix
+overrides.nix
+
+.env
+.env.*

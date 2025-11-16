@@ -1,50 +1,32 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   home.username = "owais";
   home.homeDirectory = "/home/owais";
 
-  # link the configuration file in current directory to the specified location in home directory
-  # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
-
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
-
-  # encode the file content in nix configuration file directly
-  # home.file.".xxx".text = ''
-  #     xxx
-  # '';
-
-  # set cursor size and dpi for 4k monitor
   xresources.properties = {
     "Xcursor.size" = 16;
     "Xft.dpi" = 172;
   };
 
-  # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    # here is some command line tools I use frequently
-    # feel free to add your own or remove some of them
-
     neofetch
-    nnn # terminal file manager
+    nnn
 
-    # archives
     zip
     xz
     unzip
     p7zip
 
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processor https://github.com/mikefarah/yq
-    fzf # A command-line fuzzy finder
-
+    ripgrep
+    jq
+    yq-go
+    fzf
     file
     which
     tree
@@ -56,36 +38,39 @@
 
     nix-output-monitor
 
-    glow # markdown previewer in terminal
+    zellij
 
-    btop  # replacement of htop/nmon
-    iotop # io monitoring
-    iftop # network monitoring
+    glow
+
+    btop
+    iotop
+    iftop
 
     # system call monitoring
-    strace # system call monitoring
-    ltrace # library call monitoring
-    lsof # list open files
+    strace
+    ltrace
+    lsof
 
-    # system tools
     sysstat
-    lm_sensors # for `sensors` command
+    lm_sensors
     ethtool
-    pciutils # lspci
-    usbutils # lsusb
+    pciutils
+    usbutils
 
     oh-my-zsh
     oh-my-posh
 
     rustup
     nodejs
+    gopls
+    mdbook
+
     claude-code
 
     rofi
     zathura
     asciinema
   ];
-
 
   programs.zsh = {
     enable = true;
@@ -95,35 +80,80 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "z" "autosuggestions" ];
+      plugins = [
+        "git"
+        "z"
+        "autosuggestions"
+      ];
       theme = "agnoster";
     };
 
     shellAliases = {
-      ll     = "ls -l";
+      ll = "ls -l";
       update = "sudo nixos-rebuild switch";
     };
   };
 
-  # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
     userName = "Owais Jamil";
     userEmail = "desertthunder.dev@gmail.com";
   };
 
-  # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
     enable = true;
-    # custom settings
     settings = {
-      env.TERM = "xterm-256color";
       font = {
-        size = 12;
-        draw_bold_text_with_bright_colors = true;
+        normal = {
+          family = "JetBrainsMono Nerd Font Propo";
+          style = "SemiBold";
+        };
+        size = 15;
       };
-      scrolling.multiplier = 5;
-      selection.save_to_clipboard = true;
+      env = {
+        TERM = "xterm-256color";
+      };
+      window = {
+        padding = {
+          x = 8;
+          y = 8;
+        };
+      };
+      colors = {
+        primary = {
+          background = "#1b1b1b";
+          foreground = "#ffffff";
+        };
+        cursor = {
+          text = "#161616";
+          cursor = "#78a9ff";
+        };
+        normal = {
+          black = "#161616";
+          red = "#ee5396";
+          green = "#42be65";
+          yellow = "#ff7eb6";
+          blue = "#33b1ff";
+          magenta = "#be95ff";
+          cyan = "#3ddbd9";
+          white = "#ffffff";
+        };
+        bright = {
+          black = "#525252";
+          red = "#ee5396";
+          green = "#42be65";
+          yellow = "#ff7eb6";
+          blue = "#33b1ff";
+          magenta = "#be95ff";
+          cyan = "#3ddbd9";
+          white = "#ffffff";
+        };
+      };
+
+      terminal.shell = {
+        program = "/run/current-system/sw/bin/zsh";
+        args = [ "-l" ];
+      };
     };
   };
 
