@@ -9,18 +9,29 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      modules = [
-        ./conf/configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.owais = import ./conf/home.nix;
-          home-manager.backupFileExtension = "backup";
-        }
-      ];
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      self,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+        modules = [
+          ./conf/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {
+              root = ./.;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.owais = import ./conf/home.nix;
+            home-manager.backupFileExtension = "backup";
+          }
+        ];
+      };
     };
-  };
 }

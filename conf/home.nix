@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  root,
   ...
 }:
 
@@ -16,7 +17,7 @@
 
   home.packages = with pkgs; [
     neofetch
-    nnn
+    yazi
 
     zip
     xz
@@ -66,10 +67,14 @@
     mdbook
 
     claude-code
+    codex
 
     rofi
     zathura
     asciinema
+
+    stdenv.cc
+    pkg-config
   ];
 
   programs.zsh = {
@@ -155,6 +160,18 @@
         args = [ "-l" ];
       };
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    defaultEditor = true;
+  };
+
+  home.file.".config/nvim" = {
+    source = root + "/modules/nvim/.";
+    recursive = true;
   };
 
   # This value determines the home Manager release that your
