@@ -3,3 +3,6 @@ authors = ["Owais Jamil"]
 language = "en"
 src = "src"
 title = "NixOS Notes & Configuration"
+
+[output.html]
+git-repository-url = "https://github.com/desertthunder/nixos-conf"

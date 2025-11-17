@@ -1,17 +1,20 @@
-# NixOS Configuration
+# NixOS Configuration/Dotfiles
 
 ## Planned (TODO)
 
 - [ ] Setup asdf-vm
-    - [ ] Go 1.24.5
-    - [ ] Python
+  - [ ] Go 1.24.5
+  - [ ] Python
 - [ ] Configure Zellij
-- [ ] Neovim
+- [x] Neovim
 
 ---
 
 - [ ] Hyprland
+  - [ ] Rofi
+  - [ ] Waybar
+- [x] Zathura
 
-### Separate
+---
 
 - [ ] VSCode Profiles
