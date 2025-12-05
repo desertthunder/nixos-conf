@@ -73,37 +73,11 @@ return {
     end,
   },
   { 'windwp/nvim-autopairs', event = 'InsertEnter', opts = {} },
+  { 'folke/tokyonight.nvim' },
+  { 'EdenEast/nightfox.nvim' },
   {
-    'folke/tokyonight.nvim',
+    'desertthunder/iced-lightning.nvim',
     priority = 1000,
-    config = function() require('tokyonight').setup { styles = { comments = { italic = false } } } end,
-  },
-  {
-    'EdenEast/nightfox.nvim',
-    config = function()
-      -- vim.cmd 'colorscheme carbonfox'
-    end,
-  },
-  {
-    'dracula-recharged',
-    dir = vim.fn.stdpath 'config' .. '/lua/dracula-recharged',
-    priority = 1000,
-    config = function()
-      require('dracula-recharged').setup {
-        transparent = false,
-        terminal_colors = true,
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-        },
-      }
-      vim.cmd 'colorscheme dracula-recharged'
-    end,
-  },
-  {
-    'iced-lightning',
-    dir = vim.fn.stdpath 'config' .. '/lua/iced-lightning',
-    -- priority = 1000,
     config = function()
       require('iced-lightning').setup {
         transparent = false,
@@ -113,7 +87,7 @@ return {
           keywords = { italic = true },
         },
       }
-      -- vim.cmd 'colorscheme iced-lightning'
+      vim.cmd 'colorscheme iced-lightning'
     end,
   },
   { 'NMAC427/guess-indent.nvim' },

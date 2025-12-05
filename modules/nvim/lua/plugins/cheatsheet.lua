@@ -1,20 +1,5 @@
--- Custom cheatsheet plugin - displays keymaps in a floating window
---
--- This file is the plugin specification for lazy.nvim. Lazy.nvim reads all
--- files in lua/plugins/ and treats them as plugin specs.
---
--- Plugin spec structure:
--- - [1] = plugin path (for external plugins) or omitted (for local plugins)
--- - dependencies = other plugins this depends on
--- - config = function called after plugin loads (setup our plugin)
--- - keys = lazy-load when these keys are pressed
-
 return {
-  -- No [1] because this is a local plugin (code in lua/cheatsheet/)
-  -- For external plugins, you'd have: 'author/repo-name'
-
-  name = 'cheatsheet.nvim',
-  dir = vim.fn.stdpath 'config' .. '/lua/cheatsheet',
+  'desertthunder/cheatsheet.nvim',
   keys = { { '<leader>?', desc = 'Toggle [?] Cheatsheet' } },
 
   config = function()
