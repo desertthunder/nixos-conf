@@ -2,7 +2,7 @@
   config,
   pkgs,
   inputs,
-  root,
+  neovim-config,
   ...
 }:
 
@@ -238,7 +238,7 @@
   };
 
   home.file.".config/nvim" = {
-    source = root + "/modules/nvim/.";
+    source = neovim-config;
     recursive = true;
   };
 

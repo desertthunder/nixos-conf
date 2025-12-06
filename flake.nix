@@ -7,6 +7,17 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Optionally straight from Github
+    # inputs.neovim-config = {
+    #   url = "github:desertthunder/nvim";
+    #   flake = false;
+    # };
+
+    neovim-config = {
+      url = "path:../nvim-config";
+      flake = false;
+    };
   };
 
   outputs =
@@ -26,6 +37,7 @@
             {
               home-manager.extraSpecialArgs = {
                 root = ./.;
+                inherit (inputs) neovim-config;
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -43,6 +55,7 @@
             {
               home-manager.extraSpecialArgs = {
                 root = ./.;
+                inherit (inputs) neovim-config;
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -60,6 +73,7 @@
             {
               home-manager.extraSpecialArgs = {
                 root = ./.;
+                inherit (inputs) neovim-config;
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

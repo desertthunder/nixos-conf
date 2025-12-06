@@ -21,6 +21,18 @@
         "type": "github"
       }
     },
+    "neovim-config": {
+      "flake": false,
+      "locked": {
+        "path": "../nvim-config",
+        "type": "path"
+      },
+      "original": {
+        "path": "../nvim-config",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1763049705,
@@ -40,6 +52,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs"
       }
     }
