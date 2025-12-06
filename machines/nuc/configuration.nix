@@ -1,3 +1,4 @@
+# NUC-specific configuration
 { config, pkgs, ... }:
 
 {
@@ -7,9 +8,10 @@
   ];
 
   networking.hostName = "owais-nix-nuc";
-  services.xserver.enable = pkgs.lib.mkForce false;
-  services.xserver.displayManager.gdm.enable = pkgs.lib.mkForce false;
-  services.xserver.desktopManager.gnome.enable = pkgs.lib.mkForce false;
-  virtualisation.docker.enable = true;
-  users.users.owais.extraGroups = [ "docker" ];
+
+  # TODO: Add NUC-specific configuration here
+  # Examples:
+  # - Hardware-specific drivers
+  # - Performance optimizations
+  # - Special services or features
 }

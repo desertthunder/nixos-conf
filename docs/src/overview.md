@@ -17,11 +17,11 @@ always liked messing with my setup and I hope you have fun too.
 
 ## Multi-Machine Setup
 
-This configuration supports multiple machines with different hostnames and specific optimizations:
+This configuration supports multiple machines with different hostnames:
 
-- **owais-nix-thinkpad**: Main development laptop with power management and fingerprint support
-- **owais-nix-hp**: Secondary laptop with Bluetooth configuration
-- **owais-nix-nuc**: Headless server setup with Docker support
+- **owais-nix-thinkpad**: Currently configured with power management and fingerprint support
+- **owais-nix-hp**: Template configuration - TODO: customize for HP-specific needs
+- **owais-nix-nuc**: Template configuration - TODO: customize for NUC-specific needs
 
 ## Quick Commands
 
@@ -73,6 +73,8 @@ nix flake show
    ```bash
    sudo nixos-rebuild switch --flake .#{hostname}
    ```
+
+More details are in the [multi-machine](./nixos/multi-machine.md) document.
 
 ## Credits
 

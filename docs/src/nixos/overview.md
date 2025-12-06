@@ -22,6 +22,22 @@ Declarative system configuration using Nix flakes with Home Manager integration.
 - `nixos-rebuild --flake .` - Build from current flake
 - `nix flake update` - Update flake lock file
 
+### Clean up old generations
+
+```sh
+nix-env --list-generations
+
+nix-collect-garbage  --delete-old
+
+nix-collect-garbage  --delete-generations 1 2 3
+
+# recommeneded to sometimes run as sudo to collect additional garbage
+sudo nix-collect-garbage -d
+
+# As a separation of concerns - you will need to run this command to clean out boot
+sudo /run/current-system/bin/switch-to-configuration boot
+```
+
 ## Reference
 
 - [Nix Language](../notes/nix-lang.md) - Language syntax and patterns

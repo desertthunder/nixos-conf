@@ -1,3 +1,4 @@
+# HP-specific configuration
 { config, pkgs, ... }:
 
 {
@@ -7,6 +8,11 @@
   ];
 
   networking.hostName = "owais-nix-hp";
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
+
+  # TODO: Add HP-specific configuration here
+  # Examples:
+  # - hardware.bluetooth.enable = true;
+  # - services.blueman.enable = true;
+  # - Hardware-specific drivers
+  # - Display/graphics optimizations
 }
