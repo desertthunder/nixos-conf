@@ -17,21 +17,57 @@
       ...
     }@inputs:
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations = {
+        owais-nix-thinkpad = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/thinkpad/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                root = ./.;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.owais = import ./shared/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        };
 
-        modules = [
-          ./conf/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {
-              root = ./.;
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.owais = import ./conf/home.nix;
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
+        owais-nix-hp = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/hp/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                root = ./.;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.owais = import ./shared/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        };
+
+        owais-nix-nuc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./machines/nuc/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                root = ./.;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.owais = import ./shared/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        };
       };
     };
 }
