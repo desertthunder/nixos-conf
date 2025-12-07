@@ -42,6 +42,15 @@ sudo nixos-rebuild test --flake .#owais-nix-thinkpad
 nixos-rebuild build --flake .#owais-nix-nuc
 ```
 
+#### Note About Neovim
+
+To override the neovim-config input in `flake.nix`, such that a locally updated version of the configuration is used,
+override the input with a flag pointing towards the config directory.
+
+```bashsudo nix-channel --update
+sudo nixos-rebuild switch --flake .#{machine} --override-input neovim-config path:/absolute/path/to/nvim-config
+```
+
 ### Development Workflow
 
 ```bash

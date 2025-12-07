@@ -8,14 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Optionally straight from Github
-    # inputs.neovim-config = {
-    #   url = "github:desertthunder/nvim";
-    #   flake = false;
-    # };
-
     neovim-config = {
-      url = "path:../nvim-config";
+      url = "github:desertthunder/nvim";
       flake = false;
     };
   };

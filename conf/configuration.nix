@@ -145,4 +145,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05";
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
