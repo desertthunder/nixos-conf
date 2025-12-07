@@ -15,72 +15,83 @@
     "Xft.dpi" = 172;
   };
 
-  home.packages = with pkgs; [
-    neofetch
-    yazi
+  home.packages =
+    with pkgs;
+    [
+      # Cross-platform packages
+      neofetch
+      yazi
 
-    zip
-    xz
-    unzip
-    p7zip
+      zip
+      xz
+      unzip
+      p7zip
 
-    ripgrep
-    jq
-    yq-go
-    fzf
-    file
-    which
-    tree
-    gnused
-    gnutar
-    gawk
-    zstd
-    gnupg
+      ripgrep
+      jq
+      yq-go
+      fzf
+      file
+      which
+      tree
+      gnused
+      gnutar
+      gawk
+      zstd
+      gnupg
 
-    nix-output-monitor
+      nix-output-monitor
 
-    zellij
+      zellij
 
-    glow
-    asciinema
+      glow
+      asciinema
 
-    btop
-    iotop
-    iftop
+      btop
 
-    # system call monitoring
-    strace
-    ltrace
-    lsof
+      oh-my-zsh
+      oh-my-posh
 
-    sysstat
-    lm_sensors
-    ethtool
-    pciutils
-    usbutils
+      # Development tools and language toolchains
+      rustup
+      nodejs_24
+      go_1_24
+      gopls
+      python313
+      nil
 
-    oh-my-zsh
-    oh-my-posh
+      mdbook
 
-    rustup
-    nodejs
-    gopls
-    mdbook
+      claude-code
+      codex
 
-    claude-code
-    codex
+      stdenv.cc
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      iotop
+      iftop
 
-    rofi
-    zathura
-    zathuraPkgs.zathura_pdf_poppler
+      # System call monitoring
+      strace
+      ltrace
+      lsof
 
-    stdenv.cc
-    pkg-config
+      # Hardware monitoring
+      sysstat
+      lm_sensors
+      ethtool
+      pciutils
+      usbutils
 
-  ];
+      # X11 applications
+      rofi
+      zathura
+      zathuraPkgs.zathura_pdf_poppler
+    ];
 
   programs.zathura = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
 
     options = {
       "selection-clipboard" = "clipboard";
@@ -142,7 +153,7 @@
     };
 
     extraConfig = ''
-      # no extra lines in your case
+
     '';
   };
 
@@ -174,7 +185,7 @@
   };
 
   programs.alacritty = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     settings = {
       font = {
         normal = {

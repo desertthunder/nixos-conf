@@ -3,9 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     neovim-config = {
@@ -17,7 +24,9 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-darwin,
       home-manager,
+      nix-darwin,
       self,
       ...
     }@inputs:
@@ -72,6 +81,39 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.owais = import ./shared/home.nix;
+              home-manager.backupFileExtension = "backup";
+            }
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        owais-nix-air = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            {
+              nixpkgs.pkgs = import nixpkgs-darwin {
+                system = "aarch64-darwin";
+                config.allowUnfree = true;
+              };
+            }
+
+            ./machines/mac/air/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                root = ./.;
+                inherit (inputs) neovim-config;
+              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.owais =
+                { lib, ... }:
+                {
+                  imports = [ ./shared/home.nix ];
+                  home.homeDirectory = lib.mkForce "/Users/owais";
+                  xresources = { };
+                };
               home-manager.backupFileExtension = "backup";
             }
           ];
