@@ -23,6 +23,8 @@
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       nerd-fonts.commit-mono
+      nerd-fonts.hack
+      nerd-fonts.monaspace
       maple-mono.NF
     ];
   };
@@ -47,9 +49,7 @@
 
     # NOTE: Use 'dtruss' (built-in) instead of strace
     # NOTE: Use 'Activity Monitor' or 'top' instead of iotop
-    brews = [
-      "iftop"
-    ];
+    brews = [ "iftop" ];
 
     casks = [
       "firefox"

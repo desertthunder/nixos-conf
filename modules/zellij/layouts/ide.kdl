@@ -1,0 +1,19 @@
+layout {
+    pane split_direction="vertical" {
+        pane split_direction="vertical" size="70%" {
+            pane size="20%" name="File Explorer" {
+                plugin location="zellij:strider"
+            }
+            pane size="80%" name="Neovim" command="nvim" {
+                focus true
+            }
+        }
+        pane split_direction="horizontal" size="30%"{
+            pane size="60%" name="Execution"
+            pane size="40%" name="Version Control"
+        }
+    }
+    pane size=1 borderless=true {
+        plugin location="zellij:compact-bar"
+    }
+}

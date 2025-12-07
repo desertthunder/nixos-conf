@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   neovim-config,
+  root,
   ...
 }:
 
@@ -21,6 +22,7 @@
       # Cross-platform packages
       neofetch
       yazi
+      bat
 
       zip
       xz
@@ -44,7 +46,11 @@
 
       zellij
 
+      # Charm stuff
+      charm-freeze
       glow
+      vhs
+
       asciinema
 
       btop
@@ -58,7 +64,8 @@
       go_1_24
       gopls
       python313
-      nil
+      dotnet-sdk
+      nil # nix language server
 
       mdbook
 
@@ -250,6 +257,16 @@
 
   home.file.".config/nvim" = {
     source = neovim-config;
+    recursive = true;
+  };
+
+  programs.oh-my-posh = {
+    enable = true;
+    settings = builtins.fromJSON (builtins.readFile "${root}/modules/omp.json");
+  };
+
+  home.file.".config/zellij" = {
+    source = "${root}/modules/zellij";
     recursive = true;
   };
 

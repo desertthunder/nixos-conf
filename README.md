@@ -6,18 +6,15 @@ My NixOS configuration and personal [notes/docs](./docs/src/overview.md)
 
 ## TODO
 
-- [ ] Configure Zellij
-- [x] Neovim
 - [ ] VSCode Profiles
+- [x] Zathura
+  - [ ] Mac
 
 ### Linux
 
 - [ ] Hyprland
   - [ ] Rofi
   - [ ] Waybar
-- [x] Zathura
-
----
 
 ## NixOS vs. Nix-Darwin
 

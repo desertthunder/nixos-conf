@@ -60,6 +60,8 @@
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       nerd-fonts.commit-mono
+      nerd-fonts.hack
+      nerd-fonts.monaspace
       maple-mono.NF
     ];
   };
