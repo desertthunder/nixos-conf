@@ -5,9 +5,10 @@ Declarative system configuration using Nix flakes with Home Manager integration.
 ## Structure
 
 - **Flake**: `flake.nix` - Entry point defining inputs and outputs
-- **System Config**: `conf/configuration.nix` - NixOS system settings
-- **User Config**: `conf/home.nix` - Home Manager user environment
-- **Hardware**: `conf/hardware-configuration.nix` - Hardware-specific settings
+- **Shared Config**: `shared/configuration.nix` - Common NixOS system settings
+- **Machine Configs**: `machines/{hostname}/configuration.nix` - Machine-specific settings
+- **User Config**: `shared/home.nix` - Home Manager user environment
+- **Hardware**: `machines/{hostname}/hardware-configuration.nix` - Hardware-specific settings per machine
 
 ## Key Features
 
@@ -18,9 +19,11 @@ Declarative system configuration using Nix flakes with Home Manager integration.
 
 ## Quick Commands
 
-- `sudo nixos-rebuild switch` - Apply system changes
-- `nixos-rebuild --flake .` - Build from current flake
+- `sudo nixos-rebuild switch --flake .#owais-nix-thinkpad` - Apply system changes for thinkpad
+- `sudo nixos-rebuild test --flake .#owais-nix-thinkpad` - Test configuration without switching
 - `nix flake update` - Update flake lock file
+- `nix flake check` - Check flake syntax
+- `nix flake show` - Show available configurations
 
 ### Clean up old generations
 

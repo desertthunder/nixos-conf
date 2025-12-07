@@ -24,11 +24,11 @@
     "neovim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1765062710,
-        "narHash": "sha256-5c91eLINHs0TPUq0eotAuMACI+d+0kavgNBO6pH/fhY=",
+        "lastModified": 1765065644,
+        "narHash": "sha256-gcnh2p86cxFxPpeVY7psuV6Ax26F2BWx1cHMnvYLxnA=",
         "owner": "desertthunder",
         "repo": "nvim",
-        "rev": "9da2258829d5b3b056342e7ee9269e303d76e44d",
+        "rev": "b3ac813d839d464839a3241f308aeca4b4762b42",
         "type": "github"
       },
       "original": {
