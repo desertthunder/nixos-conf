@@ -59,38 +59,7 @@ Each machine imports the shared configuration and adds/overrides specific settin
 
 ## Deployment Commands
 
-### Building for Current Machine
-
-```bash
-# Switch to new configuration
-sudo nixos-rebuild switch --flake .#$(hostname)
-
-# Test without switching
-sudo nixos-rebuild test --flake .#$(hostname)
-```
-
-### Building for Specific Machine
-
-```bash
-# ThinkPad
-sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
-
-# HP
-sudo nixos-rebuild switch --flake .#owais-nix-hp
-
-# NUC
-sudo nixos-rebuild switch --flake .#owais-nix-nuc
-```
-
-### Remote Deployment
-
-```bash
-# Build for remote machine
-nixos-rebuild build --flake .#owais-nix-nuc
-
-# Deploy to remote machine (requires SSH access)
-nixos-rebuild switch --flake .#owais-nix-nuc --target-host user@remote-host
-```
+See [NixOS Configuration](./overview.md) for all build and deployment commands.
 
 ## Adding New Machines
 
@@ -137,32 +106,4 @@ nixos-rebuild switch --flake .#owais-nix-nuc --target-host user@remote-host
 
 ## Maintenance
 
-### Updating Dependencies
-
-```bash
-# Update all flake inputs
-nix flake update
-
-# Update specific input
-nix flake lock --update-input nixpkgs
-```
-
-### Checking Configuration
-
-```bash
-# Validate flake syntax
-nix flake check
-
-# Show available configurations
-nix flake show
-```
-
-### Garbage Collection
-
-```bash
-# Clean up old generations
-sudo nix-collect-garbage -d
-
-# Clean up boot entries
-sudo /run/current-system/bin/switch-to-configuration boot
-```
+See [NixOS Configuration](./overview.md) for maintenance commands including updates, validation, and garbage collection.

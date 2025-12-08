@@ -19,11 +19,52 @@ Declarative system configuration using Nix flakes with Home Manager integration.
 
 ## Quick Commands
 
-- `sudo nixos-rebuild switch --flake .#owais-nix-thinkpad` - Apply system changes for thinkpad
-- `sudo nixos-rebuild test --flake .#owais-nix-thinkpad` - Test configuration without switching
-- `nix flake update` - Update flake lock file
-- `nix flake check` - Check flake syntax
-- `nix flake show` - Show available configurations
+### Building Configurations
+
+```bash
+# Build specific machine configuration
+sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
+sudo nixos-rebuild switch --flake .#owais-nix-hp
+sudo nixos-rebuild switch --flake .#owais-nix-nuc
+
+# Test configuration without switching
+sudo nixos-rebuild test --flake .#owais-nix-thinkpad
+
+# Build configuration for remote deployment
+nixos-rebuild build --flake .#owais-nix-nuc
+
+# Build for current machine (uses hostname)
+sudo nixos-rebuild switch --flake .#$(hostname)
+
+# Override neovim-config input for local development
+sudo nixos-rebuild switch --flake .#{machine} --override-input neovim-config path:/absolute/path/to/nvim-config
+```
+
+### Development Workflow
+
+```bash
+# Check flake syntax
+nix flake check
+
+# Update all inputs
+nix flake update
+
+# Update specific input
+nix flake lock --update-input nixpkgs
+
+# Show flake metadata
+nix flake metadata
+
+# Show available configurations
+nix flake show
+```
+
+### Remote Deployment
+
+```bash
+# Deploy to remote machine (requires SSH access)
+nixos-rebuild switch --flake .#owais-nix-nuc --target-host user@remote-host
+```
 
 ### Clean up old generations
 
@@ -41,6 +82,25 @@ sudo nix-collect-garbage -d
 sudo /run/current-system/bin/switch-to-configuration boot
 ```
 
+### Setup New Machine
+
+1. Generate hardware configuration on new machine:
+
+   ```bash
+   nixos-generate-config --show-hardware-config
+   ```
+
+2. Copy output to appropriate `machines/{machine}/hardware-configuration.nix`
+
+3. Deploy configuration:
+
+   ```bash
+   sudo nixos-rebuild switch --flake .#{hostname}
+   ```
+
+For detailed multi-machine setup, see [Multi-Machine Configuration](./multi-machine.md).
+
 ## Reference
 
+- [Multi-Machine Configuration](./multi-machine.md) - Setup and management of multiple machines
 - [Nix Language](../notes/nix-lang.md) - Language syntax and patterns
