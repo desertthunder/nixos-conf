@@ -17,7 +17,11 @@
       orientation = "bottom";
       show-recents = false;
       tilesize = 48;
-      persistent-apps = [ ];
+      persistent-apps = [
+        "/Applications/Ghostty.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/Google Chrome.app"
+      ];
     };
 
     finder = {

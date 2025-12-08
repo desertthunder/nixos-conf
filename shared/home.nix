@@ -288,6 +288,50 @@
     --glob=!**/.build/**
   '';
 
+  home.file.".config/ghostty/config".text = ''
+    # Font configuration
+    font-style = SemiBold
+    font-size = 16
+
+    # Window settings
+    window-padding-x = 8
+    window-padding-y = 8
+
+    # Color scheme
+    background = 1b1b1b
+    foreground = ffffff
+
+    # Cursor colors
+    cursor-color = 78a9ff
+    cursor-text = 161616
+
+    # Normal colors
+    palette = 0=#161616
+    palette = 1=#ee5396
+    palette = 2=#42be65
+    palette = 3=#ff7eb6
+    palette = 4=#33b1ff
+    palette = 5=#be95ff
+    palette = 6=#3ddbd9
+    palette = 7=#ffffff
+
+    # Bright colors
+    palette = 8=#525252
+    palette = 9=#ee5396
+    palette = 10=#42be65
+    palette = 11=#ff7eb6
+    palette = 12=#33b1ff
+    palette = 13=#be95ff
+    palette = 14=#3ddbd9
+    palette = 15=#ffffff
+
+    shell-integration = zsh
+
+    mouse-hide-while-typing = true
+    copy-on-select = false
+    confirm-close-surface = false
+  '';
+
   # This value determines the home Manager release that your configuration is compatible with.
   # This helps avoid breakage when a new home Manager release introduces backwards incompatible changes.
   #
