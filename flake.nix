@@ -19,6 +19,11 @@
       url = "github:desertthunder/nvim";
       flake = false;
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -27,6 +32,7 @@
       nixpkgs-darwin,
       home-manager,
       nix-darwin,
+      sops-nix,
       self,
       ...
     }@inputs:
@@ -34,6 +40,7 @@
       nixosConfigurations = {
         owais-nix-thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             ./machines/thinkpad/configuration.nix
             home-manager.nixosModules.home-manager
@@ -52,6 +59,7 @@
 
         owais-nix-hp = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             ./machines/hp/configuration.nix
             home-manager.nixosModules.home-manager
@@ -70,6 +78,7 @@
 
         owais-nix-nuc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             ./machines/nuc/configuration.nix
             home-manager.nixosModules.home-manager
@@ -104,13 +113,14 @@
               home-manager.extraSpecialArgs = {
                 root = ./.;
                 inherit (inputs) neovim-config;
+                inherit inputs;
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.owais =
                 { lib, ... }:
                 {
-                  imports = [ ./shared/home.nix ];
+                  imports = [ ./shared/home.nix ./shared/sops-hm.nix ];
                   home.homeDirectory = lib.mkForce "/Users/owais";
                   xresources = { };
                 };

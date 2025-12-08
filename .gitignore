@@ -26,15 +26,12 @@ result-*
 home-manager-path
 
 # ─────────────────────────────────────────────
-# Secrets (if you use agenix or sops-nix)
+# Secrets
 # ─────────────────────────────────────────────
 
-# DO NOT ignore encrypted files, only ignore decrypted ones.
+# DO NOT ignore encrypted SOPS files, only ignore keys and decrypted files.
 *.age.key
-secrets/*.json
-secrets/*.yaml
-secrets/*.yml
-secrets/*.env
+age.txt
 *.gpg
 
 # ─────────────────────────────────────────────

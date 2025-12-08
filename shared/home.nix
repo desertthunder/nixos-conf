@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   neovim-config,
   root,
@@ -8,6 +9,7 @@
 }:
 
 {
+  imports = [ ./ssh-config.nix ];
   home.username = "owais";
   home.homeDirectory = "/home/owais";
 
@@ -191,6 +193,7 @@
     userName = "Owais Jamil";
     userEmail = "desertthunder.dev@gmail.com";
   };
+
 
   programs.alacritty = {
     enable = pkgs.stdenv.isLinux;

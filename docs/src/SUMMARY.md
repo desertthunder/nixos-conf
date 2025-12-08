@@ -4,6 +4,7 @@
 
 - [NixOS](./nixos/overview.md)
     - [Multi-Machine Setup](./nixos/multi-machine.md)
+    - [SOPS Secrets Management](./nixos/sops.md)
     - [Nix Language](./notes/nix-lang.md)
 - [macOS (nix-darwin)](./mac/macos-setup.md)
 - [Neovim](./neovim/overview.md)

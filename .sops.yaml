@@ -1,0 +1,15 @@
+keys:
+  - &owais-personal age1xsqs2y6gqgschsc4rp8u2c8d029887acyhjhzzhzrmzl9h495p7slur0ar
+
+  # Machine host keys (add as needed - replace with actual keys)
+  # - &owais-nix-air age1...       # ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+  # - &owais-nix-thinkpad age1...  # ssh-to-age < /etc/ssh/ssh_host_ed25519_key.pub
+
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *owais-personal
+          # Add machine keys here when available
+          # - *owais-nix-air
+          # - *owais-nix-thinkpad
