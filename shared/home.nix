@@ -18,11 +18,12 @@
 
   home.packages =
     with pkgs;
+    # Cross-platform packages
     [
-      # Cross-platform packages
       neofetch
       yazi
       bat
+      dust # du made with rust
 
       zip
       xz

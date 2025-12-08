@@ -5,7 +5,7 @@
 - [NixOS](./nixos/overview.md)
     - [Multi-Machine Setup](./nixos/multi-machine.md)
     - [Nix Language](./notes/nix-lang.md)
-- [macOS (nix-darwin)](./darwin/macos-setup.md)
+- [macOS (nix-darwin)](./mac/macos-setup.md)
 - [Neovim](./neovim/overview.md)
     - [Keymaps](./neovim/keymaps.md)
     - [Plugins](./neovim/plugins.md)
