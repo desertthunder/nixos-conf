@@ -13,4 +13,7 @@
     - [Cheatsheet Extension](./neovim/cheatsheet.md)
     - [Color Themes](./neovim/themes.md)
     - [Kickstart.nvim](./notes/kickstart.md)
-- [Zathura](./programs/zathura.md)
+- [Programs](./programs/zathura.md)
+    - [Zathura](./programs/zathura.md)
+- [Tools](./tools/ripgrep.md)
+    - [Ripgrep](./tools/ripgrep.md)

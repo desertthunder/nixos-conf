@@ -194,7 +194,6 @@
     userEmail = "desertthunder.dev@gmail.com";
   };
 
-
   programs.alacritty = {
     enable = pkgs.stdenv.isLinux;
     settings = {
@@ -273,6 +272,21 @@
     source = "${root}/modules/zellij";
     recursive = true;
   };
+
+  # See: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+  home.file.".config/ripgrep/config".text = ''
+    --line-number
+    --smart-case
+    --max-columns=120
+    --max-columns-preview
+
+    --type-add=nix:*.nix
+
+    --glob=!.git/*
+    --glob=!**/node_modules/**
+    --glob=!**/target/**
+    --glob=!**/.build/**
+  '';
 
   # This value determines the home Manager release that your configuration is compatible with.
   # This helps avoid breakage when a new home Manager release introduces backwards incompatible changes.
