@@ -86,14 +86,12 @@ For common options see [nix-darwin manual](https://nix-darwin.github.io/nix-darw
 
 ### Updating Dependencies
 
+For general flake commands, see [NixOS Configuration](../nixos/overview.md#development-workflow).
+
+Darwin-specific update workflow:
+
 ```bash
-# Update all flake inputs (nixpkgs, nix-darwin, home-manager)
-nix flake update
-
-# Update specific input
-nix flake lock --update-input nix-darwin
-
-# Apply updates
+# Apply updates after running nix flake update
 darwin-rebuild switch --flake .#owais-nix-air
 ```
 
