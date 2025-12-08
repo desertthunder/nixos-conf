@@ -113,3 +113,46 @@ darwin-rebuild switch --rollback --generation 42
 ### Homebrew Integration
 
 nix-darwin's `cleanup = "zap"` will remove packages not declared in your config.
+
+## Cleanup
+
+### Remove Old Generations
+
+```bash
+# Remove generations older than 7 days
+nix-collect-garbage --delete-older-than 7d
+
+# Remove all old generations except current
+nix-collect-garbage -d
+
+# Remove specific generation
+sudo nix-env --delete-generations 42
+```
+
+### Clean Build Cache
+
+```bash
+# Clean nix store (removes unused packages)
+nix-store --gc
+
+# Optimize nix store (deduplicates identical files)
+nix-store --optimise
+```
+
+### Clean Darwin Store
+
+```bash
+# Remove unused darwin-rebuild profiles
+sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old
+
+# Clean up old boot entries
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+```
+
+### Reset Configuration
+
+```bash
+# Uninstall nix-darwin completely
+nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A uninstaller
+./result/bin/darwin-uninstaller
+```
