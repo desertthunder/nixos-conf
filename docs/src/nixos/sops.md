@@ -1,7 +1,7 @@
 # SOPS Secrets Management
 
 SOPS encrypts secrets with AES256-GCM for safe version control storage.
-During system activation, sops-nix automatically decrypts secrets where applications can access them.
+During system activation, [sops-nix](https://github.com/Mic92/sops-nix) automatically decrypts secrets where applications can access them.
 
 ```text
 Encrypted File → SOPS Runtime → Machine Private Key → Decrypted Secrets → Application
@@ -56,19 +56,10 @@ cp age.txt ~/.config/sops/age/keys.txt
 
 ### 5. Deploy
 
-**On NixOS machines:**
-
 ```bash
 nix flake update
 # Replace with your machine
-sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
-```
-
-**On macOS (nix-darwin):**
-
-```bash
-nix flake update
-darwin-rebuild switch --flake .#owais-nix-air
+sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-thinkpad
 ```
 
 ## Usage
@@ -77,14 +68,30 @@ darwin-rebuild switch --flake .#owais-nix-air
 
 **Deploy changes**:
 
-- NixOS: `sudo nixos-rebuild switch --flake .#owais-nix-[machine]`
-- macOS: `darwin-rebuild switch --flake .#owais-nix-air`
+`sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-[machine]`
 
 **Debug**:
 
 - NixOS: `ls -la /run/secrets/`
 - macOS: `ls -la ~/.local/share/sops/`
 - View encrypted: `SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops -d secrets/owais.yaml`
+
+## Updating SSH Keys
+
+To replace an existing SSH key in the encrypted secrets:
+
+1. **Edit the encrypted file:**
+
+   ```bash
+   SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops secrets/owais.yaml
+   ```
+
+2. **Add new private key** between the `-----BEGIN` and `-----END` lines
+3. **Deploy the updated secrets:**
+
+   ```bash
+   sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-[machine]
+   ```
 
 ## All Machines Configured
 
