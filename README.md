@@ -6,6 +6,11 @@ My NixOS configuration and personal [notes/docs](./docs/src/overview.md)
 
 ## TODO
 
+- [ ] NixOS machines to 25.11
+- [ ] Dragon-type naming convention for machines (starting with NUC -> Haxorus)
+
+---
+
 - [ ] VSCode Profiles
 - [x] Zathura
   - [ ] Mac
@@ -41,3 +46,70 @@ My NixOS configuration and personal [notes/docs](./docs/src/overview.md)
 - `system.defaults.*` - macOS system preferences
 - `security.pam.enableSudoTouchIdAuth` - Touch ID for sudo
 - `homebrew.*` - Homebrew package management
+
+## Mac Mini (Roaring Moon) Migration
+
+Note that anything added here should be merged into existing shared installations unless otherwise specified (like supercollider)
+
+```sh
+# All formulae and casks
+brew list --formula > ./brew-formulae.txt
+brew list --cask > ./brew-casks.txt
+
+# Full Brewfile with dependencies
+brew bundle dump --file=./Brewfile-existing
+```
+
+### ASDF
+
+```sh
+asdf current            # human-readable overview
+cat ~/.tool-versions    # canonical list per plugin
+```
+
+### Apps
+
+```sh
+ls /Applications > ./apps-system.txt
+ls ~/Applications 2>/dev/null > ./apps-user.txt
+```
+
+## Inventory
+
+Date: 2025-12-08
+
+Nix for dev tools, brew for GUI gaps
+
+| Machine | Nix                       | Brew        | Drop |
+| ------- | ------------------------- | ----------- | ---- |
+| All     | Caddy                     | Zen Browser | -    |
+| All     | Nginx                     | Tailscale   | -    |
+| All     | Gleam                     | -           | -    |
+| All     | Typst                     | -           | -    |
+| All     | Zathura (& zathura-mupdf) | -           | -    |
+| All     | MuPdf                     | -           | -    |
+| All     | yt-dlp                    | -           | -    |
+| All     | slides                    | -           | -    |
+| Mini    | supercollider             | R, RStudio  | -    |
+| Mini    | -                         | Sonic PI    | -    |
+
+### Fonts
+
+```text
+font-0xproto-nerd-font
+font-commit-mono-nerd-font
+font-google-sans-code
+font-im-writing-nerd-font
+font-jetbrains-mono-nerd-font
+font-maple-mono-nf
+
+font-averia-libre
+font-comic-mono
+font-newsreader
+font-noto-sans
+font-nunito-sans
+font-open-sans
+
+font-fira-mono
+font-jetbrains-mono
+```
