@@ -9,7 +9,10 @@
 }:
 
 {
-  imports = [ ./ssh-config.nix ];
+  imports = [
+    ./ssh-config.nix
+    ./sops-hm.nix
+  ];
   home.username = "owais";
   home.homeDirectory = "/home/owais";
 

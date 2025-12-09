@@ -1,5 +1,10 @@
 # Shared configuration across all machines
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [ ./sops.nix ];
