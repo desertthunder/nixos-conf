@@ -25,7 +25,15 @@
       nerd-fonts.commit-mono
       nerd-fonts.hack
       nerd-fonts.monaspace
+      nerd-fonts._0xproto
+      nerd-fonts.im-writing
       maple-mono.NF
+
+      # TODO: averia-libre, newsreader, noto-sans, nunito-sans
+      comic-mono
+      open-sans
+      fira-mono
+      jetbrains-mono
     ];
   };
 

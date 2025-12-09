@@ -68,7 +68,18 @@
       nerd-fonts.commit-mono
       nerd-fonts.hack
       nerd-fonts.monaspace
+      nerd-fonts._0xproto
+      nerd-fonts.im-writing
       maple-mono.NF
+
+      averia-libre
+      comic-mono
+      newsreader
+      noto-sans
+      nunito-sans
+      open-sans
+      fira-mono
+      jetbrains-mono
     ];
   };
 

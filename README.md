@@ -92,24 +92,3 @@ Nix for dev tools, brew for GUI gaps
 | All     | slides                    | -           | -    |
 | Mini    | supercollider             | R, RStudio  | -    |
 | Mini    | -                         | Sonic PI    | -    |
-
-### Fonts
-
-```text
-font-0xproto-nerd-font
-font-commit-mono-nerd-font
-font-google-sans-code
-font-im-writing-nerd-font
-font-jetbrains-mono-nerd-font
-font-maple-mono-nf
-
-font-averia-libre
-font-comic-mono
-font-newsreader
-font-noto-sans
-font-nunito-sans
-font-open-sans
-
-font-fira-mono
-font-jetbrains-mono
-```
