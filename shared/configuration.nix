@@ -96,6 +96,7 @@
     neovim
     zsh
     nixfmt-rfc-style
+    delta
   ];
 
   system.stateVersion = "25.05";

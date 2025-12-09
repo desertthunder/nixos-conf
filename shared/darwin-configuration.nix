@@ -46,6 +46,7 @@
     zsh
     nixfmt-rfc-style
     mas
+    delta
   ];
 
   homebrew = {
