@@ -26,7 +26,7 @@
     # Cross-platform packages
     [
       neofetch
-      yazi
+      ranger
       bat
       dust # du made with rust
 
