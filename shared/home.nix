@@ -69,9 +69,17 @@
       nodejs_24
       go_1_24
       gopls
-      python313
       dotnet-sdk
       nil # nix language server
+
+      uv
+      (python313.withPackages (
+        ps: with ps; [
+          pip
+          ipython
+          requests
+        ]
+      ))
 
       mdbook
 
