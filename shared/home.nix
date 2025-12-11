@@ -80,7 +80,7 @@
           requests
         ]
       ))
-
+      go-task
       mdbook
 
       claude-code
