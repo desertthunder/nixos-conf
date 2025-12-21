@@ -71,6 +71,7 @@
       gopls
       dotnet-sdk
       nil # nix language server
+      pnpm
 
       uv
       (python313.withPackages (
