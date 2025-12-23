@@ -47,6 +47,7 @@
     nixfmt-rfc-style
     mas
     delta
+    apple-sdk_15
   ];
 
   homebrew = {

@@ -65,13 +65,13 @@
       oh-my-posh
 
       # Development tools and language toolchains
-      rustup
       nodejs_24
       go_1_24
       gopls
       dotnet-sdk
       nil # nix language server
       pnpm
+      dprint
 
       uv
       (python313.withPackages (
@@ -110,6 +110,8 @@
       rofi
       zathura
       zathuraPkgs.zathura_pdf_poppler
+
+      rustup
     ];
 
   programs.zathura = {
