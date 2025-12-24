@@ -26,7 +26,7 @@
           if pkgs.stdenv.isDarwin then "\n        AddKeysToAgent yes\n        UseKeychain yes" else ""
         }
 
-      Host tangled.org
+      Host tangled.sh
         HostName tangled.org
         User git
         IdentityFile ${

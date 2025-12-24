@@ -84,15 +84,15 @@
       go-task
       mdbook
 
-      claude-code
-      codex
-
       stdenv.cc
       pkg-config
     ]
     ++ lib.optionals stdenv.isLinux [
       iotop
       iftop
+
+      claude-code
+      codex
 
       # System call monitoring
       strace
@@ -201,6 +201,16 @@
       update = "sudo nixos-rebuild switch";
     };
   };
+
+  programs.zsh.initContent =
+    if pkgs.stdenv.isLinux then
+      ''''
+    else
+      ''
+        if [[ $(uname -m) == 'arm64' ]]; then
+             eval "$(/opt/homebrew/bin/brew shellenv)"
+        fi
+      '';
 
   programs.git = {
     enable = true;

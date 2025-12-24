@@ -11,7 +11,9 @@
 
   nix.optimise.automatic = true;
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+  };
 
   users.users.owais = {
     name = "owais";
@@ -59,7 +61,10 @@
 
     # NOTE: Use 'dtruss' (built-in) instead of strace
     # NOTE: Use 'Activity Monitor' or 'top' instead of iotop
-    brews = [ "iftop" ];
+    brews = [
+      "iftop"
+      "qwen-code"
+    ];
 
     casks = [
       "firefox"
@@ -67,6 +72,8 @@
       "ghostty"
       "skim"
       "zed"
+      "claude-code"
+      "codex"
     ];
   };
 
