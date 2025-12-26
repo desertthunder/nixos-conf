@@ -64,6 +64,7 @@
     brews = [
       "iftop"
       "qwen-code"
+      "gemini-cli"
     ];
 
     casks = [
