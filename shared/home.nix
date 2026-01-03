@@ -68,7 +68,7 @@
       nodejs_24
       go_1_24
       gopls
-      dotnet-sdk
+      dotnet-sdk_9
       nil # nix language server
       pnpm
       dprint
@@ -110,8 +110,6 @@
       rofi
       zathura
       zathuraPkgs.zathura_pdf_poppler
-
-      rustup
     ];
 
   programs.zathura = {
@@ -207,13 +205,16 @@
       ''''
     else
       ''
-        export PATH="/Applications/Antigravity.app/Contents/Resources/app/bin:$PATH"
+        PATH="/Applications/Antigravity.app/Contents/Resources/app/bin:$PATH"
+        export PATH="$HOME/.cargo/bin:$PATH"
 
         alias agy="antigravity"
 
         if [[ $(uname -m) == 'arm64' ]]; then
              eval "$(/opt/homebrew/bin/brew shellenv)"
         fi
+
+        . "$HOME/.cargo/env"
       '';
 
   programs.git = {

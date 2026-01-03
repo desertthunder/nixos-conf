@@ -65,6 +65,7 @@
       "iftop"
       "qwen-code"
       "gemini-cli"
+      "libiconv"
     ];
 
     casks = [
