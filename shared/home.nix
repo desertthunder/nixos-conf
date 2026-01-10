@@ -13,6 +13,13 @@
     ./ssh-config.nix
     ./sops-hm.nix
   ];
+
+  # Configure nixpkgs for Flutter/Android development
+  nixpkgs.config = {
+    allowUnfree = true;
+    android_sdk.accept_license = true;
+  };
+
   home.username = "owais";
   home.homeDirectory = "/home/owais";
 
@@ -73,6 +80,10 @@
       pnpm
       dprint
 
+      # Flutter mobile development
+      flutter
+      jdk17
+
       uv
       (python313.withPackages (
         ps: with ps; [
@@ -110,6 +121,10 @@
       rofi
       zathura
       zathuraPkgs.zathura_pdf_poppler
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # iOS development dependencies
+      cocoapods
     ];
 
   programs.zathura = {
@@ -206,6 +221,7 @@
     else
       ''
         PATH="/Applications/Antigravity.app/Contents/Resources/app/bin:$PATH"
+        PATH=$HOME/.opencode/bin:$PATH
         export PATH="$HOME/.cargo/bin:$PATH"
 
         alias agy="antigravity"

@@ -1,6 +1,27 @@
-# NixOS Configuration/Dotfiles
+# Desert Thunder's Dotfiles
 
-My NixOS configuration and personal [notes/docs](./docs/src/overview.md)
+This book is a collection of notes and guides around my personal dotfiles. It's a bit
+all over the place because as of writing (November 16, 2025), I've only been using NixOS
+as one of my daily drivers for a day.
+
+These reflect my habits and quirks as a developer. My `*.nix` files will likely not be
+modular until I hit the 1000 line threshold. The neovim configuration is a vestige of a
+time before I embraced the long file.
+
+If you want to take a look at my specific configurations and settings, take a look at
+[the repo](https://github.com/desertthunder/nixos-conf) that houses these notes. If you
+have any requests or suggestions, feel free to open an issue. I haven't decided on a
+license but regardless of what I pick, I hope that this ends up being a valuable
+resource to anyone that gives it the time. Programming and engineering are fun, and I've
+always liked messing with my setup and I hope you have fun too.
+
+For system administration commands, see the [NixOS Configuration](./docs/src/nixos/overview.md) guide.
+
+For multi-machine setup details, see the [Multi-Machine Setup](./docs/src/nixos/multi-machine.md) guide.
+
+## Credits
+
+This site was inspired by isabel's dotfiles [book](https://dotfiles.isabelroses.com/)
 
 ![Lucy (Gleam) as Nix Logo](./docs/src/images/gleam-lucy_nix.png)
 
@@ -21,58 +42,13 @@ My NixOS configuration and personal [notes/docs](./docs/src/overview.md)
   - [ ] Rofi
   - [ ] Waybar
 
-## NixOS vs. Nix-Darwin
+## Platform Comparison
 
-| Feature         | NixOS                           | nix-darwin                |
-| --------------- | ------------------------------- | ------------------------- |
-| Bootloader      | Managed by NixOS                | Managed by macOS          |
-| Kernel          | Linux kernel                    | macOS XNU kernel          |
-| Init system     | systemd                         | launchd                   |
-| Display server  | X11/Wayland                     | macOS WindowServer        |
-| Package manager | Only Nix                        | Nix + optional Homebrew   |
-| State version   | `system.stateVersion = "25.05"` | `system.stateVersion = 5` |
+For detailed platform differences and specific settings, see the [Platform Comparison Guide](./docs/src/guides/platform-comparison.md).
 
-### Platform-Specific Settings
+## Migration Guides
 
-**Linux only** (in `shared/configuration.nix`):
-
-- `boot.loader.*` - Bootloader configuration
-- `services.xserver.*` - X11 display server
-- `services.tlp.*` - Power management
-- `services.fprintd.*` - Fingerprint reader
-
-**macOS only** (in `shared/darwin-configuration.nix`):
-
-- `system.defaults.*` - macOS system preferences
-- `security.pam.enableSudoTouchIdAuth` - Touch ID for sudo
-- `homebrew.*` - Homebrew package management
-
-## Mac Mini (Roaring Moon) Migration
-
-Note that anything added here should be merged into existing shared installations unless otherwise specified (like supercollider)
-
-```sh
-# All formulae and casks
-brew list --formula > ./brew-formulae.txt
-brew list --cask > ./brew-casks.txt
-
-# Full Brewfile with dependencies
-brew bundle dump --file=./Brewfile-existing
-```
-
-### ASDF
-
-```sh
-asdf current            # human-readable overview
-cat ~/.tool-versions    # canonical list per plugin
-```
-
-### Apps
-
-```sh
-ls /Applications > ./apps-system.txt
-ls ~/Applications 2>/dev/null > ./apps-user.txt
-```
+For detailed migration procedures and inventory management, see the [Migration Guide](./docs/src/guides/migration.md).
 
 ## Inventory
 

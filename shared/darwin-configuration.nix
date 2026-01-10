@@ -54,6 +54,7 @@
 
   homebrew = {
     enable = true;
+    caskArgs.appdir = "/Applications";
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
@@ -76,6 +77,7 @@
       "zed"
       "claude-code"
       "codex"
+      "android-studio"
     ];
   };
 
