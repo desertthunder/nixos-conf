@@ -59,6 +59,8 @@
 
       zellij
 
+      just
+
       # Charm stuff
       charm-freeze
       glow
