@@ -32,6 +32,8 @@
     with pkgs;
     # Cross-platform packages
     [
+      shellcheck
+
       neofetch
       ranger
       bat
@@ -65,6 +67,7 @@
       charm-freeze
       glow
       vhs
+      gum
 
       asciinema
 
@@ -224,6 +227,8 @@
       ''
         PATH="/Applications/Antigravity.app/Contents/Resources/app/bin:$PATH"
         PATH=$HOME/.opencode/bin:$PATH
+        PATH=$HOME/.local/bin:$PATH
+        PATH="$HOME/.npm-global/bin:$PATH"
         export PATH="$HOME/.cargo/bin:$PATH"
 
         alias agy="antigravity"

@@ -67,6 +67,7 @@
       "qwen-code"
       "gemini-cli"
       "libiconv"
+      "charmbracelet/tap/crush"
     ];
 
     casks = [
