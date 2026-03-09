@@ -4,9 +4,10 @@ Interactive shell scripts using [gum](https://github.com/charmbracelet/gum), [du
 
 ## Scripts
 
-| Script            | Description                                                  |
-| ----------------- | ------------------------------------------------------------ |
-| `analyze-disk.sh` | Interactive disk storage report using dust, ripgrep, and gum |
+| Script               | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| `analyze-disk.sh`    | Interactive disk storage report using dust, ripgrep, and gum |
+| `analyze-project.sh` | Gitignore-aware source code analyzer (LoC, words, big files) |
 
 ## Gum Quick Reference
 

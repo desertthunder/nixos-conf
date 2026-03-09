@@ -33,6 +33,7 @@
     # Cross-platform packages
     [
       shellcheck
+      shfmt
 
       neofetch
       ranger
