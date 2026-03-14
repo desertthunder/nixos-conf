@@ -101,10 +101,21 @@
       go-task
       mdbook
 
+      bun
+      markdownlint-cli
+      markdownlint-cli2
+      shellcheck
+      shfmt
+      typst
+      whisper-cpp
+
+      ffmpeg
+
       stdenv.cc
       pkg-config
     ]
     ++ lib.optionals stdenv.isLinux [
+      yt-dlp
       iotop
       iftop
 
@@ -390,5 +401,5 @@
   #
   # You can update home Manager without changing this value.
   # See the home Manager release notes for a list of state version changes in each release.
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 }

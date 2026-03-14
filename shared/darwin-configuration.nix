@@ -68,6 +68,7 @@
       "gemini-cli"
       "libiconv"
       "charmbracelet/tap/crush"
+      "yt-dlp"
     ];
 
     casks = [
