@@ -50,6 +50,8 @@
     mas
     delta
     apple-sdk_15
+    # NOTE: GNU rsync — macOS openrsync ignores --chmod, breaking Flutter iOS builds
+    rsync
   ];
 
   homebrew = {

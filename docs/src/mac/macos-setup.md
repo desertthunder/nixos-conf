@@ -112,6 +112,28 @@ darwin-rebuild switch --rollback --generation 42
 
 nix-darwin's `cleanup = "zap"` will remove packages not declared in your config.
 
+## Troubleshooting
+
+### Home Manager Apps rsync permission error
+
+If you see this error during `darwin-rebuild switch`:
+
+```text
+rsync: [generator] failed to set permissions on "/Users/owais/Applications/Home Manager Apps/.": Permission denied (13)
+```
+
+Fix by resetting directory permissions:
+
+```bash
+chmod 755 ~/Applications/Home\ Manager\ Apps
+```
+
+Then re-run the switch. If the issue persists, remove the directory and let Home Manager recreate it:
+
+```bash
+rm -rf ~/Applications/Home\ Manager\ Apps
+```
+
 ## Cleanup
 
 ### Remove Old Generations

@@ -14,12 +14,6 @@
     ./sops-hm.nix
   ];
 
-  # Configure nixpkgs for Flutter/Android development
-  nixpkgs.config = {
-    allowUnfree = true;
-    android_sdk.accept_license = true;
-  };
-
   home.username = "owais";
   home.homeDirectory = "/home/owais";
 
@@ -241,7 +235,9 @@
         PATH=$HOME/.opencode/bin:$PATH
         PATH=$HOME/.local/bin:$PATH
         PATH="$HOME/.npm-global/bin:$PATH"
-        export PATH="$HOME/.cargo/bin:$PATH"
+        PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/go/bin:$PATH"
+        export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
 
         alias agy="antigravity"
 
@@ -254,8 +250,8 @@
 
   programs.git = {
     enable = true;
-    userName = "Owais Jamil";
-    userEmail = "desertthunder.dev@gmail.com";
+    settings.user.name = "Owais Jamil";
+    settings.user.email = "desertthunder.dev@gmail.com";
   };
 
   programs.alacritty = {

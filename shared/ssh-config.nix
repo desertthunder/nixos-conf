@@ -3,7 +3,10 @@
 {
   programs.ssh = {
     enable = true;
-    addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      addKeysToAgent = if pkgs.stdenv.isDarwin then "yes" else "no";
+    };
     extraConfig = ''
       # SOPS-managed Git provider SSH keys
       Host github.com

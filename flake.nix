@@ -107,6 +107,7 @@
               nixpkgs.pkgs = import nixpkgs-darwin {
                 system = "aarch64-darwin";
                 config.allowUnfree = true;
+                config.android_sdk.accept_license = true;
               };
             }
 
