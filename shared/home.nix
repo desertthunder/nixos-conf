@@ -231,15 +231,12 @@
       ''''
     else
       ''
-        PATH="/Applications/Antigravity.app/Contents/Resources/app/bin:$PATH"
         PATH=$HOME/.opencode/bin:$PATH
         PATH=$HOME/.local/bin:$PATH
         PATH="$HOME/.npm-global/bin:$PATH"
         PATH="$HOME/.cargo/bin:$PATH"
         export PATH="$HOME/go/bin:$PATH"
         export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
-
-        alias agy="antigravity"
 
         if [[ $(uname -m) == 'arm64' ]]; then
              eval "$(/opt/homebrew/bin/brew shellenv)"
