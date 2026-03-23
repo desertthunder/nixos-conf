@@ -235,6 +235,7 @@
         PATH=$HOME/.local/bin:$PATH
         PATH="$HOME/.npm-global/bin:$PATH"
         PATH="$HOME/.cargo/bin:$PATH"
+        export npm_config_prefix="$HOME/.npm-global"
         export PATH="$HOME/go/bin:$PATH"
         export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
 

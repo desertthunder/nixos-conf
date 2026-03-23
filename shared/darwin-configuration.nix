@@ -70,6 +70,7 @@
       "gemini-cli"
       "libiconv"
       "charmbracelet/tap/crush"
+      "tursodatabase/tap/turso"
       "yt-dlp"
     ];
 
