@@ -17,6 +17,8 @@
     - [Zathura](./programs/zathura.md)
 - [Tools](./tools/ripgrep.md)
     - [Ripgrep](./tools/ripgrep.md)
+- [Dotfiles](./dotfiles/)
+    - [SOPS on Non-Nix Machines](./dotfiles/sops.md)
 - [Notes](./notes/)
     - [Nix Language](./notes/nix-lang.md)
     - [Kickstart.nvim](./notes/kickstart.md)

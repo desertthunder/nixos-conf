@@ -7,7 +7,17 @@
   root,
   ...
 }:
-
+let
+  androidComposition = pkgs.androidenv.composeAndroidPackages {
+    cmdLineToolsVersion = "13.0";
+    platformToolsVersion = "35.0.2";
+    buildToolsVersions = [ "28.0.3" "35.0.0" ];
+    platformVersions = [ "36" ];
+    includeEmulator = false;
+    includeNDK = false;
+  };
+  androidSdk = androidComposition.androidsdk;
+in
 {
   imports = [
     ./ssh-config.nix
@@ -136,6 +146,8 @@
     ++ lib.optionals stdenv.isDarwin [
       # iOS development dependencies
       cocoapods
+      # Android SDK with cmdline-tools (sdkmanager, avdmanager, etc.)
+      androidSdk
     ];
 
   programs.zathura = {
@@ -238,6 +250,11 @@
         export npm_config_prefix="$HOME/.npm-global"
         export PATH="$HOME/go/bin:$PATH"
         export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
+        export LIBRARY_PATH="/usr/lib"
+        export ANDROID_HOME="$HOME/Library/Android/sdk"
+        export ANDROID_SDK_ROOT="$ANDROID_HOME"
+        # Use Nix store paths directly so tools work even before ANDROID_HOME is populated
+        export PATH="${androidSdk}/libexec/android-sdk/cmdline-tools/latest/bin:${androidSdk}/libexec/android-sdk/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
 
         if [[ $(uname -m) == 'arm64' ]]; then
              eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -245,6 +262,25 @@
 
         . "$HOME/.cargo/env"
       '';
+
+  home.activation.setupAndroidSdk = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+    lib.optionalString pkgs.stdenv.isDarwin ''
+      # Symlink cmdline-tools from Nix store so flutter finds sdkmanager at $ANDROID_HOME
+      mkdir -p "$HOME/Library/Android/sdk"
+      ln -sfn "${androidSdk}/libexec/android-sdk/cmdline-tools" "$HOME/Library/Android/sdk/cmdline-tools"
+
+      # Write license files (writable dir so sdkmanager can update them)
+      mkdir -p "$HOME/Library/Android/sdk/licenses"
+      printf '%s\n' \
+        '8933bad161af4178b1185d1a37fbf41ea5269c55' \
+        'd56f5187479451eabf01fb78af6dfcb131a6481e' \
+        '24333f8a63b6825ea9c5514f83c2829b004d1fee' \
+        > "$HOME/Library/Android/sdk/licenses/android-sdk-license"
+      printf '%s\n' \
+        '84831b9409646a918e30573bab4c9c91346d8abd' \
+        > "$HOME/Library/Android/sdk/licenses/android-sdk-preview-license"
+    ''
+  );
 
   programs.git = {
     enable = true;
