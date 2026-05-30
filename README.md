@@ -25,23 +25,6 @@ This site was inspired by isabel's dotfiles [book](https://dotfiles.isabelroses.
 
 ![Lucy (Gleam) as Nix Logo](./docs/src/images/gleam-lucy_nix.png)
 
-## TODO
-
-- [ ] NixOS machines to 25.11
-- [ ] Dragon-type naming convention for machines (starting with NUC -> Haxorus)
-
----
-
-- [ ] VSCode Profiles
-- [x] Zathura
-  - [ ] Mac
-
-### Linux
-
-- [ ] Hyprland
-  - [ ] Rofi
-  - [ ] Waybar
-
 ## Platform Comparison
 
 For detailed platform differences and specific settings, see the [Platform Comparison Guide](./docs/src/guides/platform-comparison.md).

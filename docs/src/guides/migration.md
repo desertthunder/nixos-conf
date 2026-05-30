@@ -48,32 +48,23 @@ Strategy: Nix for dev tools, brew for GUI gaps
 | Mini    | supercollider             | R, RStudio  | -    |
 | Mini    | -                         | Sonic PI    | -    |
 
-## Migration Checklist
+## Migration Tracking
 
-### Before Migration
-- [ ] Export Homebrew packages
-- [ ] Document ASDF versions
-- [ ] List installed applications
-- [ ] Backup configuration files
-- [ ] Note machine-specific packages
-
-### After Migration
-- [ ] Install Nix packages from inventory
-- [ ] Restore Homebrew GUI applications
-- [ ] Configure ASDF versions
-- [ ] Test development environment
-- [ ] Verify application functionality
+Active migration tasks are tracked in the top-level [`todo.md`](../../../todo.md).
 
 ### Platform-Specific Notes
 
 #### NixOS Migration
+
 - Full system replacement
 - All packages via Nix
 - Hardware configuration required
 - Bootloader management
 
-#### nix-darwin Migration
-- Hybrid approach recommended
-- Keep macOS core system
-- Use Nix for development tools
-- Homebrew for GUI applications
+#### macOS Without Nix Migration
+
+- Keep macOS core system unmanaged by Nix
+- Use Homebrew for packages and GUI applications
+- Use portable dotfiles from this repo
+- Use SOPS + age for secrets
+- Use `dotfiler` once the installer is implemented

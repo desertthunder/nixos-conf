@@ -9,9 +9,5 @@
 
   networking.hostName = "owais-nix-nuc";
 
-  # TODO: Add NUC-specific configuration here
-  # Examples:
-  # - Hardware-specific drivers
-  # - Performance optimizations
-  # - Special services or features
+  # NUC-specific settings belong here once the host is finalized.
 }

@@ -36,11 +36,17 @@ This repository is organized to support multiple NixOS machines with shared conf
 
 ### HP (`owais-nix-hp`)
 
-TODO
+- **Status**: Placeholder host config exists
+- **Current Features**:
+  - Shared base configuration
+  - Hardware configuration file present
 
 ### NUC (`owais-nix-nuc`)
 
-TODO
+- **Status**: Placeholder host config exists
+- **Current Features**:
+  - Shared base configuration
+  - Hardware configuration file present
 
 ## Configuration Philosophy
 

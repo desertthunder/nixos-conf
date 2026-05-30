@@ -1,55 +1,69 @@
 # Platform Comparison
 
-## NixOS vs. Nix-Darwin
+This repo now has two active platform strategies:
 
-| Feature         | NixOS                           | nix-darwin                |
-| --------------- | ------------------------------- | ------------------------- |
-| Bootloader      | Managed by NixOS                | Managed by macOS          |
-| Kernel          | Linux kernel                    | macOS XNU kernel          |
-| Init system     | systemd                         | launchd                   |
-| Display server  | X11/Wayland                     | macOS WindowServer        |
-| Package manager | Only Nix                        | Nix + optional Homebrew   |
-| State version   | `system.stateVersion = "25.05"` | `system.stateVersion = 5` |
+1. **NixOS** — fully declarative system configuration through `flake.nix`.
+2. **Non-Nix systems** — macOS, Ubuntu, and Fedora managed by the planned `dotfiler` installer, package-manager-native package lists, portable dotfiles, and SOPS + age.
+
+## NixOS vs. Non-Nix macOS/Linux
+
+| Feature | NixOS | Non-Nix macOS | Non-Nix Ubuntu/Fedora |
+| ------- | ----- | ------------- | --------------------- |
+| System management | NixOS modules | OS defaults + Homebrew | OS defaults + apt/dnf |
+| Dotfiles | Home Manager | `dotfiler` symlinks/copies | `dotfiler` symlinks/copies |
+| Secrets | `sops-nix` / Home Manager | SOPS + age CLI | SOPS + age CLI |
+| Packages | Nix | Homebrew | apt/dnf, plus manual gaps |
+| Reproducibility | High | Deterministic-ish | Deterministic-ish |
+| Main command | `nixos-rebuild switch` | `dotfiler apply` | `dotfiler apply` |
 
 ## Platform-Specific Settings
 
-### Linux only (in `shared/configuration.nix`)
+### NixOS
 
-- `boot.loader.*` - Bootloader configuration
-- `services.xserver.*` - X11 display server
-- `services.tlp.*` - Power management
-- `services.fprintd.*` - Fingerprint reader
+Linux system settings live in `shared/configuration.nix` for now and may later move to `nix/modules/nixos/`.
 
-### macOS only (in `shared/darwin-configuration.nix`)
+Examples:
 
-- `system.defaults.*` - macOS system preferences
-- `security.pam.enableSudoTouchIdAuth` - Touch ID for sudo
-- `homebrew.*` - Homebrew package management
+- `boot.loader.*` — bootloader configuration
+- `services.xserver.*` — display server and desktop session
+- `services.tlp.*` — power management
+- `services.fprintd.*` — fingerprint reader
+- `users.users.*` — system users
+
+### macOS without Nix
+
+macOS should use:
+
+- Homebrew for packages and GUI apps
+- portable dotfiles from this repo
+- SOPS + age for secrets
+- `dotfiler` once implemented
+
+### Ubuntu/Fedora without Nix
+
+Ubuntu/Fedora should use:
+
+- apt or dnf package lists
+- portable dotfiles from this repo
+- SOPS + age for secrets
+- `dotfiler` once implemented
 
 ## Package Management Strategy
 
 ### NixOS
-- Use Nix for all packages
-- Declarative configuration
-- System-wide package management
 
-### nix-darwin
-- Nix for development tools and CLI packages
-- Homebrew for GUI applications and gaps
-- Hybrid approach for maximum compatibility
+- Use Nix for system packages and user packages.
+- Keep machine-specific hardware and service settings in host configs.
+- Use Home Manager for user-level config.
 
-## Configuration Differences
+### Non-Nix macOS
 
-### System Configuration
-- **NixOS**: Full system control including kernel, bootloader, services
-- **nix-darwin**: User-space configuration only, relies on macOS core
+- Use Homebrew-native `Brewfile`s.
+- Prefer Homebrew casks for GUI apps.
+- Use `dotfiler` for orchestration, not for replacing Homebrew.
 
-### User Environment
-- **Both**: Use Home Manager for dotfiles and user packages
-- **NixOS**: System-level user management
-- **nix-darwin**: Integration with macOS user accounts
+### Non-Nix Ubuntu/Fedora
 
-### Development Workflow
-- **NixOS**: `nixos-rebuild switch` for system changes
-- **nix-darwin**: `darwin-rebuild switch` for system changes
-- **Both**: `home-manager switch` for user environment changes
+- Use distro-native package managers first.
+- Keep explicit package lists in the repo.
+- Let `dotfiler` orchestrate installs and dotfile linking.

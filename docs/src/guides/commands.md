@@ -68,17 +68,19 @@ sudo nix-collect-garbage -d
 sudo /run/current-system/bin/switch-to-configuration boot
 ```
 
-## nix-darwin Commands
+## Non-Nix macOS/Linux Installer Commands
 
 ```bash
-# Build darwin configuration
-darwin-rebuild switch --flake .#mac-mini
+# From app/ while the installer is being developed
+go run ./cmd/dotfiler doctor
+go run ./cmd/dotfiler plan
+go run ./cmd/dotfiler apply --dry-run
 
-# Test configuration
-darwin-rebuild test --flake .#mac-mini
-
-# Build for remote deployment
-darwin-rebuild build --flake .#mac-mini
+# Utility CLI planned as the Go replacement for scripts/
+go run ./cmd/dottools --help
+go run ./cmd/dottools disk
+go run ./cmd/dottools project
+go run ./cmd/dottools sparse --url https://github.com/owner/repo --path src
 ```
 
 ## Home Manager Commands

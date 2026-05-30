@@ -7,7 +7,7 @@
 - [NixOS](./nixos/overview.md)
     - [Multi-Machine Setup](./nixos/multi-machine.md)
     - [SOPS Secrets Management](./nixos/sops.md)
-- [macOS (nix-darwin)](./mac/macos-setup.md)
+- [macOS Without Nix](./mac/macos-setup.md)
 - [Neovim](./neovim/overview.md)
     - [Keymaps](./neovim/keymaps.md)
     - [Plugins](./neovim/plugins.md)

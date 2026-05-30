@@ -11,8 +11,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # TODO: Replace with actual hardware configuration
-  # TODO: Run nixos-generate-config on the NUC to get proper values
+  # Placeholder hardware configuration until generated on the target NUC.
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   networking.useDHCP = lib.mkDefault true;
 }

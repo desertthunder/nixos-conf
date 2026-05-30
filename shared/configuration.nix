@@ -72,7 +72,6 @@
       nerd-fonts.im-writing
       maple-mono.NF
 
-      # TODO: averia-libre, newsreader, noto-sans, nunito-sans
       comic-mono
       open-sans
       fira-mono

@@ -1,6 +1,6 @@
 # SOPS Without Nix
 
-How to decrypt secrets from `secrets/owais.yaml` on machines that don't run NixOS or nix-darwin.
+How to decrypt secrets from `secrets/owais.yaml` on machines that are not managed by NixOS.
 
 ## Prerequisites
 

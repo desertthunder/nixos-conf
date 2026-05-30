@@ -1,178 +1,60 @@
-# macOS Configuration with nix-darwin
+# macOS Without Nix
 
-nix-darwin is used to manage macOS system configurations using Nix expression language, with Home Manager
+This repo no longer manages macOS with nix-darwin. macOS machines should use the non-Nix path:
 
-## Setup
+- Homebrew for packages and GUI apps
+- portable dotfiles from this repo
+- SOPS + age for secrets
+- the planned `dotfiler` Go installer in `app/`
 
-### Prerequisites
+NixOS remains managed by `flake.nix`.
 
-**Install Nix**:
+## Planned Setup Flow
 
-```bash
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install --prefer-upstream-nix
+```sh
+# From this repo
+cd app
+go run ./cmd/dotfiler doctor
+go run ./cmd/dotfiler plan
+go run ./cmd/dotfiler apply --dry-run
 ```
 
-### Version Compatibility Requirements
+Eventually the bootstrap flow should be:
 
-nix-darwin version must match nixpkgs version. This configuration uses:
-
-- `nixpkgs-25.05-darwin` (Darwin-compatible branch)
-- `nix-darwin-25.05` (matching nix-darwin branch)
-- Separate `nixpkgs-25.05` for Linux machines (no impact on existing NixOS systems)
-
-## Usage
-
-### Applying Configuration Changes
-
-After modifying configuration files:
-
-```bash
-# Switch to new configuration
-darwin-rebuild switch --flake .#owais-nix-air
-
-# Build without activating (test first)
-darwin-rebuild build --flake .#owais-nix-air
-
-# Check what would change
-darwin-rebuild check --flake .#owais-nix-air
+```sh
+# install/build dotfiler, then:
+dotfiler doctor
+dotfiler packages apply
+dotfiler dotfiles apply
+dotfiler secrets extract-ssh
 ```
 
-### Convenience Alias
+## Package Strategy
 
-This can be added to `.zshrc`
-
-```bash
-alias rebuild="darwin-rebuild switch --flake ~/Projects/nixos-conf#owais-nix-air"
-```
-
-## Configuration Files Reference
-
-### Shared Darwin Configuration
-
-Shared macOS settings across all Darwin machines like timezone & locale, fonts, accounts, etc. in `shared/darwin-configuration.nix`
-
-### Hardware Configuration
-
-**File**: `machines/mac/air/hardware-configuration.nix`
-
-Minimal on macOS (most hardware is managed by macOS itself). Can be used for performance tuning, external displays, custom drivers, etc.
-
-### Flake Configuration
-
-**File**: `flake.nix`
-
-Defines the `owais-nix-air` Darwin system in `darwinConfigurations`.
-
-**Important**: The system architecture setting:
-
-- `aarch64-darwin` - Apple Silicon (M1/M2/M3/M4)
-- `x86_64-darwin` - Intel Macs
-
-## Common Customizations
-
-### System Preferences
-
-Edit `machines/mac/air/configuration.nix` to customize macOS system settings.
-
-For common options see [nix-darwin manual](https://nix-darwin.github.io/nix-darwin/manual/) for complete list.
-
-### Installing Packages
-
-**System-wide packages** (available to all users) are in `shared/darwin-configuration.nix`
-
-**User packages** (home-manager) are in `shared/home.nix`
-
-## Maintenance
-
-### Updating Dependencies
-
-For general flake commands, see [NixOS Configuration](../nixos/overview.md#development-workflow).
-
-Darwin-specific update workflow:
-
-```bash
-# Apply updates after running nix flake update
-darwin-rebuild switch --flake .#owais-nix-air
-```
-
-### Rollback
-
-```bash
-# List generations
-darwin-rebuild --list-generations
-
-# Rollback to previous generation
-darwin-rebuild rollback
-
-# Switch to specific generation
-darwin-rebuild switch --rollback --generation 42
-```
-
-### Homebrew Integration
-
-nix-darwin's `cleanup = "zap"` will remove packages not declared in your config.
-
-## Troubleshooting
-
-### Home Manager Apps rsync permission error
-
-If you see this error during `darwin-rebuild switch`:
+Use Homebrew-native package files under the planned `packages/brew/` directory:
 
 ```text
-rsync: [generator] failed to set permissions on "/Users/owais/Applications/Home Manager Apps/.": Permission denied (13)
+packages/brew/Brewfile.common
+packages/brew/Brewfile.macbook-air
+packages/brew/Brewfile.mac-mini
 ```
 
-Fix by resetting directory permissions:
+## Secrets
 
-```bash
-chmod 755 ~/Applications/Home\ Manager\ Apps
+Use SOPS + age with the age key at:
+
+```text
+~/.config/sops/age/keys.txt
 ```
 
-Then re-run the switch. If the issue persists, remove the directory and let Home Manager recreate it:
+See [SOPS on Non-Nix Machines](../dotfiles/sops.md) for the current manual workflow.
 
-```bash
-rm -rf ~/Applications/Home\ Manager\ Apps
-```
+## Removed nix-darwin Path
 
-## Cleanup
+The previous nix-darwin configuration was intentionally dropped from the active codebase:
 
-### Remove Old Generations
-
-```bash
-# Remove generations older than 7 days
-nix-collect-garbage --delete-older-than 7d
-
-# Remove all old generations except current
-nix-collect-garbage -d
-
-# Remove specific generation
-sudo nix-env --delete-generations 42
-```
-
-### Clean Build Cache
-
-```bash
-# Clean nix store (removes unused packages)
-nix-store --gc
-
-# Optimize nix store (deduplicates identical files)
-nix-store --optimise
-```
-
-### Clean Darwin Store
-
-```bash
-# Remove unused darwin-rebuild profiles
-sudo nix-env -p /nix/var/nix/profiles/system --delete-generations old
-
-# Clean up old boot entries
-sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
-```
-
-### Reset Configuration
-
-```bash
-# Uninstall nix-darwin completely
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A uninstaller
-./result/bin/darwin-uninstaller
-```
+- no `nix-darwin` flake input
+- no `nixpkgs-darwin` flake input
+- no `darwinConfigurations`
+- no `machines/mac/`
+- no `shared/darwin-configuration.nix`
