@@ -1,55 +1,60 @@
 # SOPS Without Nix
 
-How to decrypt secrets from `secrets/owais.yaml` on machines that are not managed by NixOS.
+How to decrypt and edit `secrets/owais.yaml` on machines that are not managed by NixOS.
 
 ## Prerequisites
 
-Your personal age key must exist at `~/.config/sops/age/keys.txt`.
-This is the same key referenced in `.sops.yaml`. If it's missing, restore it from your password manager.
+Your personal age key must exist at:
+
+```text
+~/.config/sops/age/keys.txt
+```
+
+This is the same personal key referenced in `.sops.yaml`. Restore it from your password manager on a fresh machine.
 
 ```bash
 mkdir -p ~/.config/sops/age
-# paste your age private key here
+chmod 700 ~/.config/sops/age
+# paste the age private key from your password manager
 nano ~/.config/sops/age/keys.txt
+chmod 600 ~/.config/sops/age/keys.txt
 ```
 
-## Install sops
+## Install tools
 
-**macOS:**
+On non-Nix machines, install through the platform package lists and `dotfiler`:
 
 ```bash
-brew install sops
+dotfiler packages apply
+dotfiler secrets check
 ```
 
-**One-off via nix shell:**
+Manual macOS fallback:
 
 ```bash
-nix shell nixpkgs#sops
+brew install age sops
 ```
 
 ## Decrypt all secrets
 
-Run from the repo root (so `.sops.yaml` is picked up automatically):
+Run from the repo root:
 
 ```bash
 SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops -d secrets/owais.yaml
 ```
 
-> sops does not check `~/.config/sops/age/keys.txt` by default — you must set `SOPS_AGE_KEY_FILE` explicitly, or export it in your shell profile.
-
 ## Extract SSH keys
+
+Preferred:
+
+```bash
+dotfiler secrets extract-ssh
+```
+
+Manual equivalent:
 
 ```bash
 export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
-sops --extract '["keys_gh"]' -d secrets/owais.yaml > ~/.ssh/id_github
-sops --extract '["keys_codeberg"]' -d secrets/owais.yaml > ~/.ssh/id_codeberg
-sops --extract '["keys_tangled"]' -d secrets/owais.yaml > ~/.ssh/id_tangled
-chmod 600 ~/.ssh/id_github ~/.ssh/id_codeberg ~/.ssh/id_tangled
-```
-
-Or to replicate the home-manager paths:
-
-```bash
 mkdir -p ~/.local/share/sops
 for key in keys_gh keys_codeberg keys_tangled; do
   sops --extract "[\"$key\"]" -d secrets/owais.yaml > ~/.local/share/sops/$key
@@ -57,10 +62,23 @@ for key in keys_gh keys_codeberg keys_tangled; do
 done
 ```
 
-> Note: `mkdir -p ~/.local/share/sops` must run before the loop — the directory doesn't exist on fresh machines.
-
 ## Edit secrets
 
+Preferred:
+
 ```bash
-sops secrets/owais.yaml
+dotfiler secrets edit
 ```
+
+Manual equivalent:
+
+```bash
+SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt sops secrets/owais.yaml
+```
+
+## Recipient policy
+
+- Keep `.sops.yaml` as the source of recipient configuration.
+- Keep `secrets/owais.yaml` encrypted with SOPS.
+- Add machine recipients only when needed.
+- Do not add git-crypt unless this repo later needs encrypted binary files or encrypted private directories.

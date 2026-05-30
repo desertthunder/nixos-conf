@@ -1,113 +1,122 @@
 # Multi-Machine Configuration
 
-This repository is organized to support multiple NixOS machines with shared configurations and machine-specific customizations.
+This repository supports NixOS machines with shared modules and host-specific overrides. Non-Nix macOS, Ubuntu, and Fedora machines use the `dotfiler` path instead.
 
 ## Directory Structure
 
-```sh
-/home/owais/Projects/NixOS-Config/
-├── flake.nix                    # Main flake with all machine configurations
-├── machines/
-│   ├── thinkpad/
-│   │   ├── configuration.nix    # ThinkPad-specific config
-│   │   └── hardware-configuration.nix
-│   ├── hp/
-│   │   ├── configuration.nix    # HP-specific config
-│   │   └── hardware-configuration.nix
-│   └── nuc/
-│       ├── configuration.nix    # NUC-specific config
-│       └── hardware-configuration.nix
-├── shared/
-│   ├── configuration.nix        # Shared base configuration
-│   └── home.nix                # Shared home-manager config
-└── modules/                     # Custom modules and configs
+```text
+.
+├── flake.nix
+└── nix/
+    ├── hosts/
+    │   ├── thinkpad/
+    │   │   ├── configuration.nix
+    │   │   └── hardware-configuration.nix
+    │   ├── hp/
+    │   │   ├── configuration.nix
+    │   │   └── hardware-configuration.nix
+    │   └── dell/
+    │       ├── configuration.nix
+    │       └── hardware-configuration.nix
+    ├── modules/
+    │   ├── nixos/
+    │   │   ├── base.nix
+    │   │   └── sops.nix
+    │   └── home-manager/
+    │       ├── home.nix
+    │       ├── sops.nix
+    │       └── ssh-config.nix
+    └── profiles/
 ```
 
 ## Machine Profiles
 
 ### ThinkPad (`owais-nix-thinkpad`)
 
-- **Status**: Configured
+- **Status**: Configured NixOS host
 - **Current Features**:
-  - Power management with TLP
-  - Thermal management
-  - Fingerprint reader support
-  - Full desktop environment (GNOME)
+    - Power management with TLP
+    - Thermal management
+    - Fingerprint reader support
+    - Full desktop environment (GNOME)
 
 ### HP (`owais-nix-hp`)
 
-- **Status**: Placeholder host config exists
+- **Status**: Configured NixOS host
 - **Current Features**:
-  - Shared base configuration
-  - Hardware configuration file present
+    - Shared NixOS base configuration
+    - Generated hardware configuration
+    - Full desktop environment (GNOME)
 
-### NUC (`owais-nix-nuc`)
+### Dell (`owais-nix-dell`)
 
-- **Status**: Placeholder host config exists
+- **Status**: New NixOS host target
 - **Current Features**:
-  - Shared base configuration
-  - Hardware configuration file present
+    - Shared NixOS base configuration
+    - Dell host entry in `flake.nix`
+    - Placeholder hardware configuration until generated on the target machine
+
+### NUC
+
+- **Status**: No longer a NixOS host in this repo
+- **Target OS**: Fedora, managed through the non-Nix `dotfiler` path
 
 ## Configuration Philosophy
 
-### Shared Configuration
+### Shared NixOS Modules
 
-The `shared/configuration.nix` contains common settings across all machines:
+`nix/modules/nixos/base.nix` contains common system settings:
 
 - User accounts and shell configuration
 - Core system packages
 - Network and security settings
-- Base services (SSH, printing, etc.)
+- Desktop environment
+- Base services such as SSH and printing
 
-### Machine-Specific Overrides
+`nix/modules/home-manager/home.nix` contains shared user environment settings and installs canonical files from `dotfiles/`.
 
-Each machine imports the shared configuration and adds/overrides specific settings.
+### Host-Specific Overrides
+
+Each host imports the shared NixOS base module and adds hardware- or machine-specific settings.
 
 ## Deployment Commands
 
-See [NixOS Configuration](./overview.md) for all build and deployment commands.
+See [NixOS Configuration](./overview.md) for build and deployment commands.
 
-## Adding New Machines
+## Adding New NixOS Machines
 
-1. **Create machine directory**:
+1. **Create host directory**:
 
    ```bash
-   mkdir machines/{new-machine}
+   mkdir -p nix/hosts/{new-machine}
    ```
 
 2. **Generate hardware configuration** on the target machine:
 
    ```bash
-   nixos-generate-config --show-hardware-config > hardware-configuration.nix
+   sudo nixos-generate-config --show-hardware-config > nix/hosts/{new-machine}/hardware-configuration.nix
    ```
 
-3. **Create machine-specific configuration**:
+3. **Create host configuration**:
 
    ```nix
-   # machines/{new-machine}/configuration.nix
+   # nix/hosts/{new-machine}/configuration.nix
    { config, pkgs, ... }:
    {
      imports = [
        ./hardware-configuration.nix
-       ../../shared/configuration.nix
+       ../../modules/nixos/base.nix
      ];
 
      networking.hostName = "owais-nix-{new-machine}";
-
-     # Machine-specific settings here
    }
    ```
 
-4. **Add to flake.nix**:
+4. **Add to `flake.nix`**:
 
    ```nix
-   nixosConfigurations.owais-nix-{new-machine} = nixpkgs.lib.nixosSystem {
-     system = "x86_64-linux";
-     modules = [
-       ./machines/{new-machine}/configuration.nix
-       # ... home-manager config
-     ];
-   };
+   nixosConfigurations.owais-nix-{new-machine} =
+     mkNixosHost ./nix/hosts/{new-machine}/configuration.nix;
    ```
 
 ## Maintenance

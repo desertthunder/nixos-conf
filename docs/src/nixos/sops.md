@@ -46,12 +46,13 @@ sops secrets/owais.yaml
 SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops secrets/owais.yaml
 ```
 
-### 4. Copy age key to home-manager location
+### 4. Copy age key to the NixOS system location
 
 ```bash
-# For macOS home-manager SOPS support
-mkdir -p ~/.config/sops/age
-cp age.txt ~/.config/sops/age/keys.txt
+sudo mkdir -p /var/lib/sops-nix
+sudo cp age.txt /var/lib/sops-nix/key.txt
+sudo chmod 600 /var/lib/sops-nix/key.txt
+sudo chown root:root /var/lib/sops-nix/key.txt
 ```
 
 ### 5. Deploy
@@ -59,7 +60,7 @@ cp age.txt ~/.config/sops/age/keys.txt
 ```bash
 nix flake update
 # Replace with your machine
-sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-thinkpad
+sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
 ```
 
 ## Usage
@@ -68,12 +69,11 @@ sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-thinkpad
 
 **Deploy changes**:
 
-`sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-[machine]`
+`sudo nixos-rebuild switch --flake .#owais-nix-[machine]`
 
 **Debug**:
 
 - NixOS: `ls -la /run/secrets/`
-- macOS: `ls -la ~/.local/share/sops/`
 - View encrypted: `SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops -d secrets/owais.yaml`
 
 ## Updating SSH Keys
@@ -90,9 +90,9 @@ To replace an existing SSH key in the encrypted secrets:
 3. **Deploy the updated secrets:**
 
    ```bash
-   sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-[machine]
+   sudo nixos-rebuild switch --flake .#owais-nix-[machine]
    ```
 
-## All Machines Configured
+## Active NixOS Machines
 
-All platforms use the same encrypted `secrets/owais.yaml` file and personal age key for unified secret management across your entire fleet.
+Active NixOS hosts use the same encrypted `secrets/owais.yaml` file and personal age key for unified secret management.

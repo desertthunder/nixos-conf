@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../shared/configuration.nix
+    ../../modules/nixos/base.nix
   ];
 
   networking.hostName = "owais-nix-thinkpad";

@@ -12,3 +12,7 @@
 - Removed remaining Darwin conditionals from the Nix/Home Manager code and added pi coding
   agent installation for NixOS Home Manager activation and non-Nix bootstrap installs.
 - Replaced Alacritty with Ghostty across the NixOS system and Home Manager config.
+- Reorganized NixOS into `nix/hosts`, `nix/modules`, and `nix/profiles`, added Dell
+  as a NixOS host, and moved the NUC to the Fedora/non-Nix path.
+- Completed the SOPS/age strategy with `dotfiler secrets edit`, documented age key
+  restore and recipient policy, and kept git-crypt out of the default workflow.

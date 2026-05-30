@@ -5,13 +5,13 @@ Declarative system configuration using Nix flakes with Home Manager integration.
 ## Structure
 
 - **Flake**: `flake.nix` - Entry point defining inputs and outputs
-- **Shared Config**: `shared/configuration.nix` - Common NixOS system settings
-- **Machine Configs**: `machines/{hostname}/configuration.nix` - Machine-specific settings
-- **User Config**: `shared/home.nix` - Home Manager user environment
-- **Hardware**: `machines/{hostname}/hardware-configuration.nix` - Hardware-specific settings per machine
-- **SOPS Config**: `shared/sops.nix` - System-level secrets management
-- **SOPS Home**: `shared/sops-hm.nix` - User-level secrets management
-- **SSH Config**: `shared/ssh-config.nix` - SSH configuration with SOPS-managed keys
+- **NixOS Modules**: `nix/modules/nixos/` - Common NixOS system settings
+- **Host Configs**: `nix/hosts/{hostname}/configuration.nix` - Host-specific settings
+- **Home Manager Modules**: `nix/modules/home-manager/` - User environment and dotfile management
+- **Hardware**: `nix/hosts/{hostname}/hardware-configuration.nix` - Hardware-specific settings per machine
+- **SOPS Config**: `nix/modules/nixos/sops.nix` - System-level secrets management
+- **SOPS Home**: `nix/modules/home-manager/sops.nix` - User-level secrets management
+- **SSH Config**: `nix/modules/home-manager/ssh-config.nix` - SSH configuration with SOPS-managed keys
 - **Secrets**: `secrets/owais.yaml` - Encrypted secrets file
 
 ## Key Features
@@ -50,7 +50,7 @@ For detailed setup commands and multi-machine configuration, see:
 
 Quick setup:
 1. Generate hardware config: `nixos-generate-config --show-hardware-config`
-2. Copy to `machines/{machine}/hardware-configuration.nix`
+2. Copy to `nix/hosts/{machine}/hardware-configuration.nix`
 3. Deploy: `sudo nixos-rebuild switch --flake .#{hostname}`
 
 ### SOPS Secrets Management
@@ -61,7 +61,7 @@ For detailed SOPS setup and commands, see the [Command Reference Guide](../guide
 
 - **System secrets**: Available at `/run/secrets/{secret-name}` (NixOS)
 - **User secrets**: Available at `~/.local/share/sops/{secret-name}` (Home Manager)
-- **SSH keys**: Referenced in `shared/ssh-config.nix` for Git operations
+- **SSH keys**: Referenced in `nix/modules/home-manager/ssh-config.nix` for Git operations
 
 #### Common Issues
 

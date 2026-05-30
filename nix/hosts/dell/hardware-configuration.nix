@@ -1,3 +1,5 @@
+# Placeholder hardware configuration for the Dell NixOS machine.
+# Replace with output from nixos-generate-config on the target host.
 {
   config,
   lib,
@@ -11,7 +13,6 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # Placeholder hardware configuration until generated on the target NUC.
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   networking.useDHCP = lib.mkDefault true;
 }

@@ -16,7 +16,7 @@ dotfiler --help
 
 ## dottools
 
-`dottools` is the planned replacement for maintenance scripts in `../scripts/`.
+`dottools` is a utility CLI scaffold. Existing shell scripts in `../scripts/` remain standalone and documented in `../scripts/README.md`.
 
 After installation, use:
 

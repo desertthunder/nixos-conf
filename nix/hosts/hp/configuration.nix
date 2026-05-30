@@ -4,10 +4,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../shared/configuration.nix
+    ../../modules/nixos/base.nix
   ];
 
   networking.hostName = "owais-nix-hp";
-
-  # HP-specific settings belong here once the host is finalized.
 }

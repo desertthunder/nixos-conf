@@ -14,9 +14,10 @@ import (
 func secretsCommand(app *dotfiler) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "secrets",
-		Short: "Check and extract SOPS secrets",
+		Short: "Check, edit, and extract SOPS secrets",
 	}
 	cmd.AddCommand(secretsCheckCommand())
+	cmd.AddCommand(secretsEditCommand(app))
 	cmd.AddCommand(secretsExtractSSHCommand(app))
 	return cmd
 }
@@ -42,6 +43,25 @@ func secretsCheckCommand() *cobra.Command {
 				fmt.Fprintf(cmd.OutOrStdout(), "%s age key missing at %s\n", ui.Warning("!"), keyFile)
 			}
 			return nil
+		},
+	}
+}
+
+func secretsEditCommand(app *dotfiler) *cobra.Command {
+	return &cobra.Command{
+		Use:   "edit",
+		Short: "Edit secrets/owais.yaml with SOPS",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			root, err := system.FindRepoRoot("")
+			if err != nil {
+				return err
+			}
+			secretsFile := filepath.Join(root, "secrets", "owais.yaml")
+			if app.dryRun {
+				fmt.Fprintf(cmd.OutOrStdout(), "SOPS_AGE_KEY_FILE=%s sops %s\n", sopsAgeKeyFile(), secretsFile)
+				return nil
+			}
+			return runSops(secretsFile)
 		},
 	}
 }
@@ -80,6 +100,15 @@ func secretsExtractSSHCommand(app *dotfiler) *cobra.Command {
 			return nil
 		},
 	}
+}
+
+func runSops(secretsFile string) error {
+	cmd := runner.Command("sops", secretsFile)
+	cmd.Env = append(os.Environ(), "SOPS_AGE_KEY_FILE="+sopsAgeKeyFile())
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+	return cmd.Run()
 }
 
 func extractSecret(secretsFile, key, out string) error {

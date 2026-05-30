@@ -8,13 +8,13 @@
 # Build specific machine configuration
 sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
 sudo nixos-rebuild switch --flake .#owais-nix-hp
-sudo nixos-rebuild switch --flake .#owais-nix-nuc
+sudo nixos-rebuild switch --flake .#owais-nix-dell
 
 # Test configuration without switching
 sudo nixos-rebuild test --flake .#owais-nix-thinkpad
 
 # Build configuration for remote deployment
-nixos-rebuild build --flake .#owais-nix-nuc
+nixos-rebuild build --flake .#owais-nix-dell
 
 # Build for current machine (uses hostname)
 sudo nixos-rebuild switch --flake .#$(hostname)
@@ -46,7 +46,7 @@ nix flake show
 
 ```bash
 # Deploy to remote machine (requires SSH access)
-nixos-rebuild switch --flake .#owais-nix-nuc --target-host user@remote-host
+nixos-rebuild switch --flake .#owais-nix-dell --target-host user@remote-host
 ```
 
 ### System Maintenance
@@ -167,7 +167,7 @@ ls ~/Applications 2>/dev/null > ./apps-user.txt
 nixos-generate-config --show-hardware-config
 
 # Copy output to appropriate location
-# machines/{machine}/hardware-configuration.nix
+# nix/hosts/{machine}/hardware-configuration.nix
 ```
 
 ## Troubleshooting Commands

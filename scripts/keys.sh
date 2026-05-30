@@ -2,9 +2,15 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if command -v dotfiler >/dev/null 2>&1; then
+  cd "$REPO_ROOT"
+  exec dotfiler secrets extract-ssh
+fi
+
 SECRETS_FILE="$REPO_ROOT/secrets/owais.yaml"
 DEST="$HOME/.local/share/sops"
-SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+SOPS_AGE_KEY_FILE="${SOPS_AGE_KEY_FILE:-$HOME/.config/sops/age/keys.txt}"
 export SOPS_AGE_KEY_FILE
 
 mkdir -p "$DEST"

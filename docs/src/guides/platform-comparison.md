@@ -20,7 +20,7 @@ This repo now has two active platform strategies:
 
 ### NixOS
 
-Linux system settings live in `shared/configuration.nix` for now and may later move to `nix/modules/nixos/`.
+Linux system settings live in `nix/modules/nixos/`, with host-specific overrides in `nix/hosts/`.
 
 Examples:
 

@@ -56,5 +56,5 @@ The previous nix-darwin configuration was intentionally dropped from the active 
 - no `nix-darwin` flake input
 - no `nixpkgs-darwin` flake input
 - no `darwinConfigurations`
-- no `machines/mac/`
-- no `shared/darwin-configuration.nix`
+- no macOS host under `nix/hosts/`
+- no Darwin module under `nix/modules/`

@@ -1,5 +1,5 @@
 {
-  description = "A simple NixOS flake";
+  description = "Desert Thunder's NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -27,67 +27,32 @@
       self,
       ...
     }@inputs:
+    let
+      mkNixosHost = hostPath: nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          hostPath
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {
+              root = ./.;
+              inherit (inputs) neovim-config;
+              inherit inputs;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.owais = import ./nix/modules/home-manager/home.nix;
+            home-manager.backupFileExtension = "backup";
+          }
+        ];
+      };
+    in
     {
       nixosConfigurations = {
-        owais-nix-thinkpad = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./machines/thinkpad/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {
-                root = ./.;
-                inherit (inputs) neovim-config;
-                inherit inputs;
-              };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-          ];
-        };
-
-        owais-nix-hp = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./machines/hp/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {
-                root = ./.;
-                inherit (inputs) neovim-config;
-                inherit inputs;
-              };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-          ];
-        };
-
-        owais-nix-nuc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./machines/nuc/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {
-                root = ./.;
-                inherit (inputs) neovim-config;
-                inherit inputs;
-              };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-          ];
-        };
+        owais-nix-thinkpad = mkNixosHost ./nix/hosts/thinkpad/configuration.nix;
+        owais-nix-hp = mkNixosHost ./nix/hosts/hp/configuration.nix;
+        owais-nix-dell = mkNixosHost ./nix/hosts/dell/configuration.nix;
       };
     };
 }
