@@ -53,56 +53,7 @@ Target shape:
 
 This does not need to happen in one pass. Prefer incremental migration.
 
-## Phase 1: Drop nix-darwin
-
-nix-darwin should not be kept as a legacy path. Current macOS setup should use the non-Nix installer path: Homebrew + portable dotfiles + SOPS/age.
-
-- [x] Remove `nix-darwin` from `flake.nix`
-- [x] Remove `nixpkgs-darwin` from `flake.nix`
-- [x] Remove `darwinConfigurations` from `flake.nix`
-- [x] Remove nix-darwin entries from `flake.lock`
-- [x] Remove `machines/mac/`
-- [x] Remove `shared/darwin-configuration.nix`
-- [x] Rewrite nix-darwin docs as non-Nix macOS docs
-- [x] Document that current macOS setup path is Homebrew + dotfiles + SOPS/age, not nix-darwin
-
-## Phase 2: Create Portable Dotfiles
-
-Current `shared/home.nix` contains several configs that non-Nix machines cannot consume directly. Move canonical app configs into normal files under `dotfiles/`, then have Home Manager install/source them.
-
-Suggested structure:
-
-```text
-dotfiles/
-├── zsh/
-│   └── .zshrc
-├── git/
-│   └── .gitconfig
-├── ghostty/
-│   └── .config/ghostty/config
-├── ripgrep/
-│   └── .config/ripgrep/config
-├── zellij/
-│   └── .config/zellij/config.kdl
-└── oh-my-posh/
-    └── .config/oh-my-posh/theme.json
-```
-
-Tasks:
-
-- [ ] Move Ghostty config from `shared/home.nix` to `dotfiles/ghostty/`
-- [ ] Move ripgrep config from `shared/home.nix` to `dotfiles/ripgrep/`
-- [ ] Move zellij config from `modules/zellij/` to `dotfiles/zellij/` or make `modules/zellij/` clearly shared
-- [ ] Move `modules/omp.json` to `dotfiles/oh-my-posh/` or make it clearly shared
-- [ ] Add a portable zsh config under `dotfiles/zsh/`
-- [ ] Add a portable git config under `dotfiles/git/`
-- [ ] Add or document VSCode profiles
-- [ ] Add or document Zathura support on macOS
-- [ ] Review desired font additions: Averia Libre, Newsreader, Noto Sans, Nunito Sans
-- [ ] Update Home Manager to install these files from `dotfiles/`
-- [ ] Add a script to symlink/copy dotfiles on non-Nix machines
-
-## Phase 3: Build the Non-Nix Go Installer
+## Phase 1: Build the Non-Nix Go Installer
 
 The non-Nix setup path should be implemented as a Go CLI in `app/`, with shell scripts reserved only for tiny first-stage bootstrap tasks if needed.
 
@@ -110,9 +61,12 @@ Current scaffold:
 
 ```text
 app/
-├── cmd/dotfiler/main.go
+├── cmd/
+│   ├── dotfiler/main.go
+│   └── dottools/main.go
 ├── internal/
 │   ├── cli/
+│   ├── runner/
 │   ├── system/
 │   └── ui/
 ├── go.mod
@@ -132,32 +86,34 @@ Planned commands:
 - [x] `dotfiler plan`
 - [x] `dotfiler apply --dry-run`
 - [x] `dotfiler version`
-- [ ] `dotfiler packages plan`
-- [ ] `dotfiler packages apply`
-- [ ] `dotfiler dotfiles plan`
-- [ ] `dotfiler dotfiles apply`
-- [ ] `dotfiler secrets check`
-- [ ] `dotfiler secrets extract-ssh`
+- [x] `dotfiler packages plan`
+- [x] `dotfiler packages apply`
+- [x] `dotfiler dotfiles plan`
+- [x] `dotfiler dotfiles apply`
+- [x] `dotfiler secrets check`
+- [x] `dotfiler secrets extract-ssh`
 
 Installer design tasks:
 
-- [ ] Detect platform: macOS, Ubuntu, Fedora, unsupported Linux
-- [ ] Detect package manager: `brew`, `apt`, `dnf`
-- [ ] Add command runner with dry-run support
-- [ ] Add idempotent file/link operations
-- [ ] Add backups before overwriting user files
-- [ ] Add machine-readable plan output if useful, probably JSON
-- [ ] Add repo-root detection
-- [ ] Add config loading for package lists and dotfile manifests
-- [ ] Add tests for platform detection and planner behavior
-- [ ] Keep setup deterministic-ish: explicit package lists, visible plans, no silent mutation
+- [x] Detect platform: macOS, Ubuntu, Fedora, unsupported Linux
+- [x] Detect package manager: `brew`, `apt`, `dnf`
+- [x] Add command runner with dry-run support
+- [x] Add idempotent file/link operations
+- [x] Add backups before overwriting user files
+- [x] Defer machine-readable plan output until there is a concrete consumer
+- [x] Add repo-root detection
+- [x] Add config loading for package lists and dotfile manifests
+- [x] Add tests for platform detection and planner behavior
+- [x] Keep setup deterministic-ish: explicit package lists, visible plans, no silent mutation
 
 Suggested remaining script layout:
 
 ```text
 scripts/
 ├── bootstrap/
-│   └── install-dotfiler.sh
+│   ├── install.sh
+│   └── setup/
+│       └── mac.sh
 └── maintenance/
     ├── analyze-disk.sh
     ├── analyze-project.sh
@@ -176,15 +132,15 @@ Use:
 
 Tasks:
 
-- [ ] Create `packages/brew/Brewfile.common`
-- [ ] Create `packages/brew/Brewfile.macbook-air` if needed
-- [ ] Create `packages/brew/Brewfile.mac-mini` if needed
-- [ ] Create `scripts/bootstrap/mac-no-nix.sh`
-- [ ] Install Homebrew if missing
-- [ ] Run `brew bundle --file packages/brew/Brewfile.common`
-- [ ] Run machine-specific Brewfile if present
-- [ ] Run `scripts/bootstrap/link-dotfiles.sh`
-- [ ] Run `scripts/secrets/decrypt-ssh-keys.sh`
+- [x] Create `packages/brew/Brewfile.common`
+- [x] Create `packages/brew/Brewfile.macbook-air` if needed
+- [x] Create `packages/brew/Brewfile.mac-mini` if needed
+- [x] Create `scripts/bootstrap/setup/mac.sh`
+- [x] Install Homebrew if missing or print the required manual command
+- [x] Run `brew bundle --file packages/brew/Brewfile.common`
+- [x] Run machine-specific Brewfile if present
+- [x] Link dotfiles through `dotfiler dotfiles apply`
+- [x] Extract SSH keys through `dotfiler secrets extract-ssh`
 
 ### Ubuntu/Fedora
 
@@ -197,31 +153,32 @@ Use the same portable layer as macOS:
 
 Tasks:
 
-- [ ] Create `packages/apt/packages.txt`
-- [ ] Create `packages/dnf/packages.txt`
-- [ ] Create `scripts/bootstrap/ubuntu.sh`
-- [ ] Create `scripts/bootstrap/fedora.sh`
-- [ ] Decide whether Hyprland is part of the portable Linux path or NixOS-only
-- [ ] If using Hyprland, add Rofi configuration
-- [ ] If using Hyprland, add Waybar configuration
-- [ ] Install common tools:
-    - [ ] git
-    - [ ] curl
-    - [ ] zsh
-    - [ ] age
-    - [ ] sops
-    - [ ] ripgrep
-    - [ ] fzf
-    - [ ] jq
-    - [ ] yq
-    - [ ] zellij
-    - [ ] neovim
-    - [ ] gh
-    - [ ] gum, if available
-- [ ] Run `scripts/bootstrap/link-dotfiles.sh`
-- [ ] Run `scripts/secrets/decrypt-ssh-keys.sh`
+- [x] Create `packages/apt/packages.txt`
+- [x] Create `packages/dnf/packages.txt`
+- [x] Implement Ubuntu package installation in `dotfiler packages apply`
+- [x] Implement Fedora package installation in `dotfiler packages apply`
+- [x] Decide Hyprland is NixOS-only for now, not part of the non-Nix installer path
+- [x] Defer Rofi configuration until Hyprland work resumes
+- [x] Defer Waybar configuration until Hyprland work resumes
+- [x] Install common tools:
+    - [x] git
+    - [x] curl
+    - [x] zsh
+    - [x] node/npm
+    - [x] age
+    - [x] sops
+    - [x] ripgrep
+    - [x] fzf
+    - [x] jq
+    - [x] yq
+    - [x] zellij
+    - [x] neovim
+    - [x] gh
+    - [x] gum, if available
+- [x] Link dotfiles through `dotfiler dotfiles apply`
+- [x] Extract SSH keys through `dotfiler secrets extract-ssh`
 
-## Phase 4: Keep NixOS as the Declarative Path
+## Phase 2: Keep NixOS as the Declarative Path
 
 Current NixOS host configs live under `machines/`, and shared modules live under `shared/`. This is workable, but as the repo grows, split by Nix role.
 
@@ -255,7 +212,7 @@ nix/
 
 Tasks:
 
-- [ ] Keep current `machines/` and `shared/` until the portable dotfiles layer is stable
+- [x] Keep current `machines/` and `shared/` until the portable dotfiles layer is stable
 - [ ] Fill in HP-specific configuration if that host remains active
 - [ ] Fill in NUC-specific configuration if that host remains active
 - [ ] Replace placeholder NUC hardware config by running `nixos-generate-config` on the NUC
@@ -264,9 +221,9 @@ Tasks:
 - [ ] Later move `machines/*` to `nix/hosts/*`
 - [ ] Later split `shared/configuration.nix` into focused NixOS modules
 - [ ] Later split `shared/home.nix` into focused Home Manager modules
-- [ ] Make Home Manager consume canonical files from `dotfiles/`
+- [x] Make Home Manager consume canonical files from `dotfiles/`
 
-## Phase 5: Secrets Strategy
+## Phase 3: Secrets Strategy
 
 Recommendation: keep using SOPS + age.
 
@@ -298,10 +255,10 @@ Tasks:
 
 - [ ] Keep `.sops.yaml` as source of recipient configuration
 - [ ] Keep `secrets/owais.yaml` encrypted with SOPS
-- [ ] Add `scripts/secrets/decrypt-ssh-keys.sh`
-- [ ] Add `scripts/secrets/edit-secrets.sh`
-- [ ] Add checks for missing `sops`, `age`, and age key file
-- [ ] Ensure extracted SSH keys are written with `chmod 600`
+- [x] Add `dotfiler secrets extract-ssh`
+- [ ] Add `dotfiler secrets edit`
+- [x] Add checks for missing `sops`, `age`, and age key file
+- [x] Ensure extracted SSH keys are written with `chmod 600`
 - [ ] Document how to restore the age private key from password manager
 - [ ] Add machine recipient keys only when needed
 
@@ -317,7 +274,7 @@ Use git-crypt only if there is a future need for:
 
 For current SSH keys and structured secrets, SOPS + age is the better fit.
 
-## Phase 6: Migration and Inventory Cleanup
+## Phase 4: Migration and Inventory Cleanup
 
 Mac Mini migration tasks that were previously scattered through the docs:
 
@@ -334,7 +291,7 @@ Mac Mini migration tasks that were previously scattered through the docs:
 - [ ] Verify migrated applications
 - [ ] Move package inventory material from README/docs into the new docs reference section
 
-## Phase 7: Port Utility Scripts to a Separate Go Binary
+## Phase 5: Port Utility Scripts to a Separate Go Binary
 
 The existing `scripts/` directory contains useful maintenance utilities. These should move into a separate Go binary under `app/cmd/`, distinct from `dotfiler`.
 
@@ -389,7 +346,7 @@ Tasks:
 
 ---
 
-## Phase 8: Build a Custom Static Site Generator
+## Phase 6: Build a Custom Static Site Generator
 
 Replace the mdBook-oriented docs pipeline with a small custom SSG under `app/cmd/site`.
 
@@ -516,7 +473,7 @@ Docs restructuring for the custom SSG:
 
 ---
 
-## Phase 9: Restructure Docs
+## Phase 7: Restructure Docs
 
 Docs should answer:
 
@@ -577,12 +534,14 @@ Tasks:
 
 ## Suggested Order of Work
 
-1. [x] Drop nix-darwin from the codebase
-2. [ ] Create portable `dotfiles/`
-3. [ ] Build out the Go installer in `app/`
-4. [ ] Add package/dotfile/secrets workflows to `dotfiler`
-5. [ ] Scaffold and port utility scripts to `dottools`
-6. [ ] Scaffold and build the custom `site` SSG
-7. [ ] Clean up migration/package inventory docs
-8. [ ] Restructure docs around platform paths and the custom SSG
-9. [ ] Later reorganize Nix files into `nix/hosts`, `nix/modules`, and `nix/profiles`
+1. [ ] Build out the Go installer in `app/`
+2. [ ] Add package/dotfile/secrets workflows to `dotfiler`
+3. [ ] Scaffold and port utility scripts to `dottools`
+4. [ ] Scaffold and build the custom `site` SSG
+5. [ ] Clean up migration/package inventory docs
+6. [ ] Restructure docs around platform paths and the custom SSG
+7. [ ] Later reorganize Nix files into `nix/hosts`, `nix/modules`, and `nix/profiles`
+
+## Parking Lot
+
+- Alias zellij layouts in zshrc

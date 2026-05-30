@@ -4,34 +4,24 @@ Go CLIs for this repo.
 
 ## dotfiler
 
-`dotfiler` is the planned non-Nix setup tool.
-
-It aims to provide deterministic-ish setup for:
-
-- macOS without Nix
-- Ubuntu
-- Fedora
+`dotfiler` is the non-Nix setup tool for macOS, Ubuntu, and Fedora.
 
 NixOS remains managed by the repo flake.
 
-## Commands
+After installation, use:
 
 ```sh
-go run ./cmd/dotfiler --help
-go run ./cmd/dotfiler doctor
-go run ./cmd/dotfiler plan
-go run ./cmd/dotfiler apply --dry-run
+dotfiler --help
 ```
 
 ## dottools
 
 `dottools` is the planned replacement for maintenance scripts in `../scripts/`.
 
+After installation, use:
+
 ```sh
-go run ./cmd/dottools --help
-go run ./cmd/dottools disk
-go run ./cmd/dottools project
-go run ./cmd/dottools sparse --url https://github.com/owner/repo --path src
+dottools --help
 ```
 
 ## site
@@ -46,12 +36,10 @@ Planned stack:
 - Alpine.js for small interactions
 - Pagefind for static search
 
-Planned commands:
+After installation, use:
 
 ```sh
-go run ./cmd/site build
-go run ./cmd/site serve
-go run ./cmd/site check
+site --help
 ```
 
 ## Design

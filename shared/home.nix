@@ -7,17 +7,7 @@
   root,
   ...
 }:
-let
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    cmdLineToolsVersion = "13.0";
-    platformToolsVersion = "35.0.2";
-    buildToolsVersions = [ "28.0.3" "35.0.0" ];
-    platformVersions = [ "36" ];
-    includeEmulator = false;
-    includeNDK = false;
-  };
-  androidSdk = androidComposition.androidsdk;
-in
+
 {
   imports = [
     ./ssh-config.nix
@@ -142,12 +132,6 @@ in
       rofi
       zathura
       zathuraPkgs.zathura_pdf_poppler
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      # iOS development dependencies
-      cocoapods
-      # Android SDK with cmdline-tools (sdkmanager, avdmanager, etc.)
-      androidSdk
     ];
 
   programs.zathura = {
@@ -238,112 +222,29 @@ in
     };
   };
 
-  programs.zsh.initContent =
-    if pkgs.stdenv.isLinux then
-      ''''
-    else
-      ''
-        PATH=$HOME/.opencode/bin:$PATH
-        PATH=$HOME/.local/bin:$PATH
-        PATH="$HOME/.npm-global/bin:$PATH"
-        PATH="$HOME/.cargo/bin:$PATH"
-        export npm_config_prefix="$HOME/.npm-global"
-        export PATH="$HOME/go/bin:$PATH"
-        export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
-        export LIBRARY_PATH="/usr/lib"
-        export ANDROID_HOME="$HOME/Library/Android/sdk"
-        export ANDROID_SDK_ROOT="$ANDROID_HOME"
-        # Use Nix store paths directly so tools work even before ANDROID_HOME is populated
-        export PATH="${androidSdk}/libexec/android-sdk/cmdline-tools/latest/bin:${androidSdk}/libexec/android-sdk/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+  programs.zsh.initContent = builtins.readFile "${root}/dotfiles/zsh/.zshrc";
 
-        if [[ $(uname -m) == 'arm64' ]]; then
-             eval "$(/opt/homebrew/bin/brew shellenv)"
-        fi
-
-        . "$HOME/.cargo/env"
-      '';
-
-  home.activation.setupAndroidSdk = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-    lib.optionalString pkgs.stdenv.isDarwin ''
-      # Symlink cmdline-tools from Nix store so flutter finds sdkmanager at $ANDROID_HOME
-      mkdir -p "$HOME/Library/Android/sdk"
-      ln -sfn "${androidSdk}/libexec/android-sdk/cmdline-tools" "$HOME/Library/Android/sdk/cmdline-tools"
-
-      # Write license files (writable dir so sdkmanager can update them)
-      mkdir -p "$HOME/Library/Android/sdk/licenses"
-      printf '%s\n' \
-        '8933bad161af4178b1185d1a37fbf41ea5269c55' \
-        'd56f5187479451eabf01fb78af6dfcb131a6481e' \
-        '24333f8a63b6825ea9c5514f83c2829b004d1fee' \
-        > "$HOME/Library/Android/sdk/licenses/android-sdk-license"
-      printf '%s\n' \
-        '84831b9409646a918e30573bab4c9c91346d8abd' \
-        > "$HOME/Library/Android/sdk/licenses/android-sdk-preview-license"
-    ''
-  );
-
-  programs.git = {
-    enable = true;
-    settings.user.name = "Owais Jamil";
-    settings.user.email = "desertthunder.dev@gmail.com";
+  home.sessionVariables = {
+    npm_config_prefix = "$HOME/.npm-global";
   };
 
-  programs.alacritty = {
-    enable = pkgs.stdenv.isLinux;
-    settings = {
-      font = {
-        normal = {
-          family = "JetBrainsMono Nerd Font Propo";
-          style = "SemiBold";
-        };
-        size = 15;
-      };
-      env = {
-        TERM = "xterm-256color";
-      };
-      window = {
-        padding = {
-          x = 8;
-          y = 8;
-        };
-      };
-      colors = {
-        primary = {
-          background = "#1b1b1b";
-          foreground = "#ffffff";
-        };
-        cursor = {
-          text = "#161616";
-          cursor = "#78a9ff";
-        };
-        normal = {
-          black = "#161616";
-          red = "#ee5396";
-          green = "#42be65";
-          yellow = "#ff7eb6";
-          blue = "#33b1ff";
-          magenta = "#be95ff";
-          cyan = "#3ddbd9";
-          white = "#ffffff";
-        };
-        bright = {
-          black = "#525252";
-          red = "#ee5396";
-          green = "#42be65";
-          yellow = "#ff7eb6";
-          blue = "#33b1ff";
-          magenta = "#be95ff";
-          cyan = "#3ddbd9";
-          white = "#ffffff";
-        };
-      };
+  home.sessionPath = [
+    "$HOME/.npm-global/bin"
+    "$HOME/.local/bin"
+  ];
 
-      terminal.shell = {
-        program = "/run/current-system/sw/bin/zsh";
-        args = [ "-l" ];
-      };
-    };
-  };
+  home.activation.installPiCodingAgent = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    export npm_config_prefix="$HOME/.npm-global"
+    export PATH="$HOME/.npm-global/bin:${pkgs.nodejs_24}/bin:$PATH"
+    mkdir -p "$HOME/.npm-global"
+
+    if ! command -v pi >/dev/null 2>&1; then
+      echo "Installing pi coding agent with npm"
+      ${pkgs.nodejs_24}/bin/npm install --global @earendil-works/pi-coding-agent
+    fi
+  '';
+
+  home.file.".gitconfig".source = "${root}/dotfiles/git/.gitconfig";
 
   programs.neovim = {
     enable = true;
@@ -357,74 +258,16 @@ in
     recursive = true;
   };
 
-  programs.oh-my-posh = {
-    enable = true;
-    settings = builtins.fromJSON (builtins.readFile "${root}/modules/omp.json");
-  };
+  home.file.".config/oh-my-posh/theme.json".source = "${root}/dotfiles/oh-my-posh/.config/oh-my-posh/theme.json";
 
   home.file.".config/zellij" = {
-    source = "${root}/modules/zellij";
+    source = "${root}/dotfiles/zellij/.config/zellij";
     recursive = true;
   };
 
-  # See: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
-  home.file.".config/ripgrep/config".text = ''
-    --line-number
-    --smart-case
-    --max-columns=120
-    --max-columns-preview
+  home.file.".config/ripgrep/config".source = "${root}/dotfiles/ripgrep/.config/ripgrep/config";
 
-    --type-add=nix:*.nix
-
-    --glob=!.git/*
-    --glob=!**/node_modules/**
-    --glob=!**/target/**
-    --glob=!**/.build/**
-  '';
-
-  home.file.".config/ghostty/config".text = ''
-    # Font configuration
-    font-style = SemiBold
-    font-size = 16
-
-    # Window settings
-    window-padding-x = 8
-    window-padding-y = 8
-
-    # Color scheme
-    background = 1b1b1b
-    foreground = ffffff
-
-    # Cursor colors
-    cursor-color = 78a9ff
-    cursor-text = 161616
-
-    # Normal colors
-    palette = 0=#161616
-    palette = 1=#ee5396
-    palette = 2=#42be65
-    palette = 3=#ff7eb6
-    palette = 4=#33b1ff
-    palette = 5=#be95ff
-    palette = 6=#3ddbd9
-    palette = 7=#ffffff
-
-    # Bright colors
-    palette = 8=#525252
-    palette = 9=#ee5396
-    palette = 10=#42be65
-    palette = 11=#ff7eb6
-    palette = 12=#33b1ff
-    palette = 13=#be95ff
-    palette = 14=#3ddbd9
-    palette = 15=#ffffff
-
-    shell-integration = zsh
-
-    mouse-hide-while-typing = true
-    copy-on-select = false
-    confirm-close-surface = false
-  '';
+  home.file.".config/ghostty/config".source = "${root}/dotfiles/ghostty/.config/ghostty/config";
 
   # This value determines the home Manager release that your configuration is compatible with.
   # This helps avoid breakage when a new home Manager release introduces backwards incompatible changes.

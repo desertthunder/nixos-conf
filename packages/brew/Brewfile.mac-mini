@@ -1,0 +1,4 @@
+# Mac mini-specific Homebrew packages.
+
+brew "supercollider"
+cask "rstudio"

@@ -1,0 +1,15 @@
+# Common Fedora packages for non-Nix machines.
+git
+curl
+zsh
+nodejs
+npm
+age
+sops
+ripgrep
+fzf
+jq
+yq
+zellij
+neovim
+gh

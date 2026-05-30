@@ -1,0 +1,14 @@
+# MacBook Air-specific Homebrew packages.
+
+
+brew "dprint"
+brew "elixir"
+brew "hurl"
+brew "tree-sitter-cli"
+
+cask "font-google-sans-code"
+cask "font-hack-nerd-font"
+cask "font-lora"
+cask "font-monaspace"
+cask "font-monaspice-nerd-font"
+cask "skim"

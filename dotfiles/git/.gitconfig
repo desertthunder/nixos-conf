@@ -1,0 +1,23 @@
+[user]
+	name = Owais Jamil
+	email = desertthunder.dev@gmail.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = code --wait
+	pager = delta --line-numbers --dark -s
+	excludesfile = ~/.gitignore
+
+[includeIf "gitdir:~/Professional/owaisj/"]
+	path = ~/Professional/owaisj/.public.gitconfig
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[checkout]
+	defaultRemote = origin

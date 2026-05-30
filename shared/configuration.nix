@@ -89,7 +89,7 @@
     wget
     curl
     vscode
-    alacritty
+    ghostty
     neovim
     zsh
     nixfmt-rfc-style

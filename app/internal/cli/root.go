@@ -51,6 +51,9 @@ func (d dotfiler) Command() *cobra.Command {
 	cmd.AddCommand(doctorCommand())
 	cmd.AddCommand(planCommand())
 	cmd.AddCommand(applyCommand(&d))
+	cmd.AddCommand(packagesCommand(&d))
+	cmd.AddCommand(dotfilesCommand(&d))
+	cmd.AddCommand(secretsCommand(&d))
 	cmd.AddCommand(dotfilerVersionCommand())
 
 	return cmd
