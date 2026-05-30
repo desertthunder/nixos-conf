@@ -1,0 +1,36 @@
+{{ define "nav.html" }}
+<header class="site-nav">
+  <div class="site-nav__brand">
+    <a href="/">Desert Thunder</a>
+    <button class="site-nav__toggle" type="button" @click="navOpen = !navOpen" :aria-expanded="navOpen.toString()">Menu</button>
+  </div>
+  {{ template "search.html" . }}
+  <nav class="site-nav__links" :class="navOpen && 'is-open'" aria-label="Main navigation">
+    {{ range .Sections }}
+      {{ if eq (len .Pages) 1 }}
+        {{ range .Pages }}
+          <a class="site-nav__single {{ active $.Page.URL .URL }}" href="{{ .URL }}">{{ .Title }}</a>
+        {{ end }}
+      {{ else }}
+        <section class="site-nav__section" x-data="{ open: {{ if .IsCurrent }}true{{ else }}false{{ end }} }">
+          <div class="site-nav__section-header {{ if .IsCurrent }}is-current-section{{ end }}">
+            {{ if .HasDefault }}
+              <a class="site-nav__section-link" href="{{ .URL }}" @click="open = true">{{ .Title }}</a>
+            {{ else }}
+              <span class="site-nav__section-link">{{ .Title }}</span>
+            {{ end }}
+            <button class="site-nav__section-toggle" type="button" @click="open = !open" :aria-expanded="open.toString()" aria-label="Toggle {{ .Title }} section">
+              <span aria-hidden="true" x-text="open ? '−' : '+'"></span>
+            </button>
+          </div>
+          <div class="site-nav__section-pages" x-show="open">
+            {{ range .Pages }}
+              <a class="{{ active $.Page.URL .URL }}" href="{{ .URL }}">{{ .Title }}</a>
+            {{ end }}
+          </div>
+        </section>
+      {{ end }}
+    {{ end }}
+  </nav>
+</header>
+{{ end }}

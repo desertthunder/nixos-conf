@@ -1,0 +1,26 @@
+:root {
+  /* iceberg.vim inspired palette */
+  --ice-bg: #161821;
+  --ice-bg-soft: #1e2132;
+  --ice-surface: #242940;
+  --ice-surface-raised: #2e344f;
+  --ice-text: #c6c8d1;
+  --ice-text-strong: #d2d4de;
+  --ice-muted: #6b7089;
+  --ice-blue: #84a0c6;
+  --ice-cyan: #89b8c2;
+  --ice-green: #b4be82;
+  --ice-yellow: #e2a478;
+  --ice-red: #e27878;
+  --ice-purple: #a093c7;
+
+  --surface: var(--ice-bg);
+  --surface-raised: var(--ice-bg-soft);
+  --surface-card: var(--ice-surface);
+  --text: var(--ice-text);
+  --text-strong: var(--ice-text-strong);
+  --muted: var(--ice-muted);
+  --accent: var(--ice-blue);
+  --accent-2: var(--ice-purple);
+  --border: color-mix(in srgb, var(--ice-muted) 42%, transparent);
+}

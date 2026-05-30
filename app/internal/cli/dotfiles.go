@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/desertthunder/dotfiler/internal/system"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -35,9 +34,9 @@ func dotfilesPlanCommand() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Dotfiles"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Dotfiles"))
 			for _, link := range dotfileLinks(root) {
-				fmt.Fprintf(cmd.OutOrStdout(), "%s %s -> %s\n", ui.Bullet(), link.Target, link.Source)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s %s -> %s\n", Bullet(), link.Target, link.Source)
 			}
 			return nil
 		},
@@ -62,7 +61,7 @@ func dotfilesApplyCommand(app *dotfiler) *cobra.Command {
 				if err := linkDotfile(link.Source, link.Target, backupDir); err != nil {
 					return err
 				}
-				fmt.Fprintf(cmd.OutOrStdout(), "%s linked %s\n", ui.Success("✓"), link.Target)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s linked %s\n", Success("✓"), link.Target)
 			}
 			return nil
 		},
@@ -72,12 +71,12 @@ func dotfilesApplyCommand(app *dotfiler) *cobra.Command {
 func dotfileLinks(root string) []dotfileLink {
 	home := homeDir()
 	return []dotfileLink{
-		{filepath.Join(root, "dotfiles", "zsh", ".zshrc"), filepath.Join(home, ".zshrc")},
-		{filepath.Join(root, "dotfiles", "git", ".gitconfig"), filepath.Join(home, ".gitconfig")},
-		{filepath.Join(root, "dotfiles", "ghostty", ".config", "ghostty", "config"), filepath.Join(home, ".config", "ghostty", "config")},
-		{filepath.Join(root, "dotfiles", "ripgrep", ".config", "ripgrep", "config"), filepath.Join(home, ".config", "ripgrep", "config")},
-		{filepath.Join(root, "dotfiles", "zellij", ".config", "zellij"), filepath.Join(home, ".config", "zellij")},
-		{filepath.Join(root, "dotfiles", "oh-my-posh", ".config", "oh-my-posh", "theme.json"), filepath.Join(home, ".config", "oh-my-posh", "theme.json")},
+		{filepath.Join(root, "lib", "dotfiles", "zsh", ".zshrc"), filepath.Join(home, ".zshrc")},
+		{filepath.Join(root, "lib", "dotfiles", "git", ".gitconfig"), filepath.Join(home, ".gitconfig")},
+		{filepath.Join(root, "lib", "dotfiles", "ghostty", ".config", "ghostty", "config"), filepath.Join(home, ".config", "ghostty", "config")},
+		{filepath.Join(root, "lib", "dotfiles", "ripgrep", ".config", "ripgrep", "config"), filepath.Join(home, ".config", "ripgrep", "config")},
+		{filepath.Join(root, "lib", "dotfiles", "zellij", ".config", "zellij"), filepath.Join(home, ".config", "zellij")},
+		{filepath.Join(root, "lib", "dotfiles", "oh-my-posh", ".config", "oh-my-posh", "theme.json"), filepath.Join(home, ".config", "oh-my-posh", "theme.json")},
 	}
 }
 

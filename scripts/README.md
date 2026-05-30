@@ -10,7 +10,7 @@ The Go binaries have separate responsibilities:
 
 ## Dependencies
 
-Scripts expect these tools to be available through `nix/modules/home-manager/home.nix` on NixOS or `dotfiler` on non-Nix machines:
+Scripts expect these tools to be available through `lib/nix/modules/home-manager/home.nix` on NixOS or `dotfiler` on non-Nix machines:
 
 - **gum** — TUI components for shell scripts
 - **dust** — disk usage analyzer with ASCII tree visualization
@@ -60,9 +60,9 @@ scripts/gc-sparse.sh --url <github-url> [--path <dir>] [--dest <dir>]
 
 Set `GITHUB_TOKEN` to avoid low unauthenticated API limits.
 
-### `keys.sh`
+## Secrets
 
-Legacy SOPS key extraction helper. Prefer:
+Use `dotfiler` directly for SOPS key extraction.
 
 ```sh
 dotfiler secrets extract-ssh

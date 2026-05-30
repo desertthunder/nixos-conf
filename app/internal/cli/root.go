@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/charmbracelet/log"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -35,7 +34,7 @@ func (d dotfiler) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dotfiler",
 		Short: "Deterministic-ish setup for non-Nix machines",
-		Long: ui.Title("dotfiler") + "\n\n" +
+		Long: Title("dotfiler") + "\n\n" +
 			"A small installer/orchestrator for macOS, Ubuntu, and Fedora machines that do not run Nix.",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			setupLogger("dotfiler", d.verbose)
@@ -71,8 +70,8 @@ func (d dottools) Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dottools",
 		Short: "Utility commands for dotfiles maintenance",
-		Long: ui.Title("dottools") + "\n\n" +
-			"Day-to-day utilities ported from scripts/: disk analysis, project analysis, and sparse clones.",
+		Long: Title("dottools") + "\n\n" +
+			"Day-to-day utilities for dotfiles maintenance.",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			setupLogger("dottools", d.verbose)
 		},
@@ -85,7 +84,6 @@ func (d dottools) Command() *cobra.Command {
 
 	cmd.AddCommand(diskCommand())
 	cmd.AddCommand(projectCommand())
-	cmd.AddCommand(sparseCommand())
 	cmd.AddCommand(dottoolsVersionCommand())
 
 	return cmd

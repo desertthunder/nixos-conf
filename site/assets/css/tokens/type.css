@@ -1,0 +1,11 @@
+:root {
+  --font-body: "IBM Plex Serif", Georgia, serif;
+  --font-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --step--1: clamp(0.875rem, 0.84rem + 0.16vw, 0.96rem);
+  --step-0: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.12rem + 0.64vw, 1.6rem);
+  --step-2: clamp(1.56rem, 1.31rem + 1.24vw, 2.25rem);
+  --step-3: clamp(1.95rem, 1.5rem + 2.2vw, 3.2rem);
+  --leading-tight: 1.1;
+  --leading-body: 1.7;
+}

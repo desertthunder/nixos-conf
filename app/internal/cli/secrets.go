@@ -5,9 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/desertthunder/dotfiler/internal/runner"
 	"github.com/desertthunder/dotfiler/internal/system"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -27,20 +25,20 @@ func secretsCheckCommand() *cobra.Command {
 		Use:   "check",
 		Short: "Check SOPS, age, and age key availability",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Secrets"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Secrets"))
 			for _, tool := range []string{"sops", "age"} {
 				path, ok := system.LookPath(tool)
 				if ok {
-					fmt.Fprintf(cmd.OutOrStdout(), "%s %s %s\n", ui.Success("✓"), tool, ui.Muted(path))
+					fmt.Fprintf(cmd.OutOrStdout(), "%s %s %s\n", Success("✓"), tool, Muted(path))
 				} else {
-					fmt.Fprintf(cmd.OutOrStdout(), "%s %s missing\n", ui.Warning("!"), tool)
+					fmt.Fprintf(cmd.OutOrStdout(), "%s %s missing\n", Warning("!"), tool)
 				}
 			}
 			keyFile := sopsAgeKeyFile()
 			if _, err := os.Stat(keyFile); err == nil {
-				fmt.Fprintf(cmd.OutOrStdout(), "%s age key %s\n", ui.Success("✓"), ui.Muted(keyFile))
+				fmt.Fprintf(cmd.OutOrStdout(), "%s age key %s\n", Success("✓"), Muted(keyFile))
 			} else {
-				fmt.Fprintf(cmd.OutOrStdout(), "%s age key missing at %s\n", ui.Warning("!"), keyFile)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s age key missing at %s\n", Warning("!"), keyFile)
 			}
 			return nil
 		},
@@ -50,13 +48,13 @@ func secretsCheckCommand() *cobra.Command {
 func secretsEditCommand(app *dotfiler) *cobra.Command {
 	return &cobra.Command{
 		Use:   "edit",
-		Short: "Edit secrets/owais.yaml with SOPS",
+		Short: "Edit lib/secrets/owais.yaml with SOPS",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			root, err := system.FindRepoRoot("")
 			if err != nil {
 				return err
 			}
-			secretsFile := filepath.Join(root, "secrets", "owais.yaml")
+			secretsFile := filepath.Join(root, "lib", "secrets", "owais.yaml")
 			if app.dryRun {
 				fmt.Fprintf(cmd.OutOrStdout(), "SOPS_AGE_KEY_FILE=%s sops %s\n", sopsAgeKeyFile(), secretsFile)
 				return nil
@@ -69,13 +67,13 @@ func secretsEditCommand(app *dotfiler) *cobra.Command {
 func secretsExtractSSHCommand(app *dotfiler) *cobra.Command {
 	return &cobra.Command{
 		Use:   "extract-ssh",
-		Short: "Extract SSH keys from secrets/owais.yaml",
+		Short: "Extract SSH keys from lib/secrets/owais.yaml",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			root, err := system.FindRepoRoot("")
 			if err != nil {
 				return err
 			}
-			secretsFile := filepath.Join(root, "secrets", "owais.yaml")
+			secretsFile := filepath.Join(root, "lib", "secrets", "owais.yaml")
 			dest := filepath.Join(homeDir(), ".local", "share", "sops")
 			if !app.dryRun {
 				if err := os.MkdirAll(dest, 0o700); err != nil {
@@ -95,7 +93,7 @@ func secretsExtractSSHCommand(app *dotfiler) *cobra.Command {
 				if err := os.Chmod(out, 0o600); err != nil {
 					return err
 				}
-				fmt.Fprintf(cmd.OutOrStdout(), "%s wrote %s\n", ui.Success("✓"), out)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s wrote %s\n", Success("✓"), out)
 			}
 			return nil
 		},
@@ -103,7 +101,7 @@ func secretsExtractSSHCommand(app *dotfiler) *cobra.Command {
 }
 
 func runSops(secretsFile string) error {
-	cmd := runner.Command("sops", secretsFile)
+	cmd := command("sops", secretsFile)
 	cmd.Env = append(os.Environ(), "SOPS_AGE_KEY_FILE="+sopsAgeKeyFile())
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -112,7 +110,7 @@ func runSops(secretsFile string) error {
 }
 
 func extractSecret(secretsFile, key, out string) error {
-	cmd := runner.Command("sops", "--extract", fmt.Sprintf("[\"%s\"]", key), "-d", secretsFile)
+	cmd := command("sops", "--extract", fmt.Sprintf("[\"%s\"]", key), "-d", secretsFile)
 	cmd.Env = append(os.Environ(), "SOPS_AGE_KEY_FILE="+sopsAgeKeyFile())
 	data, err := cmd.Output()
 	if err != nil {

@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/charmbracelet/log"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -18,7 +17,7 @@ func applyCommand(app *dotfiler) *cobra.Command {
 			log.Info("apply requested", "dry_run", app.dryRun, "only", only)
 
 			if app.dryRun {
-				fmt.Fprintln(cmd.OutOrStdout(), ui.Warning("dry run: no changes will be made"))
+				fmt.Fprintln(cmd.OutOrStdout(), Warning("dry run: no changes will be made"))
 			}
 
 			switch only {

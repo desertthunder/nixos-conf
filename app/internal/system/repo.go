@@ -20,7 +20,7 @@ func FindRepoRoot(start string) (string, error) {
 	}
 
 	for {
-		if exists(filepath.Join(dir, "flake.nix")) && exists(filepath.Join(dir, "dotfiles")) && exists(filepath.Join(dir, "app", "go.mod")) {
+		if exists(filepath.Join(dir, "flake.nix")) && exists(filepath.Join(dir, "lib", "dotfiles")) && exists(filepath.Join(dir, "app", "go.mod")) {
 			return dir, nil
 		}
 

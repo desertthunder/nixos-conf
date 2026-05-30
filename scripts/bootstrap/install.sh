@@ -2,7 +2,8 @@
 # Name: install.sh
 # Date: 2026-05-30
 # Author: Owais Jamil
-# Description: Builds and installs dotfiler/dottools into ~/.local/bin and ensures the pi coding agent is installed with npm.
+# Description: Builds and installs dotfiler, dottools, and site into ~/.local/bin and
+# ensures the pi coding agent is installed with npm.
 
 set -euo pipefail
 
@@ -21,10 +22,12 @@ fi
   cd "$APP_DIR"
   go build -o "$BIN_DIR/dotfiler" ./cmd/dotfiler
   go build -o "$BIN_DIR/dottools" ./cmd/dottools
+  go build -o "$BIN_DIR/site" ./cmd/site
 )
 
 echo "installed $BIN_DIR/dotfiler"
 echo "installed $BIN_DIR/dottools"
+echo "installed $BIN_DIR/site"
 
 if command -v npm >/dev/null 2>&1; then
   export npm_config_prefix="$HOME/.npm-global"

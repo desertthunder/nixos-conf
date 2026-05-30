@@ -26,9 +26,9 @@ dottools --help
 
 ## site
 
-`site` is the planned custom static site generator for this repo's docs.
+`site` is the custom static site generator for this repo's docs.
 
-Planned stack:
+Stack:
 
 - Go templates
 - Markdown content with front matter
@@ -40,6 +40,7 @@ After installation, use:
 
 ```sh
 site --help
+site preview
 ```
 
 ## Design

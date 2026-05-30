@@ -1,0 +1,44 @@
+{{ define "base.html" }}<!doctype html>
+<html lang="en" x-data="siteShell()">
+  <head>
+    {{ template "head.html" . }}
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div class="site-shell">
+      {{ template "nav.html" . }}
+      <main id="content" class="site-main">
+        <div x-show="!searchActive">
+          {{ template "page.html" . }}
+        </div>
+        <section class="search-results" x-cloak x-show="searchActive" x-transition.opacity aria-live="polite">
+          <div class="search-results__header">
+            <div>
+              <p class="eyebrow">Search</p>
+              <h1>Results for “<span x-text="searchQuery"></span>”</h1>
+            </div>
+            <button class="search-results__clear" type="button" @click="clearSearch()">Clear</button>
+          </div>
+          <p class="search-results__status" x-show="searchLoading">Searching the notebook…</p>
+          <p class="search-results__status" x-show="searchError" x-text="searchError"></p>
+          <p class="search-results__status" x-show="!searchLoading && !searchError && searchResults.length === 0">No matches yet.</p>
+          <div class="search-results__list" x-show="searchResults.length > 0">
+            <template x-for="result in searchResults" :key="result.url">
+              <a class="search-results__item" :href="result.url">
+                <span class="search-results__title" x-text="result.meta.title || result.url"></span>
+                <span class="search-results__url" x-text="result.url"></span>
+                <span class="search-results__excerpt" x-html="result.excerpt"></span>
+              </a>
+            </template>
+          </div>
+        </section>
+      </main>
+    </div>
+    {{ template "footer.html" . }}
+    <script src="/assets/js/vendor/highlight/highlight.min.js"></script>
+    <script src="/assets/js/vendor/highlight/nix.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="/assets/js/app.js"></script>
+    <script defer src="/assets/js/vendor/alpine/alpine.min.js"></script>
+  </body>
+</html>{{ end }}

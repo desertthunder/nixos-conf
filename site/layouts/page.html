@@ -1,0 +1,12 @@
+{{ define "page.html" }}
+<article class="article" data-pagefind-body>
+  <header class="article__header">
+    {{ if .Page.Section }}<p class="eyebrow">{{ .Page.Section }}</p>{{ end }}
+    <h1>{{ .Page.Title }}</h1>
+    {{ if .Page.Description }}<p class="article__description">{{ .Page.Description }}</p>{{ end }}
+  </header>
+  <div class="article__body">
+    {{ .Page.Content }}
+  </div>
+</article>
+{{ end }}

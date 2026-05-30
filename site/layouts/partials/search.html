@@ -1,0 +1,19 @@
+{{ define "search.html" }}
+<section class="site-search" aria-label="Site search">
+  <label class="site-search__label" for="site-search-input">Search the docs</label>
+  <div class="site-search__control">
+    <input
+      id="site-search-input"
+      class="site-search__input"
+      type="search"
+      placeholder="plugins, sops, keymaps…"
+      autocomplete="off"
+      x-model="searchQuery"
+      @input.debounce.180ms="runSearch()"
+      @keydown.escape="clearSearch()"
+    >
+    <button class="site-search__clear" type="button" x-cloak x-show="searchActive" @click="clearSearch()" aria-label="Clear search">×</button>
+  </div>
+  <p class="site-search__hint">Search powered by <code>Pagefind</code>.</p>
+</section>
+{{ end }}

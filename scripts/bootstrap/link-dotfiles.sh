@@ -10,7 +10,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-DOTFILES_DIR="$REPO_ROOT/dotfiles"
+DOTFILES_DIR="$REPO_ROOT/lib/dotfiles"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
 link_path() {

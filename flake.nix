@@ -42,7 +42,7 @@
             };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.owais = import ./nix/modules/home-manager/home.nix;
+            home-manager.users.owais = import ./lib/nix/modules/home-manager/home.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];
@@ -50,9 +50,9 @@
     in
     {
       nixosConfigurations = {
-        owais-nix-thinkpad = mkNixosHost ./nix/hosts/thinkpad/configuration.nix;
-        owais-nix-hp = mkNixosHost ./nix/hosts/hp/configuration.nix;
-        owais-nix-dell = mkNixosHost ./nix/hosts/dell/configuration.nix;
+        owais-nix-thinkpad = mkNixosHost ./lib/nix/hosts/thinkpad/configuration.nix;
+        owais-nix-hp = mkNixosHost ./lib/nix/hosts/hp/configuration.nix;
+        owais-nix-dell = mkNixosHost ./lib/nix/hosts/dell/configuration.nix;
       };
     };
 }

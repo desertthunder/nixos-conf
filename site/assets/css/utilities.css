@@ -1,0 +1,23 @@
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 10;
+  padding: var(--space-2) var(--space-3);
+  color: var(--surface);
+  background: var(--accent);
+  border-radius: var(--radius-1);
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.eyebrow {
+  color: var(--ice-cyan);
+  font-family: var(--font-code);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

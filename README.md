@@ -1,53 +1,24 @@
 # Desert Thunder's Dotfiles
 
-This book is a collection of notes and guides around my personal dotfiles. It's a bit
-all over the place because as of writing (November 16, 2025), I've only been using NixOS
-as one of my daily drivers for a day.
+Personal machine configuration for three paths:
 
-These reflect my habits and quirks as a developer. My `*.nix` files will likely not be
-modular until I hit the 1000 line threshold. The neovim configuration is a vestige of a
-time before I embraced the long file.
+1. Macs without Nix, using Homebrew, portable dotfiles, SOPS/age, and `dotfiler`
+2. Ubuntu/Fedora, using distro packages, portable dotfiles, SOPS/age, and `dotfiler`
+3. NixOS, using the flake and modules under `lib/nix/`
 
-If you want to take a look at my specific configurations and settings, take a look at
-[the repo](https://github.com/desertthunder/nixos-conf) that houses these notes. If you
-have any requests or suggestions, feel free to open an issue. I haven't decided on a
-license but regardless of what I pick, I hope that this ends up being a valuable
-resource to anyone that gives it the time. Programming and engineering are fun, and I've
-always liked messing with my setup and I hope you have fun too.
+Documentation content now lives under [`site/content`](./site/content) and is built with the custom Go static site generator in [`app/cmd/site`](./app/cmd/site).
 
-For system administration commands, see the [NixOS Configuration](./docs/src/nixos/overview.md) guide.
+```sh
+cd app
+go run ./cmd/site preview
+```
 
-For multi-machine setup details, see the [Multi-Machine Setup](./docs/src/nixos/multi-machine.md) guide.
+## Planning
+
+Repo organization and migration tasks are tracked in [todo.md](./todo.md).
 
 ## Credits
 
-This site was inspired by isabel's dotfiles [book](https://dotfiles.isabelroses.com/)
+This site was inspired by isabel's dotfiles [book](https://dotfiles.isabelroses.com/).
 
-![Lucy (Gleam) as Nix Logo](./docs/src/images/gleam-lucy_nix.png)
-
-## Platform Comparison
-
-For detailed platform differences and specific settings, see the [Platform Comparison Guide](./docs/src/guides/platform-comparison.md).
-
-## Migration Guides
-
-For detailed migration procedures and inventory management, see the [Migration Guide](./docs/src/guides/migration.md).
-
-## Inventory
-
-Date: 2025-12-08
-
-Nix for dev tools, brew for GUI gaps
-
-| Machine | Nix                       | Brew        | Drop |
-| ------- | ------------------------- | ----------- | ---- |
-| All     | Caddy                     | Zen Browser | -    |
-| All     | Nginx                     | Tailscale   | -    |
-| All     | Gleam                     | -           | -    |
-| All     | Typst                     | -           | -    |
-| All     | Zathura (& zathura-mupdf) | -           | -    |
-| All     | MuPdf                     | -           | -    |
-| All     | yt-dlp                    | -           | -    |
-| All     | slides                    | -           | -    |
-| Mini    | supercollider             | R, RStudio  | -    |
-| Mini    | -                         | Sonic PI    | -    |
+![Lucy (Gleam) as Nix Logo](./site/assets/images/gleam-lucy_nix.png)

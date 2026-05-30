@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -16,10 +15,10 @@ func diskCommand() *cobra.Command {
 		Short: "Analyze disk usage",
 		Long:  "Planned Go replacement for scripts/analyze-disk.sh.",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Disk analyzer"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Disk analyzer"))
 			fmt.Fprintf(cmd.OutOrStdout(), "dir:  %s\n", dir)
 			fmt.Fprintf(cmd.OutOrStdout(), "mode: %s\n", mode)
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Muted("Implementation pending; current script: scripts/analyze-disk.sh"))
+			fmt.Fprintln(cmd.OutOrStdout(), Muted("Implementation pending; current script: scripts/analyze-disk.sh"))
 			return nil
 		},
 	}

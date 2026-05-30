@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -17,11 +16,11 @@ func projectCommand() *cobra.Command {
 		Short: "Analyze source project size and shape",
 		Long:  "Planned Go replacement for scripts/analyze-project.sh.",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Project analyzer"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Project analyzer"))
 			fmt.Fprintf(cmd.OutOrStdout(), "dir:       %s\n", dir)
 			fmt.Fprintf(cmd.OutOrStdout(), "mode:      %s\n", mode)
 			fmt.Fprintf(cmd.OutOrStdout(), "threshold: %d\n", threshold)
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Muted("Implementation pending; current script: scripts/analyze-project.sh"))
+			fmt.Fprintln(cmd.OutOrStdout(), Muted("Implementation pending; current script: scripts/analyze-project.sh"))
 			return nil
 		},
 	}

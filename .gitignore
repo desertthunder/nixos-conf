@@ -70,12 +70,9 @@ tags
 *.log
 Thumbs.db
 
-# mdBook builds
-book/
-book/*
-
-# Hugo/Static site builds
+# Static site builds
 public/
+dist/
 
 
 local.nix

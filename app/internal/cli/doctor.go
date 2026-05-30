@@ -6,7 +6,6 @@ import (
 
 	"github.com/charmbracelet/log"
 	"github.com/desertthunder/dotfiler/internal/system"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -18,13 +17,13 @@ func doctorCommand() *cobra.Command {
 			platform := system.DetectPlatform()
 			log.Info("running host checks", "os", runtime.GOOS, "arch", runtime.GOARCH, "package_manager", platform.PackageManager)
 
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Host"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Host"))
 			fmt.Fprintf(cmd.OutOrStdout(), "OS:      %s\n", runtime.GOOS)
 			fmt.Fprintf(cmd.OutOrStdout(), "Arch:    %s\n", runtime.GOARCH)
 			fmt.Fprintf(cmd.OutOrStdout(), "Distro:  %s\n", platform.Distribution)
 			fmt.Fprintf(cmd.OutOrStdout(), "Manager: %s\n\n", platform.PackageManager)
 
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Tools"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Tools"))
 			tools := []string{"git", "sops", "age"}
 			if platform.PackageManager != "" {
 				tools = append(tools, platform.PackageManager)
@@ -32,10 +31,10 @@ func doctorCommand() *cobra.Command {
 			for _, tool := range tools {
 				path, ok := system.LookPath(tool)
 				if ok {
-					fmt.Fprintf(cmd.OutOrStdout(), "%s %s %s\n", ui.Success("✓"), tool, ui.Muted(path))
+					fmt.Fprintf(cmd.OutOrStdout(), "%s %s %s\n", Success("✓"), tool, Muted(path))
 					continue
 				}
-				fmt.Fprintf(cmd.OutOrStdout(), "%s %s\n", ui.Warning("!"), tool)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s %s\n", Warning("!"), tool)
 			}
 
 			return nil

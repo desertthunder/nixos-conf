@@ -7,9 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/desertthunder/dotfiler/internal/runner"
 	"github.com/desertthunder/dotfiler/internal/system"
-	"github.com/desertthunder/dotfiler/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -33,11 +31,11 @@ func packagesPlanCommand() *cobra.Command {
 				return err
 			}
 			platform := system.DetectPlatform()
-			fmt.Fprintln(cmd.OutOrStdout(), ui.Section("Packages"))
+			fmt.Fprintln(cmd.OutOrStdout(), Section("Packages"))
 			fmt.Fprintf(cmd.OutOrStdout(), "platform: %s/%s\n", platform.OS, platform.Distribution)
 			fmt.Fprintf(cmd.OutOrStdout(), "manager:  %s\n", platform.PackageManager)
 			for _, file := range packageFiles(root, platform) {
-				fmt.Fprintf(cmd.OutOrStdout(), "%s %s\n", ui.Bullet(), file)
+				fmt.Fprintf(cmd.OutOrStdout(), "%s %s\n", Bullet(), file)
 			}
 			return nil
 		},
@@ -58,28 +56,28 @@ func packagesApplyCommand(app *dotfiler) *cobra.Command {
 				return fmt.Errorf("unsupported platform: %s/%s", platform.OS, platform.Distribution)
 			}
 
-			r := runner.Runner{DryRun: app.dryRun}
+			r := runner{dryRun: app.dryRun}
 			switch platform.PackageManager {
 			case "brew":
 				for _, file := range packageFiles(root, platform) {
-					if err := r.Run("brew", "bundle", "--file", file); err != nil {
+					if err := r.run("brew", "bundle", "--file", file); err != nil {
 						return err
 					}
 				}
 			case "apt":
-				pkgs, err := readPackageList(filepath.Join(root, "packages", "apt", "packages.txt"))
+				pkgs, err := readPackageList(filepath.Join(root, "lib", "packages", "apt", "packages.txt"))
 				if err != nil {
 					return err
 				}
 				args := append([]string{"apt-get", "install", "-y"}, pkgs...)
-				return r.Run("sudo", args...)
+				return r.run("sudo", args...)
 			case "dnf":
-				pkgs, err := readPackageList(filepath.Join(root, "packages", "dnf", "packages.txt"))
+				pkgs, err := readPackageList(filepath.Join(root, "lib", "packages", "dnf", "packages.txt"))
 				if err != nil {
 					return err
 				}
 				args := append([]string{"dnf", "install", "-y"}, pkgs...)
-				return r.Run("sudo", args...)
+				return r.run("sudo", args...)
 			}
 			return nil
 		},
@@ -89,19 +87,19 @@ func packagesApplyCommand(app *dotfiler) *cobra.Command {
 func packageFiles(root string, platform system.Platform) []string {
 	switch platform.PackageManager {
 	case "brew":
-		files := []string{filepath.Join(root, "packages", "brew", "Brewfile.common")}
+		files := []string{filepath.Join(root, "lib", "packages", "brew", "Brewfile.common")}
 		host, _ := os.Hostname()
 		if host != "" {
-			candidate := filepath.Join(root, "packages", "brew", "Brewfile."+strings.ToLower(host))
+			candidate := filepath.Join(root, "lib", "packages", "brew", "Brewfile."+strings.ToLower(host))
 			if _, err := os.Stat(candidate); err == nil {
 				files = append(files, candidate)
 			}
 		}
 		return existingFiles(files)
 	case "apt":
-		return existingFiles([]string{filepath.Join(root, "packages", "apt", "packages.txt")})
+		return existingFiles([]string{filepath.Join(root, "lib", "packages", "apt", "packages.txt")})
 	case "dnf":
-		return existingFiles([]string{filepath.Join(root, "packages", "dnf", "packages.txt")})
+		return existingFiles([]string{filepath.Join(root, "lib", "packages", "dnf", "packages.txt")})
 	default:
 		return nil
 	}
