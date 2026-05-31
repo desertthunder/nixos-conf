@@ -18,10 +18,10 @@ Imports compose modules:
 }
 ```
 
-Optional packages by platform:
+Package lists are plain Nix lists:
 
 ```nix
-home.packages = with pkgs; [ fd ] ++ lib.optionals stdenv.isLinux [ zathura ];
+home.packages = with pkgs; [ fd zathura ];
 ```
 
 Read JSON into Nix:

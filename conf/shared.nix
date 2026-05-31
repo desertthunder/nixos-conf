@@ -58,6 +58,7 @@
         extraGroups = [
           "networkmanager"
           "wheel"
+          "kvm"
         ];
         shell = pkgs.zsh;
         packages = with pkgs; [ ];
@@ -82,6 +83,7 @@
 
       programs.firefox.enable = true;
       nixpkgs.config.allowUnfree = true;
+      nixpkgs.config.android_sdk.accept_license = true;
 
       environment.systemPackages = with pkgs; [
         vim
@@ -134,6 +136,12 @@
       neovim-config,
       ...
     }:
+    let
+      elixir-ls-bin = pkgs.runCommand "elixir-ls-bin" { } ''
+        mkdir -p $out/bin
+        ln -s ${pkgs.elixir-ls}/bin/* $out/bin/
+      '';
+    in
     {
       home.username = "owais";
       home.homeDirectory = "/home/owais";
@@ -143,90 +151,107 @@
         "Xft.dpi" = 172;
       };
 
-      home.packages =
-        with pkgs;
-        [
-          shellcheck
-          shfmt
-          fastfetch
-          ranger
-          bat
-          dust
-          zip
-          xz
-          unzip
-          p7zip
-          ripgrep
-          fd
-          jq
-          yq-go
-          fzf
-          file
-          which
-          tree
-          gnused
-          gnutar
-          gawk
-          zstd
-          gnupg
-          nix-output-monitor
-          zellij
-          just
-          charm-freeze
-          glow
-          vhs
-          gum
-          asciinema
-          btop
-          oh-my-zsh
-          oh-my-posh
-          pi-coding-agent
-          nodejs_24
-          go
-          gopls
-          dotnet-sdk_9
-          nil
-          pnpm
-          dprint
-          flutter
-          jdk17
-          uv
-          (python313.withPackages (
-            ps: with ps; [
-              pip
-              ipython
-              requests
-            ]
-          ))
-          go-task
-          mdbook
-          bun
-          markdownlint-cli
-          markdownlint-cli2
-          typst
-          whisper-cpp
-          ffmpeg
-          stdenv.cc
-          pkg-config
-        ]
-        ++ lib.optionals stdenv.isLinux [
-          yt-dlp
-          iotop
-          iftop
-          claude-code
-          codex
-          strace
-          ltrace
-          lsof
-          sysstat
-          lm_sensors
-          ethtool
-          pciutils
-          usbutils
-          rofi
-          zathura
-          zathuraPkgs.zathura_pdf_poppler
-        ];
+      home.packages = with pkgs; [
+        shellcheck
+        shfmt
+        fastfetch
+        ranger
+        bat
+        dust
+        zip
+        xz
+        unzip
+        p7zip
+        ripgrep
+        fd
+        wl-clipboard
+        xclip
+        jq
+        yq-go
+        fzf
+        file
+        which
+        tree
+        gnused
+        gnutar
+        gawk
+        zstd
+        gnupg
+        nix-output-monitor
+        zellij
+        just
+        charm-freeze
+        glow
+        vhs
+        gum
+        asciinema
+        btop
+        oh-my-zsh
+        oh-my-posh
+        pi-coding-agent
+        codex
+        nodejs_24
+        go
+        gopls
+        gotools
+        elixir
+        elixir-ls-bin
+        gleam
+        dotnet-sdk_9
+        nil
+        lua-language-server
+        rustc
+        cargo
+        rustfmt
+        clippy
+        rust-analyzer
+        clang-tools
+        bash-language-server
+        typescript
+        typescript-language-server
+        stylua
+        tree-sitter
+        pnpm
+        dprint
+        eslint_d
+        flutter
+        android-studio
+        android-tools
+        jdk17
+        uv
+        (python313.withPackages (
+          ps: with ps; [
+            pip
+            ipython
+            requests
+          ]
+        ))
+        go-task
+        mdbook
+        bun
+        markdownlint-cli
+        markdownlint-cli2
+        typst
+        whisper-cpp
+        ffmpeg
+        stdenv.cc
+        gnumake
+        pkg-config
+        yt-dlp
+        iotop
+        iftop
+        strace
+        ltrace
+        lsof
+        sysstat
+        lm_sensors
+        ethtool
+        pciutils
+        usbutils
+        rofi
+        zathura
+        zathuraPkgs.zathura_pdf_poppler
+      ];
 
       programs.ssh = {
         enable = true;
@@ -254,7 +279,7 @@
       };
 
       programs.zathura = {
-        enable = pkgs.stdenv.isLinux;
+        enable = true;
         options = {
           "selection-clipboard" = "clipboard";
           "default-fg" = "rgba(205,214,244,1)";
@@ -388,7 +413,7 @@
       '';
 
       programs.ghostty = {
-        enable = pkgs.stdenv.isLinux;
+        enable = true;
         enableZshIntegration = true;
         installBatSyntax = true;
         installVimSyntax = true;
