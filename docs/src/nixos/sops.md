@@ -59,7 +59,7 @@ cp age.txt ~/.config/sops/age/keys.txt
 ```bash
 nix flake update
 # Replace with your machine
-sudo [nixos|darwin]-rebuild switch --flake .#owais-nix-thinkpad
+sudo [nixos|darwin]-rebuild switch --flake .#nix-haxorus
 ```
 
 ## Usage

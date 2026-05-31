@@ -6,7 +6,7 @@
     ../../shared/configuration.nix
   ];
 
-  networking.hostName = "owais-nix-thinkpad";
+  networking.hostName = "nix-haxorus";
 
   services.thermald.enable = true;
   services.power-profiles-daemon.enable = false;

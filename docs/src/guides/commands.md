@@ -6,12 +6,12 @@
 
 ```bash
 # Build specific machine configuration
-sudo nixos-rebuild switch --flake .#owais-nix-thinkpad
+sudo nixos-rebuild switch --flake .#nix-haxorus
 sudo nixos-rebuild switch --flake .#owais-nix-hp
 sudo nixos-rebuild switch --flake .#owais-nix-nuc
 
 # Test configuration without switching
-sudo nixos-rebuild test --flake .#owais-nix-thinkpad
+sudo nixos-rebuild test --flake .#nix-haxorus
 
 # Build configuration for remote deployment
 nixos-rebuild build --flake .#owais-nix-nuc

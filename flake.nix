@@ -2,17 +2,11 @@
   description = "A simple NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     neovim-config = {
@@ -29,16 +23,14 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-darwin,
       home-manager,
-      nix-darwin,
       sops-nix,
       self,
       ...
     }@inputs:
     {
       nixosConfigurations = {
-        owais-nix-thinkpad = nixpkgs.lib.nixosSystem {
+        nix-haxorus = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -53,7 +45,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
+              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
+              home-manager.backupFileExtension = null;
             }
           ];
         };
@@ -73,7 +66,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
+              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
+              home-manager.backupFileExtension = null;
             }
           ];
         };
@@ -93,45 +87,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.owais = import ./shared/home.nix;
-              home-manager.backupFileExtension = "backup";
-            }
-          ];
-        };
-      };
-
-      darwinConfigurations = {
-        owais-nix-air = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            {
-              nixpkgs.pkgs = import nixpkgs-darwin {
-                system = "aarch64-darwin";
-                config.allowUnfree = true;
-                config.android_sdk.accept_license = true;
-              };
-            }
-
-            ./machines/mac/air/configuration.nix
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {
-                root = ./.;
-                inherit (inputs) neovim-config;
-                inherit inputs;
-              };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.owais =
-                { lib, ... }:
-                {
-                  imports = [
-                    ./shared/home.nix
-                    ./shared/sops-hm.nix
-                  ];
-                  home.homeDirectory = lib.mkForce "/Users/owais";
-                  xresources = { };
-                };
-              home-manager.backupFileExtension = "backup";
+              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
+              home-manager.backupFileExtension = null;
             }
           ];
         };

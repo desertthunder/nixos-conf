@@ -4,24 +4,11 @@
   lib,
   inputs,
   neovim-config,
-  root,
   ...
 }:
-let
-  androidComposition = pkgs.androidenv.composeAndroidPackages {
-    cmdLineToolsVersion = "13.0";
-    platformToolsVersion = "35.0.2";
-    buildToolsVersions = [ "28.0.3" "35.0.0" ];
-    platformVersions = [ "36" ];
-    includeEmulator = false;
-    includeNDK = false;
-  };
-  androidSdk = androidComposition.androidsdk;
-in
 {
   imports = [
     ./ssh-config.nix
-    ./sops-hm.nix
   ];
 
   home.username = "owais";
@@ -39,7 +26,7 @@ in
       shellcheck
       shfmt
 
-      neofetch
+      fastfetch
       ranger
       bat
       dust # du made with rust
@@ -82,8 +69,10 @@ in
       oh-my-posh
 
       # Development tools and language toolchains
+      pi-coding-agent
+      ghostty
       nodejs_24
-      go_1_24
+      go
       gopls
       dotnet-sdk_9
       nil # nix language server
@@ -142,12 +131,6 @@ in
       rofi
       zathura
       zathuraPkgs.zathura_pdf_poppler
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      # iOS development dependencies
-      cocoapods
-      # Android SDK with cmdline-tools (sdkmanager, avdmanager, etc.)
-      androidSdk
     ];
 
   programs.zathura = {
@@ -234,58 +217,46 @@ in
 
     shellAliases = {
       ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
+      rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
+      switch = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
+      update = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
     };
   };
 
-  programs.zsh.initContent =
-    if pkgs.stdenv.isLinux then
-      ''''
-    else
-      ''
-        PATH=$HOME/.opencode/bin:$PATH
-        PATH=$HOME/.local/bin:$PATH
-        PATH="$HOME/.npm-global/bin:$PATH"
-        PATH="$HOME/.cargo/bin:$PATH"
-        export npm_config_prefix="$HOME/.npm-global"
-        export PATH="$HOME/go/bin:$PATH"
-        export CGO_LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib"
-        export LIBRARY_PATH="/usr/lib"
-        export ANDROID_HOME="$HOME/Library/Android/sdk"
-        export ANDROID_SDK_ROOT="$ANDROID_HOME"
-        # Use Nix store paths directly so tools work even before ANDROID_HOME is populated
-        export PATH="${androidSdk}/libexec/android-sdk/cmdline-tools/latest/bin:${androidSdk}/libexec/android-sdk/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
-
-        if [[ $(uname -m) == 'arm64' ]]; then
-             eval "$(/opt/homebrew/bin/brew shellenv)"
-        fi
-
-        . "$HOME/.cargo/env"
-      '';
-
-  home.activation.setupAndroidSdk = lib.hm.dag.entryAfter [ "writeBoundary" ] (
-    lib.optionalString pkgs.stdenv.isDarwin ''
-      # Symlink cmdline-tools from Nix store so flutter finds sdkmanager at $ANDROID_HOME
-      mkdir -p "$HOME/Library/Android/sdk"
-      ln -sfn "${androidSdk}/libexec/android-sdk/cmdline-tools" "$HOME/Library/Android/sdk/cmdline-tools"
-
-      # Write license files (writable dir so sdkmanager can update them)
-      mkdir -p "$HOME/Library/Android/sdk/licenses"
-      printf '%s\n' \
-        '8933bad161af4178b1185d1a37fbf41ea5269c55' \
-        'd56f5187479451eabf01fb78af6dfcb131a6481e' \
-        '24333f8a63b6825ea9c5514f83c2829b004d1fee' \
-        > "$HOME/Library/Android/sdk/licenses/android-sdk-license"
-      printf '%s\n' \
-        '84831b9409646a918e30573bab4c9c91346d8abd' \
-        > "$HOME/Library/Android/sdk/licenses/android-sdk-preview-license"
-    ''
-  );
+  programs.zsh.initContent = ''
+    PATH=$HOME/.local/bin:$PATH
+    PATH="$HOME/.cargo/bin:$PATH"
+    export PATH="$HOME/go/bin:$PATH"
+  '';
 
   programs.git = {
     enable = true;
     settings.user.name = "Owais Jamil";
     settings.user.email = "desertthunder.dev@gmail.com";
+    ignores = [
+      # OS / editor noise
+      ".DS_Store"
+      "Thumbs.db"
+      "*~"
+      "*.swp"
+      "*.swo"
+
+      # Local environment files
+      ".env"
+      ".env.*"
+      "!.env.example"
+
+      # Nix/dev-shell artifacts
+      ".direnv/"
+      ".devenv/"
+      "result"
+      "result-*"
+
+      # Agent/sandbox local files
+      ".sandbox/"
+      "AGENTS.md"
+      "CLAUDE.md"
+    ];
   };
 
   programs.alacritty = {
@@ -350,6 +321,9 @@ in
     viAlias = true;
     vimAlias = true;
     defaultEditor = true;
+    # Preserve pre-26.05 Home Manager defaults while keeping home.stateVersion stable.
+    withPython3 = true;
+    withRuby = true;
   };
 
   home.file.".config/nvim" = {
@@ -359,11 +333,11 @@ in
 
   programs.oh-my-posh = {
     enable = true;
-    settings = builtins.fromJSON (builtins.readFile "${root}/modules/omp.json");
+    settings = builtins.fromJSON (builtins.readFile ../modules/omp.json);
   };
 
   home.file.".config/zellij" = {
-    source = "${root}/modules/zellij";
+    source = ../modules/zellij;
     recursive = true;
   };
 

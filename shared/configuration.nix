@@ -29,8 +29,13 @@
 
   # X11 and desktop environment
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+
+  # Do not kill the active graphical session during `nixos-rebuild switch`.
+  # Apply display-manager/GDM changes on the next reboot instead.
+  systemd.services.display-manager.restartIfChanged = false;
+  systemd.services.display-manager.stopIfChanged = false;
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -82,7 +87,6 @@
 
   programs.firefox.enable = true;
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.android_sdk.accept_license = true;
 
   environment.systemPackages = with pkgs; [
     vim
@@ -93,7 +97,7 @@
     alacritty
     neovim
     zsh
-    nixfmt-rfc-style
+    nixfmt
     delta
   ];
 

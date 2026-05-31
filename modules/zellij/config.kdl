@@ -286,5 +286,7 @@ theme "tokyo-night-dark"
 
 default_mode "locked"
 
+show_startup_tips false
+
 // layout_dir "/tmp"
 // theme_dir "/tmp"

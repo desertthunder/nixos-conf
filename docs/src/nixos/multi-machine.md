@@ -25,7 +25,7 @@ This repository is organized to support multiple NixOS machines with shared conf
 
 ## Machine Profiles
 
-### ThinkPad (`owais-nix-thinkpad`)
+### ThinkPad (`nix-haxorus`)
 
 - **Status**: Configured
 - **Current Features**:
