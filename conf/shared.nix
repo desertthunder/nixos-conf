@@ -162,11 +162,15 @@
         "Xft.dpi" = 172;
       };
 
-      # GNOME settings (gsettings/dconf)
+
+      /** GNOME Settings */
       dconf.settings = {
-        # Ensure the power menu includes "Log Out…".
         "org/gnome/desktop/lockdown" = {
           disable-log-out = false;
+        };
+
+        "org/gnome/desktop/interface" = {
+          icon-theme = "kora";
         };
 
         "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -292,6 +296,7 @@
         rofi
         gnome-tweaks
         gnome-extension-manager
+        kora-icon-theme
         google-chrome
         spotify
         zathura
