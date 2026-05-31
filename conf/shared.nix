@@ -152,8 +152,191 @@
         mkdir -p $out/bin
         ln -s ${pkgs.elixir-ls}/bin/* $out/bin/
       '';
+
+      editor-tool-pkgs = with pkgs; [
+        bash-language-server
+        clang-tools
+        dprint
+        elixir
+        elixir-ls-bin
+        eslint_d
+        flutter
+        gleam
+        go
+        gopls
+        gotools
+        lua-language-server
+        nil
+        nixd
+        nixfmt
+        nodejs_24
+        rust-analyzer
+        rustfmt
+        shellcheck
+        shfmt
+        stylua
+        typescript
+        typescript-language-server
+      ];
+
+      cli-tool-pkgs = with pkgs; [
+        bat
+        codex
+        dust
+        fastfetch
+        fd
+        file
+        fzf
+        gnupg
+        hurl
+        jq
+        just
+        nix-output-monitor
+        oh-my-posh
+        oh-my-zsh
+        pi-coding-agent
+        ranger
+        ripgrep
+        tree
+        which
+        wl-clipboard
+        xclip
+        yq-go
+      ];
+
+      archive-pkgs = with pkgs; [
+        gnused
+        gnutar
+        gawk
+        p7zip
+        unzip
+        xz
+        zip
+        zstd
+      ];
+
+      tui-pkgs = with pkgs; [
+        asciinema
+        btop
+        charm-freeze
+        glow
+        gum
+        vhs
+        zellij
+      ];
+
+      dev-tool-pkgs = with pkgs; [
+        android-tools
+        android-studio
+        bun
+        cargo
+        clippy
+        dotnet-sdk_9
+        go-task
+        jdk17
+        markdownlint-cli
+        markdownlint-cli2
+        mdbook
+        pkg-config
+        pnpm
+        sqlite
+        stdenv.cc
+        gnumake
+        tree-sitter
+        typst
+        uv
+        wasm-pack
+        (python313.withPackages (
+          ps: with ps; [
+            pip
+            ipython
+            requests
+          ]
+        ))
+      ];
+
+      sys-tool-pkgs = with pkgs; [
+        ethtool
+        iftop
+        iotop
+        lm_sensors
+        lsof
+        ltrace
+        pciutils
+        strace
+        sysstat
+        usbutils
+      ];
+
+      media-pkgs = with pkgs; [
+        ffmpeg
+        whisper-cpp
+        yt-dlp
+      ];
+
+      gui-pkgs = with pkgs; [
+        gnome-extension-manager
+        gnome-tweaks
+        google-chrome
+        kora-icon-theme
+        rofi
+        spotify
+        zathura
+        zathuraPkgs.zathura_pdf_poppler
+        mpv
+      ];
+
+      text-editors = {
+        programs.neovim = {
+          enable = true;
+          viAlias = true;
+          vimAlias = true;
+          defaultEditor = true;
+          withPython3 = true;
+          withRuby = true;
+        };
+        home.file.".config/nvim" = {
+          source = neovim-config;
+          recursive = true;
+        };
+
+        /*
+          Home Manager's Zed module reference:
+          https://github.com/nix-community/home-manager/blob/master/modules/programs/zed-editor.nix
+        */
+        programs.zed-editor = {
+          enable = true;
+          extensions = [
+            "basher"
+            "dart"
+            "elixir"
+            "flutter-snippets"
+            "gleam"
+            "lua"
+            "nix"
+            "oxocarbon"
+          ];
+          extraPackages = editor-tool-pkgs;
+          userSettings = {
+            theme = "Oxocarbon Dark (Variant I)";
+            ui_font_family = "Inter";
+            ui_font_size = 18.0;
+            buffer_font_family = "JetBrainsMono Nerd Font";
+            buffer_font_size = 17;
+            tab_size = 2;
+            hard_tabs = false;
+            format_on_save = "on";
+            telemetry = {
+              diagnostics = false;
+              metrics = false;
+            };
+          };
+        };
+      };
     in
     {
+      imports = [ text-editors ];
+
       home.username = "owais";
       home.homeDirectory = "/home/owais";
 
@@ -194,115 +377,15 @@
         };
       };
 
-      home.packages = with pkgs; [
-        shellcheck
-        shfmt
-        fastfetch
-        ranger
-        bat
-        dust
-        zip
-        xz
-        unzip
-        p7zip
-        ripgrep
-        fd
-        wl-clipboard
-        xclip
-        jq
-        yq-go
-        hurl
-        fzf
-        file
-        which
-        tree
-        gnused
-        gnutar
-        gawk
-        zstd
-        gnupg
-        nix-output-monitor
-        zellij
-        just
-        charm-freeze
-        glow
-        vhs
-        gum
-        asciinema
-        btop
-        oh-my-zsh
-        oh-my-posh
-        pi-coding-agent
-        codex
-        nodejs_24
-        go
-        gopls
-        gotools
-        elixir
-        elixir-ls-bin
-        gleam
-        dotnet-sdk_9
-        nil
-        lua-language-server
-        rustc
-        cargo
-        wasm-pack
-        rustfmt
-        clippy
-        rust-analyzer
-        clang-tools
-        bash-language-server
-        typescript
-        typescript-language-server
-        stylua
-        tree-sitter
-        pnpm
-        dprint
-        eslint_d
-        flutter
-        android-studio
-        android-tools
-        jdk17
-        uv
-        (python313.withPackages (
-          ps: with ps; [
-            pip
-            ipython
-            requests
-          ]
-        ))
-        go-task
-        mdbook
-        bun
-        markdownlint-cli
-        markdownlint-cli2
-        typst
-        whisper-cpp
-        ffmpeg
-        stdenv.cc
-        gnumake
-        pkg-config
-        sqlite
-        yt-dlp
-        iotop
-        iftop
-        strace
-        ltrace
-        lsof
-        sysstat
-        lm_sensors
-        ethtool
-        pciutils
-        usbutils
-        rofi
-        gnome-tweaks
-        gnome-extension-manager
-        kora-icon-theme
-        google-chrome
-        spotify
-        zathura
-        zathuraPkgs.zathura_pdf_poppler
-      ];
+      home.packages =
+        editor-tool-pkgs
+        ++ cli-tool-pkgs
+        ++ archive-pkgs
+        ++ tui-pkgs
+        ++ dev-tool-pkgs
+        ++ sys-tool-pkgs
+        ++ media-pkgs
+        ++ gui-pkgs;
 
       programs.ssh = {
         enable = true;
@@ -432,79 +515,16 @@
         ];
       };
 
-
-      programs.neovim = {
-        enable = true;
-        viAlias = true;
-        vimAlias = true;
-        defaultEditor = true;
-        withPython3 = true;
-        withRuby = true;
-      };
-      home.file.".config/nvim" = {
-        source = neovim-config;
-        recursive = true;
-      };
-
-      programs.zed-editor = {
-        enable = true;
-        extensions = [
-          "basher"
-          "dart"
-          "elixir"
-          "flutter-snippets"
-          "gleam"
-          "lua"
-          "nix"
-          "oxocarbon"
-        ];
-        extraPackages = with pkgs; [
-          bash-language-server
-          clang-tools
-          dprint
-          elixir
-          elixir-ls-bin
-          eslint_d
-          flutter
-          gleam
-          go
-          gopls
-          gotools
-          lua-language-server
-          nil
-          nixfmt
-          nodejs_24
-          rust-analyzer
-          rustfmt
-          shellcheck
-          shfmt
-          stylua
-          typescript
-          typescript-language-server
-        ];
-        userSettings = {
-          theme = "Oxocarbon Dark (Variant I)";
-          ui_font_family = "Inter";
-          buffer_font_family = "JetBrainsMono Nerd Font";
-          buffer_font_size = 16;
-          tab_size = 2;
-          hard_tabs = false;
-          format_on_save = "on";
-          telemetry = {
-            diagnostics = false;
-            metrics = false;
-          };
-        };
-      };
-
       programs.oh-my-posh = {
         enable = true;
         settings = builtins.fromJSON (builtins.readFile ./modules/omp.json);
       };
+
       home.file.".config/zellij" = {
         source = ./modules/zellij;
         recursive = true;
       };
+
       home.file.".config/ripgrep/config".text = ''
         --line-number
         --smart-case
