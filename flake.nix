@@ -34,7 +34,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./machines/thinkpad/configuration.nix
+            ./conf/machines/thinkpad/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs = {
@@ -44,7 +44,7 @@
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
+              home-manager.users.owais = (import ./conf/shared.nix).home;
               # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
               home-manager.backupFileExtension = null;
             }
@@ -55,7 +55,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./machines/hp/configuration.nix
+            ./conf/machines/hp/configuration.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.extraSpecialArgs = {
@@ -65,33 +65,13 @@
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
+              home-manager.users.owais = (import ./conf/shared.nix).home;
               # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
               home-manager.backupFileExtension = null;
             }
           ];
         };
 
-        owais-nix-nuc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./machines/nuc/configuration.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.extraSpecialArgs = {
-                root = ./.;
-                inherit (inputs) neovim-config;
-                inherit inputs;
-              };
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.owais = import ./shared/home.nix;
-              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
-              home-manager.backupFileExtension = null;
-            }
-          ];
-        };
       };
     };
 }

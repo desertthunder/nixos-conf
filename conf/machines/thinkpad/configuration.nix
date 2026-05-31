@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../shared/configuration.nix
+    (import ../../shared.nix).nixos
   ];
 
   networking.hostName = "nix-haxorus";

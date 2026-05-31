@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SECRETS_FILE="$REPO_ROOT/secrets/owais.yaml"
+SECRETS_FILE="$REPO_ROOT/conf/secrets/owais.yaml"
 DEST="$HOME/.local/share/sops"
 SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
 export SOPS_AGE_KEY_FILE
