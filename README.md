@@ -26,31 +26,7 @@ This site was inspired by isabel's dotfiles
 
 ![Lucy (Gleam) as Nix Logo](./docs/src/images/gleam-lucy_nix.png)
 
-## TODO
-
-- [ ] Dragon-type naming convention for machines
-
----
-
 ## Migration Guides
 
 For detailed migration procedures and inventory management, see the [Migration
 Guide](./docs/src/guides.md).
-
-## Inventory
-
-Date: 2025-12-08
-
-Nix for system packages, development tools, and user applications.
-
-| Machine | Nix                       |
-| ------- | ------------------------- |
-| All     | Caddy                     |
-| All     | Nginx                     |
-| All     | Gleam                     |
-| All     | Typst                     |
-| All     | Zathura (& zathura-mupdf) |
-| All     | MuPdf                     |
-| All     | yt-dlp                    |
-| All     | slides                    |
-| Mini    | supercollider             |
