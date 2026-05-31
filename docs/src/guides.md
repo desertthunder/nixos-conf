@@ -25,6 +25,9 @@ sudo nixos-generate-config --show-hardware-config \
   > conf/machines/$(hostname)/hardware-configuration.nix
 ```
 
+Note that in `conf/shared.nix`, their are convenience aliases for the rebuild commands
+to use in zsh.
+
 ## Home Manager
 
 Home Manager is wired through the NixOS flake, so normal `nixos-rebuild` applies
@@ -36,11 +39,33 @@ both system and home changes. The shared Home Manager module is
 ```bash
 SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops conf/secrets/owais.yaml
 sops -d conf/secrets/owais.yaml
-./scripts/keys.sh
+./conf/scripts/keys.sh
 ```
 
-`./scripts/keys.sh` extracts Git provider SSH keys into
+`./conf/scripts/keys.sh` extracts Git provider SSH keys into
 `~/.local/share/sops/` for non-NixOS use.
+
+## Verification/Sanity Check Workflow
+
+When making small Nix changes (like adding packages), a quick local check flow:
+
+```bash
+# 1) Format (keeps diffs small and avoids nixfmt-related CI/lint churn)
+nixfmt conf/shared.nix
+
+# 2) Ensure the flake evaluates and outputs are well-formed
+nix flake show --no-write-lock-file
+
+# 3) Optional, stronger checks before switching
+sudo nixos-rebuild build --flake .#$(hostname)
+sudo nixos-rebuild test --flake .#$(hostname)
+```
+
+Notes:
+
+- `nix flake show` only evaluates the flake; it does not build anything.
+- `nixos-rebuild build/test` will actually evaluate/build the system closure and
+  will catch missing packages/options earlier than `switch`.
 
 ## Troubleshooting
 

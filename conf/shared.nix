@@ -76,6 +76,9 @@
           maple-mono.NF
           comic-mono
           open-sans
+          inter
+          noto-fonts
+          ubuntu-classic
           fira-mono
           jetbrains-mono
         ];
@@ -159,6 +162,33 @@
         "Xft.dpi" = 172;
       };
 
+      # GNOME settings (gsettings/dconf)
+      dconf.settings = {
+        # Ensure the power menu includes "Log Out…".
+        "org/gnome/desktop/lockdown" = {
+          disable-log-out = false;
+        };
+
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty-zellij/"
+          ];
+        };
+
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty" = {
+          name = "Ghostty";
+          command = "ghostty";
+          binding = "<Control><Alt>t";
+        };
+
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty-zellij" = {
+          name = "Ghostty (zellij)";
+          command = "ghostty -e zellij";
+          binding = "<Super>z";
+        };
+      };
+
       home.packages = with pkgs; [
         shellcheck
         shfmt
@@ -176,6 +206,7 @@
         xclip
         jq
         yq-go
+        hurl
         fzf
         file
         which
@@ -210,6 +241,7 @@
         lua-language-server
         rustc
         cargo
+        wasm-pack
         rustfmt
         clippy
         rust-analyzer
@@ -245,6 +277,7 @@
         stdenv.cc
         gnumake
         pkg-config
+        sqlite
         yt-dlp
         iotop
         iftop
@@ -257,6 +290,10 @@
         pciutils
         usbutils
         rofi
+        gnome-tweaks
+        gnome-extension-manager
+        google-chrome
+        spotify
         zathura
         zathuraPkgs.zathura_pdf_poppler
       ];
@@ -356,6 +393,8 @@
           rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
           switch = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
           update = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
+          nboot = "sudo nixos-rebuild boot --flake ~/Projects/nixos-conf#$(hostname)";
+          tbuild = "sudo nixos-rebuild test --flake ~/Projects/nixos-conf#$(hostname)";
         };
         initContent = ''
           PATH=$HOME/.local/bin:$PATH

@@ -23,7 +23,7 @@ chmod 600 ~/.local/share/sops/keys_*
 Or run:
 
 ```bash
-./scripts/keys.sh
+./conf/scripts/keys.sh
 ```
 
 For NixOS, the same secrets are exposed through `/run/secrets/` by `sops-nix`.
