@@ -162,8 +162,9 @@
         "Xft.dpi" = 172;
       };
 
-
-      /** GNOME Settings */
+      /**
+        GNOME Settings
+      */
       dconf.settings = {
         "org/gnome/desktop/lockdown" = {
           disable-log-out = false;
@@ -431,6 +432,7 @@
         ];
       };
 
+
       programs.neovim = {
         enable = true;
         viAlias = true;
@@ -442,6 +444,57 @@
       home.file.".config/nvim" = {
         source = neovim-config;
         recursive = true;
+      };
+
+      programs.zed-editor = {
+        enable = true;
+        extensions = [
+          "basher"
+          "dart"
+          "elixir"
+          "flutter-snippets"
+          "gleam"
+          "lua"
+          "nix"
+          "oxocarbon"
+        ];
+        extraPackages = with pkgs; [
+          bash-language-server
+          clang-tools
+          dprint
+          elixir
+          elixir-ls-bin
+          eslint_d
+          flutter
+          gleam
+          go
+          gopls
+          gotools
+          lua-language-server
+          nil
+          nixfmt
+          nodejs_24
+          rust-analyzer
+          rustfmt
+          shellcheck
+          shfmt
+          stylua
+          typescript
+          typescript-language-server
+        ];
+        userSettings = {
+          theme = "Oxocarbon Dark (Variant I)";
+          ui_font_family = "Inter";
+          buffer_font_family = "JetBrainsMono Nerd Font";
+          buffer_font_size = 16;
+          tab_size = 2;
+          hard_tabs = false;
+          format_on_save = "on";
+          telemetry = {
+            diagnostics = false;
+            metrics = false;
+          };
+        };
       };
 
       programs.oh-my-posh = {

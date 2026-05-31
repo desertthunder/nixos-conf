@@ -29,6 +29,13 @@ separate dotfile.
 Ghostty is enabled on Linux with Zsh integration, JetBrains Mono Nerd Font, and a
 small dark palette. It launches Zsh as a login shell.
 
+## Zed
+
+Zed is enabled through Home Manager. It uses the Oxocarbon theme and Zed's
+auto-installer for Bash, Dart/Flutter, Elixir, Gleam, Lua, and Nix extensions.
+Home Manager wraps Zed with the language servers and formatters used by the
+Neovim setup so GUI launches can find them.
+
 ## Zellij
 
 Zellij config is sourced from `conf/modules/zellij` into `~/.config/zellij`.
