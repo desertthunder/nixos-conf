@@ -41,7 +41,17 @@ Neovim setup so GUI launches can find them.
 Zellij config is sourced from `conf/modules/zellij` into `~/.config/zellij`.
 Home Manager copies the whole directory recursively, so layouts from
 `conf/modules/zellij/layouts/*.kdl` are available as
-`~/.config/zellij/layouts/*.kdl`.
+`~/.config/zellij/layouts/*.kdl`. Themes from
+`conf/modules/zellij/themes/*.kdl` are also available through Zellij's default
+`themes/` directory lookup.
+
+Check the config before committing changes with:
+
+```bash
+ZELLIJ_CONFIG_FILE="$PWD/conf/modules/zellij/config.kdl" \
+  ZELLIJ_CONFIG_DIR="$PWD/conf/modules/zellij" \
+  zellij setup --check
+```
 
 Use a named layout with either the long or short flag:
 
