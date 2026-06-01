@@ -271,6 +271,7 @@
         mdbook
         pkg-config
         pnpm
+        rustc
         sqlite
         stdenv.cc
         gnumake
