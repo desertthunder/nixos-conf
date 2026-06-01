@@ -510,6 +510,13 @@
         };
       };
 
+      # TODO: dev tooling mod
+      programs.direnv = {
+        enable = true;
+        enableZshIntegration = true;
+        nix-direnv.enable = true;
+      };
+
       catppuccin = {
         enable = true;
         autoEnable = false;
@@ -542,6 +549,7 @@
           cat = "bat --paging=never --style=plain";
           less = "bat";
           preview = "bat --style=numbers,changes --color=always";
+
           zed = "zeditor";
           zedn = "zeditor --new";
         };
