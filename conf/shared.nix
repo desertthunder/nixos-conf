@@ -50,6 +50,30 @@
       services.printing.enable = true;
       services.openssh.enable = true;
 
+      virtualisation.docker.enable = true;
+
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = [ "owais" ];
+        ensureUsers = [
+          {
+            name = "owais";
+            ensureDBOwnership = true;
+            ensureClauses = {
+              createdb = true;
+              createrole = true;
+            };
+          }
+        ];
+        authentication = ''
+          local all all trust
+          host all all 127.0.0.1/32 trust
+          host all all ::1/128 trust
+        '';
+      };
+
+      services.redis.servers."".enable = true;
+
       programs.zsh.enable = true;
 
       users.users.owais = {
@@ -59,6 +83,7 @@
           "networkmanager"
           "wheel"
           "kvm"
+          "docker"
         ];
         shell = pkgs.zsh;
         packages = with pkgs; [ ];
@@ -233,10 +258,14 @@
         android-studio
         bun
         cargo
+        ctop
+        dive
         clippy
         dotnet-sdk_9
         go-task
+        harlequin
         jdk17
+        lazydocker
         markdownlint-cli
         markdownlint-cli2
         mdbook
