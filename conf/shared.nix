@@ -376,7 +376,6 @@
 
       home.username = "owais";
       home.homeDirectory = "/home/owais";
-
       xresources.properties = {
         "Xcursor.size" = 16;
         "Xft.dpi" = 172;
@@ -543,6 +542,8 @@
           cat = "bat --paging=never --style=plain";
           less = "bat";
           preview = "bat --style=numbers,changes --color=always";
+          zed = "zeditor";
+          zedn = "zeditor --new";
         };
         initContent = ''
           PATH=$HOME/.local/bin:$PATH
@@ -600,7 +601,6 @@
               "Downloads" = " ";
               "Music" = " ";
               "Pictures" = " ";
-              "Projects" = " ";
             };
           };
 

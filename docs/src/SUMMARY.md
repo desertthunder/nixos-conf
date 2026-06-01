@@ -1,6 +1,7 @@
 # Summary
 
 - [Guides](./guides.md)
+- [Development](./development.md)
 - [NixOS](./nixos.md)
 - [Neovim](./neovim.md)
 - [Programs](./programs.md)
