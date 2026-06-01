@@ -83,3 +83,5 @@ overrides.nix
 
 .env
 .env.*
+.sandbox
+dist
