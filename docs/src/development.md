@@ -35,7 +35,7 @@ cd docs
 mdbook serve
 ```
 
-## Shells
+## Dev environments
 
 Some application projects need native Linux libraries that should not live in
 this machine's global profile. Tauri is the main example: Rust crates such as
@@ -49,7 +49,7 @@ build environment explicit.
 
 ### Tauri
 
-`shell/tauri.nix` contains a dev shell for the Tauri apps.
+`dev/tauri.nix` contains a dev shell for the Tauri apps.
 
 The shell provides:
 

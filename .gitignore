@@ -83,5 +83,7 @@ overrides.nix
 
 .env
 .env.*
+
 .sandbox
 dist
+!conf/agent/AGENTS.md

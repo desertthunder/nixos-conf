@@ -98,6 +98,8 @@
           nerd-fonts.monaspace
           nerd-fonts._0xproto
           nerd-fonts.im-writing
+          nerd-fonts.comic-shanns-mono
+          nerd-fonts.martian-mono
           maple-mono.NF
           comic-mono
           open-sans
@@ -182,6 +184,7 @@
       editor-tool-pkgs = with pkgs; [
         bash-language-server
         clang-tools
+        deno
         dprint
         elixir
         elixir-ls-bin
@@ -269,10 +272,8 @@
         markdownlint-cli
         markdownlint-cli2
         mdbook
-        pkg-config
         pnpm
         rustc
-        sqlite
         stdenv.cc
         gnumake
         tree-sitter
@@ -342,6 +343,7 @@
           extensions = [
             "basher"
             "dart"
+            "deno"
             "elixir"
             "flutter-snippets"
             "gleam"
@@ -357,12 +359,19 @@
             ui_font_size = 18.0;
             buffer_font_family = "0xProto Nerd Font Propo";
             buffer_font_size = 18;
+            terminal = {
+              font_family = "MartianMono Nerd Font";
+            };
             tab_size = 2;
             hard_tabs = false;
             format_on_save = "on";
             telemetry = {
               diagnostics = false;
               metrics = false;
+            };
+            lsp.deno.settings.deno = {
+              enable = true;
+              lint = true;
             };
           };
         };
@@ -660,6 +669,17 @@
         recursive = true;
       };
 
+      home.file.".pi/agent/AGENTS.md" = {
+        source = ./agent/AGENTS.md;
+        force = true;
+      };
+
+      home.file.".pi/agent/skills" = {
+        source = ./agent/skills;
+        recursive = true;
+        force = true;
+      };
+
       home.file.".config/ripgrep/config".text = ''
         --line-number
         --smart-case
@@ -678,7 +698,7 @@
         installBatSyntax = true;
         installVimSyntax = true;
         settings = {
-          font-family = "JetBrainsMono Nerd Font Propo";
+          font-family = "MartianMono Nerd Font";
           font-style = "SemiBold";
           font-size = 16;
           window-padding-x = 8;
