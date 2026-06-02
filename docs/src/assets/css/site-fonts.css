@@ -1,0 +1,184 @@
+/* Vendored from @fontsource-variable/ibm-plex-sans, @fontsource/ibm-plex-serif, and @fontsource-variable/geist-mono. */
+
+/* IBM Plex Sans: normal */
+@font-face {
+  font-family: "IBM Plex Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 700;
+  src: url("../../../assets/fonts/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 700;
+  src: url("../../../assets/fonts/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* IBM Plex Sans: italic */
+@font-face {
+  font-family: "IBM Plex Sans Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 700;
+  src: url("../../../assets/fonts/ibm-plex-sans/files/ibm-plex-sans-latin-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 700;
+  src: url("../../../assets/fonts/ibm-plex-sans/files/ibm-plex-sans-latin-ext-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* IBM Plex Serif: normal */
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../../../assets/fonts/ibm-plex-serif/files/ibm-plex-serif-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../../../assets/fonts/ibm-plex-serif/files/ibm-plex-serif-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Geist Mono: normal */
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-symbols2-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F;
+}
+
+/* Geist Mono: italic */
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-latin-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-latin-ext-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../../../assets/fonts/geist-mono/files/geist-mono-symbols2-wght-italic.woff2") format("woff2-variations");
+  unicode-range: U+2000-2001, U+2004-2008, U+200A, U+23B8-23BD, U+2500-259F;
+}
+
+:root {
+  --bg: hsl(200, 7%, 8%);
+  --fg: #98a3ad;
+  --sidebar-bg: #292c2f;
+  --sidebar-fg: #a1adb8;
+  --sidebar-non-existant: #505254;
+  --sidebar-active: #3473ad;
+  --sidebar-spacer: #393939;
+  --scrollbar: var(--sidebar-fg);
+  --icons: #43484d;
+  --icons-hover: #b3c0cc;
+  --links: #2b79a2;
+  --inline-code-color: #c5c8c6;
+  --theme-popup-bg: #141617;
+  --theme-popup-border: #43484d;
+  --theme-hover: #1f2124;
+  --quote-bg: hsl(234, 21%, 18%);
+  --quote-border: hsl(234, 21%, 23%);
+  --warning-border: #ff8e00;
+  --table-border-color: hsl(200, 7%, 13%);
+  --table-header-bg: hsl(200, 7%, 28%);
+  --table-alternate-bg: hsl(200, 7%, 11%);
+  --searchbar-border-color: #aaa;
+  --searchbar-bg: #b7b7b7;
+  --searchbar-fg: #000;
+  --searchbar-shadow-color: #aaa;
+  --searchresults-header-fg: #666;
+  --searchresults-border-color: #98a3ad;
+  --searchresults-li-bg: #2b2b2f;
+  --search-mark-bg: #355c7d;
+  --color-scheme: dark;
+  --copy-button-filter: invert(26%) sepia(8%) saturate(575%) hue-rotate(169deg) brightness(87%) contrast(82%);
+  --copy-button-filter-hover: invert(36%) sepia(70%) saturate(503%) hue-rotate(167deg) brightness(98%) contrast(89%);
+  --mono-font: "Geist Mono Variable", "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace;
+}
+
+#theme-toggle,
+#theme-list {
+  display: none !important;
+}
+
+html,
+button,
+input {
+  font-family: "IBM Plex Sans Variable", "Open Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "IBM Plex Serif", Georgia, serif;
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  color: #9DBCFB;
+}
+
+code,
+pre,
+.ace_editor,
+.hljs {
+  font-family: var(--mono-font) !important;
+}

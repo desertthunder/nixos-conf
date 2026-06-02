@@ -383,6 +383,6 @@ redis-cli ping
 ssh -T git@github.com
 ```
 
-Expect a few package substitutions. The goal is not byte-for-byte parity with
-NixOS. The goal is the same working shape: GNOME, Zsh, modern terminals/editors,
-local services, container tooling, language servers, and the same dotfiles.
+Expect package substitutions. Aim for the same working setup: GNOME, Zsh,
+modern terminals and editors, local services, container tooling, language
+servers, and the same dotfiles.

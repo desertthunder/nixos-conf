@@ -25,8 +25,7 @@ sudo nixos-generate-config --show-hardware-config \
   > conf/machines/$(hostname)/hardware-configuration.nix
 ```
 
-Note that in `conf/shared.nix`, their are convenience aliases for the rebuild commands
-to use in zsh.
+`conf/shared.nix` defines zsh aliases for common rebuild commands.
 
 ## Home Manager
 
@@ -45,7 +44,7 @@ sops -d conf/secrets/owais.yaml
 `./conf/scripts/keys.sh` extracts Git provider SSH keys into
 `~/.local/share/sops/` for non-NixOS use.
 
-## Verification/Sanity Check Workflow
+## Check changes
 
 When making small Nix changes (like adding packages), a quick local check flow:
 

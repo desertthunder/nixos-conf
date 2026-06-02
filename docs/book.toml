@@ -2,7 +2,11 @@
 authors = ["Owais Jamil"]
 language = "en"
 src = "src"
-title = "NixOS Notes & Configuration"
+title = "Owais' NixOS Flakes & Dotfiles"
 
 [output.html]
 git-repository-url = "https://github.com/desertthunder/nixos-conf"
+default-theme = "coal"
+preferred-dark-theme = "coal"
+additional-css = ["src/assets/css/site-fonts.css"]
+additional-js = ["src/assets/js/theme.js"]
