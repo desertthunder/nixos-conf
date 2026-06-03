@@ -13,6 +13,7 @@
       boot.loader.efi.canTouchEfiVariables = true;
 
       networking.networkmanager.enable = true;
+      networking.firewall.checkReversePath = false;
 
       time.timeZone = "America/Chicago";
       i18n.defaultLocale = "en_US.UTF-8";
@@ -128,6 +129,8 @@
         git
         wget
         curl
+        wireguard-tools
+        proton-vpn
         vscode
         neovim
         zsh
@@ -311,6 +314,7 @@
         gnome-extension-manager
         gnome-tweaks
         google-chrome
+        inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         kora-icon-theme
         spotify
         zathura
@@ -551,11 +555,11 @@
         };
         shellAliases = {
           ll = "ls -l";
-          rebuild = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
-          switch = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
-          update = "sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)";
-          nboot = "sudo nixos-rebuild boot --flake ~/Projects/nixos-conf#$(hostname)";
-          tbuild = "sudo nixos-rebuild test --flake ~/Projects/nixos-conf#$(hostname)";
+          rebuild = ''sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
+          switch = ''sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
+          update = ''nix flake update --flake "$NIXOS_CONFIG" && sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
+          nboot = ''sudo nixos-rebuild boot --flake "$NIXOS_CONFIG#$(hostname)"'';
+          tbuild = ''sudo nixos-rebuild test --flake "$NIXOS_CONFIG#$(hostname)"'';
 
           cat = "bat --paging=never --style=plain";
           less = "bat";
@@ -565,6 +569,7 @@
           zedn = "zeditor --new";
         };
         initContent = ''
+          export NIXOS_CONFIG=''${NIXOS_CONFIG:-$HOME/Projects/nixos-conf}
           PATH=$HOME/.local/bin:$PATH
           PATH="$HOME/.cargo/bin:$PATH"
           export PATH="$HOME/go/bin:$PATH"

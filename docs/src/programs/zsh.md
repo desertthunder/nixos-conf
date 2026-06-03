@@ -58,11 +58,12 @@ alias zedn='zeditor --new'
 Do not copy these outside NixOS:
 
 ```zsh
-alias rebuild='sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)'
-alias switch='sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)'
-alias update='sudo nixos-rebuild switch --flake ~/Projects/nixos-conf#$(hostname)'
-alias nboot='sudo nixos-rebuild boot --flake ~/Projects/nixos-conf#$(hostname)'
-alias tbuild='sudo nixos-rebuild test --flake ~/Projects/nixos-conf#$(hostname)'
+export NIXOS_CONFIG=${NIXOS_CONFIG:-$HOME/Projects/nixos-conf}
+alias rebuild='sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
+alias switch='sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
+alias update='nix flake update --flake "$NIXOS_CONFIG" && sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
+alias nboot='sudo nixos-rebuild boot --flake "$NIXOS_CONFIG#$(hostname)"'
+alias tbuild='sudo nixos-rebuild test --flake "$NIXOS_CONFIG#$(hostname)"'
 ```
 
 ## Check it
