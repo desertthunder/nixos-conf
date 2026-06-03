@@ -208,7 +208,7 @@
         typescript-language-server
       ];
 
-      # TODO: consider removing some of these (ranger maybe?)
+      # TODO: consider removing some of these
       #  some of these could be dev-tool-pkgs (hurl, jq, just, etc.)
       cli-tool-pkgs = with pkgs; [
         bat
@@ -225,7 +225,6 @@
         nix-output-monitor
         oh-my-zsh
         pi-coding-agent
-        ranger
         ripgrep
         starship
         tree
@@ -313,7 +312,6 @@
         gnome-tweaks
         google-chrome
         kora-icon-theme
-        rofi
         spotify
         zathura
         zathuraPkgs.zathura_pdf_poppler
@@ -361,6 +359,7 @@
             buffer_font_size = 18;
             terminal = {
               font_family = "MartianMono Nerd Font";
+              font_size = 17;
             };
             tab_size = 2;
             hard_tabs = false;
@@ -372,6 +371,9 @@
             lsp.deno.settings.deno = {
               enable = true;
               lint = true;
+            };
+            toolbar = {
+              breadcrumbs = false;
             };
           };
         };
