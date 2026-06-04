@@ -209,6 +209,8 @@
         stylua
         typescript
         typescript-language-server
+        zig
+        zls
       ];
 
       # TODO: consider removing some of these
@@ -271,6 +273,7 @@
         harlequin
         jdk17
         lazydocker
+        lldb
         markdownlint-cli
         markdownlint-cli2
         mdbook
@@ -352,6 +355,7 @@
             "lua"
             "nix"
             "oxocarbon"
+            "zig"
           ];
           extraPackages = editor-tool-pkgs;
           userSettings = {

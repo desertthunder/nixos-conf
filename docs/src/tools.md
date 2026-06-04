@@ -53,4 +53,4 @@ Project defaults:
 
 Home Manager installs common helpers including `fd`, `jq`, `yq`, `fzf`, `bat`,
 `dust`, `tree`, `zellij`, `gum`, `glow`, `vhs`, `btop`, `shellcheck`, `shfmt`,
-`typst`, and `mdbook`.
+`zig`, `zls`, `lldb`, `typst`, and `mdbook`.

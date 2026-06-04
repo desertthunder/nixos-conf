@@ -21,6 +21,7 @@ Configured extensions:
 - `lua`
 - `nix`
 - `oxocarbon`
+- `zig`
 
 ## Portable setup
 
@@ -52,6 +53,8 @@ shfmt
 stylua
 typescript
 typescript-language-server
+zig
+zls
 ```
 
 On non-Nix systems, GUI apps may not inherit your shell PATH. If Zed cannot find
@@ -92,6 +95,8 @@ zeditor --version
 which nixd
 which typescript-language-server
 which rust-analyzer
+which zls
+which zig
 ```
 
 Open Zed's language server logs if completion or formatting fails.
