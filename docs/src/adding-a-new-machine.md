@@ -23,6 +23,8 @@ conf/
 ├── machines/
 │   ├── hp/
 │   └── thinkpad/
+├── modules/
+│   └── de/
 └── shared.nix
 ```
 
@@ -30,6 +32,8 @@ conf/
 - `conf/machines/{machine}/configuration.nix` contains host-specific choices.
 - `conf/machines/{machine}/hardware-configuration.nix` contains hardware
   discovered on that machine.
+- `conf/modules/` contains app config assets and focused modules.
+- `conf/modules/de/` contains opt-in desktop-environment modules.
 - `flake.nix` maps a hostname to a complete NixOS system.
 
 The flake is the entry point.
@@ -105,6 +109,10 @@ Avoid putting general preferences here. If every machine should get a package,
 service, user, shell, desktop setting, or secret integration, put it in
 `conf/shared.nix` to keep new machines boring.
 
+If a desktop stack should only exist on one host, import it explicitly from the
+host module instead of adding it to `conf/shared.nix`. For example,
+`nix-haxorus` imports `../../modules/de/hypr.nix`.
+
 ## Flake Output
 
 Open `flake.nix` and add another entry inside `nixosConfigurations`:
@@ -140,6 +148,18 @@ the user environment is built together with `nixos-rebuild`.[^home-manager]
 `home-manager.useGlobalPkgs = true` makes Home Manager use the same Nixpkgs
 instance as the system, and `home-manager.useUserPackages = true` installs user
 packages under `/etc/profiles/per-user`.[^home-manager-options]
+
+For host-specific Home Manager modules, wrap the shared home module in an
+imports list. `nix-haxorus` uses this for Hyprland:
+
+```nix
+home-manager.users.owais = {
+  imports = [
+    (import ./conf/shared.nix).home
+    ./conf/modules/de/hypr-home.nix
+  ];
+};
+```
 
 ## Build and Activate
 

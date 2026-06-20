@@ -27,7 +27,9 @@ chsh -s "$(command -v zsh)"
 Install Oh My Zsh if your distro does not package it:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(
+  curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+)"
 ```
 
 Add PATH entries to `~/.zshrc`:
@@ -61,7 +63,8 @@ Do not copy these outside NixOS:
 export NIXOS_CONFIG=${NIXOS_CONFIG:-$HOME/Projects/nixos-conf}
 alias rebuild='sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
 alias switch='sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
-alias update='nix flake update --flake "$NIXOS_CONFIG" && sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
+alias update='nix flake update --flake "$NIXOS_CONFIG" && \
+  sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'
 alias nboot='sudo nixos-rebuild boot --flake "$NIXOS_CONFIG#$(hostname)"'
 alias tbuild='sudo nixos-rebuild test --flake "$NIXOS_CONFIG#$(hostname)"'
 ```

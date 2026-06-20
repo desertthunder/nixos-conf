@@ -80,4 +80,5 @@ Notes:
 - Copy hardware config into `conf/machines/{machine}/`.
 - Keep host-only options in that machine's `configuration.nix`.
 - Keep reusable system and home settings in `conf/shared.nix`.
+- Keep host-specific desktop stacks in opt-in modules under `conf/modules/de/`.
 - Rebuild with `sudo nixos-rebuild switch --flake .#{hostname}`.

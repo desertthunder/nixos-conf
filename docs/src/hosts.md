@@ -11,6 +11,8 @@ Files:
 
 - `conf/machines/thinkpad/configuration.nix`
 - `conf/machines/thinkpad/hardware-configuration.nix`
+- `conf/modules/de/hypr.nix`
+- `conf/modules/de/hypr-home.nix`
 
 Flake target:
 
@@ -28,6 +30,7 @@ Host-specific settings:
 - default TLP mode set to battery
 - CPU governor set to `performance` on AC and `powersave` on battery
 - fingerprint daemon enabled
+- Hyprland desktop enabled through host-specific modules
 
 ## owais-nix-hp
 
@@ -49,7 +52,8 @@ Host-specific settings:
 
 - hostname: `owais-nix-hp`
 
-The HP file currently only imports shared config and hardware config.
+The HP file currently only imports shared config and hardware config. It does
+not import the Hyprland desktop modules.
 
 ## Add another host
 

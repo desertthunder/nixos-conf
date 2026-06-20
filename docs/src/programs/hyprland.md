@@ -1,11 +1,13 @@
 # Hyprland
 
 - `flake.nix`: pins `nixpkgs` to `nixos-26.05`.
-- `conf/shared.nix`: enables GDM and GNOME for all hosts.
 - `conf/shared.nix`: configures Home Manager for the `owais` user.
-- `conf/shared.nix`: installs Hyprland companion packages for the user.
-- `conf/shared.nix`: copies Hyprland and rofi config through Home Manager.
 - `conf/shared.nix`: already configures Ghostty through Home Manager.
+- `conf/machines/thinkpad/configuration.nix`: imports Hyprland for
+  `nix-haxorus`.
+- `conf/modules/de/hypr.nix`: enables GDM, GNOME, and Hyprland system pieces.
+- `conf/modules/de/hypr-home.nix`: installs Hyprland companion packages and
+  copies Hyprland, rofi, waybar, and mako user config.
 
 Package updates come from updating the flake lock and rebuilding:
 
@@ -17,13 +19,40 @@ sudo nixos-rebuild switch --flake .#$(hostname)
 
 Use `nix flake update nixpkgs` to update only `nixpkgs`.
 
-## Trial Install
+## Host Scope
+
+Hyprland is intentionally scoped to `nix-haxorus`. The ThinkPad machine module
+imports the system desktop module:
+
+```nix
+imports = [
+  ./hardware-configuration.nix
+  (import ../../shared.nix).nixos
+  ../../modules/de/hypr.nix
+];
+```
+
+`flake.nix` adds the matching Home Manager module only for `nix-haxorus`:
+
+```nix
+home-manager.users.owais = {
+  imports = [
+    (import ./conf/shared.nix).home
+    ./conf/modules/de/hypr-home.nix
+  ];
+};
+```
+
+Other hosts keep using `(import ./conf/shared.nix).home` directly, so they do
+not inherit Hyprland, waybar, rofi, mako, or related services.
+
+## System Module
 
 Use the NixOS module for Hyprland. It adds the display-manager session and
 sets up system pieces such as XWayland, portals, fonts, dconf, graphics, and
 polkit integration.
 
-Keep GDM enabled during the trial:
+`conf/modules/de/hypr.nix` keeps GDM and GNOME enabled:
 
 ```nix
 services.displayManager.gdm.enable = true;
@@ -79,8 +108,8 @@ Configured project layout:
 
 ```text
 conf/modules/hypr/
-|-- hyprpaper.conf
 |-- hypridle.conf
+|-- shot.sh
 |-- wallpapers/
 `-- hyprland.lua
 
@@ -90,16 +119,22 @@ conf/modules/rofi/
 
 conf/modules/waybar/
 |-- config.jsonc
+|-- power.sh
 `-- style.css
 ```
 
-The existing Home Manager module installs those files with:
+`conf/modules/de/hypr-home.nix` installs those files with relative paths from
+the `conf/modules/de/` directory:
 
 ```nix
-xdg.configFile."hypr/hyprland.lua".source = ./modules/hypr/hyprland.lua;
-xdg.configFile."hypr/hypridle.conf".source = ./modules/hypr/hypridle.conf;
+xdg.configFile."hypr/hyprland.lua".source = ../hypr/hyprland.lua;
+xdg.configFile."hypr/hypridle.conf".source = ../hypr/hypridle.conf;
+xdg.configFile."hypr/shot.sh" = {
+  source = ../hypr/shot.sh;
+  executable = true;
+};
 xdg.configFile."hypr/wallpapers" = {
-  source = ./modules/hypr/wallpapers;
+  source = ../hypr/wallpapers;
   recursive = true;
 };
 
@@ -108,24 +143,24 @@ xdg.configFile."hypr/hyprpaper.conf".text = ''
 
   wallpaper {
     monitor =
-    path = /nix/store/.../wall03.jpg
+    path = /nix/store/.../wall00.png
     fit_mode = cover
   }
 '';
 
 xdg.configFile."rofi" = {
-  source = ./modules/rofi;
+  source = ../rofi;
   recursive = true;
 };
 
 xdg.configFile."waybar" = {
-  source = ./modules/waybar;
+  source = ../waybar;
   recursive = true;
 };
 ```
 
-`hyprpaper`, `waybar`, and `hypridle` are managed as Home Manager user
-services.
+`hyprpaper`, `waybar`, `hypridle`, and `mako` are managed as Home Manager user
+services in the Hyprland home module.
 
 The Home Manager Hyprland module can also be used, but the upstream docs still
 separate responsibilities: the NixOS module is required for correct system

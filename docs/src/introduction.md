@@ -35,7 +35,7 @@ If you are editing this repo, read [Development](./development.md) and
 ```text
 conf/
 ├── machines/      # host-specific NixOS config
-├── modules/       # app config copied by Home Manager
+├── modules/       # app config and focused modules
 ├── secrets/       # SOPS-encrypted secrets
 └── shared.nix     # shared NixOS and Home Manager modules
 

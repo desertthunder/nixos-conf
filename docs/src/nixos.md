@@ -10,6 +10,7 @@ conf/
 │   ├── hp/
 │   └── thinkpad/
 ├── modules/
+│   └── de/
 ├── secrets/
 └── shared.nix
 ```
@@ -17,7 +18,8 @@ conf/
 - `conf/shared.nix`: shared NixOS and Home Manager modules.
 - `conf/machines/{machine}/configuration.nix`: host-specific settings.
 - `conf/machines/{machine}/hardware-configuration.nix`: generated hardware.
-- `conf/modules/`: extra config assets used by Home Manager.
+- `conf/modules/`: extra modules and config assets used by Home Manager.
+- `conf/modules/de/`: desktop-environment modules such as Hyprland.
 - `conf/secrets/owais.yaml`: encrypted SOPS secrets.
 
 ## Rebuild

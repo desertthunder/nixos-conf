@@ -31,18 +31,6 @@
         LC_TIME = "en_US.UTF-8";
       };
 
-      services.xserver.enable = true;
-      services.displayManager.gdm.enable = true;
-      services.desktopManager.gnome.enable = true;
-      programs.hyprland = {
-        enable = true;
-        withUWSM = true;
-        xwayland.enable = true;
-      };
-      security.pam.services.hyprlock = { };
-      environment.sessionVariables.NIXOS_OZONE_WL = "1";
-      systemd.services.display-manager.restartIfChanged = false;
-      systemd.services.display-manager.stopIfChanged = false;
       services.xserver.xkb = {
         layout = "us";
         variant = "";
@@ -335,30 +323,16 @@
       ];
 
       gui-pkgs = with pkgs; [
-        brightnessctl
         blueman
-        grim
         gnome-extension-manager
         gnome-tweaks
         google-chrome
-        hypridle
-        hyprlock
-        hyprpaper
-        hyprpolkitagent
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         kora-icon-theme
-        libnotify
-        mako
         nautilus
         networkmanagerapplet
         pavucontrol
-        playerctl
-        rofi-power-menu
-        rofi
-        satty
-        slurp
         spotify
-        waybar
         zathura
         zathuraPkgs.zathura_pdf_poppler
         mpv
@@ -519,59 +493,6 @@
         '';
       };
 
-      # TODO: move into a module
-      programs.zathura = {
-        enable = true;
-        options = {
-          "selection-clipboard" = "clipboard";
-          "default-fg" = "rgba(205,214,244,1)";
-          "default-bg" = "rgba(30,30,46,1)";
-          "completion-bg" = "rgba(49,50,68,1)";
-          "completion-fg" = "rgba(205,214,244,1)";
-          "completion-highlight-bg" = "rgba(203,166,247,1)";
-          "completion-highlight-fg" = "rgba(30,30,46,1)";
-          "completion-group-bg" = "rgba(24,24,37,1)";
-          "completion-group-fg" = "rgba(205,214,244,1)";
-          "statusbar-fg" = "rgba(205,214,244,1)";
-          "statusbar-bg" = "rgba(17,17,27,1)";
-          "inputbar-fg" = "rgba(205,214,244,1)";
-          "inputbar-bg" = "rgba(30,30,46,1)";
-          "notification-bg" = "rgba(30,30,46,1)";
-          "notification-fg" = "rgba(205,214,244,1)";
-          "notification-error-bg" = "rgba(30,30,46,1)";
-          "notification-error-fg" = "rgba(243,139,168,1)";
-          "notification-warning-bg" = "rgba(30,30,46,1)";
-          "notification-warning-fg" = "rgba(249,226,175,1)";
-          "recolor" = true;
-          "recolor-lightcolor" = "rgba(30,30,46,1)";
-          "recolor-darkcolor" = "rgba(205,214,244,1)";
-          "index-fg" = "rgba(205,214,244,1)";
-          "index-bg" = "rgba(30,30,46,1)";
-          "index-active-fg" = "rgba(205,214,244,1)";
-          "index-active-bg" = "rgba(49,50,68,1)";
-          "render-loading-bg" = "rgba(30,30,46,1)";
-          "render-loading-fg" = "rgba(205,214,244,1)";
-          "highlight-color" = "rgba(147,153,178,0.3)";
-          "highlight-fg" = "rgba(205,214,244,1)";
-          "highlight-active-color" = "rgba(203,166,247,0.3)";
-          "page-padding" = 0;
-        };
-        mappings = {
-          u = "scroll half-up";
-          d = "scroll half-down";
-          T = "toggle_page_mode";
-          J = "scroll full-down";
-          K = "scroll full-up";
-          r = "reload";
-          R = "rotate";
-          A = "zoom in";
-          D = "zoom out";
-          i = "recolor";
-          p = "print";
-          b = "toggle_statusbar";
-        };
-      };
-
       programs.bat = {
         enable = true;
         config = {
@@ -630,6 +551,7 @@
           PATH=$HOME/.local/bin:$PATH
           PATH="$HOME/.cargo/bin:$PATH"
           export PATH="$HOME/go/bin:$PATH"
+          eval "$(starship init zsh)"
         '';
       };
 
@@ -656,206 +578,13 @@
         ];
       };
 
-      # TODO: move config into a module
-      programs.starship = {
-        enable = true;
-        enableZshIntegration = true;
-        settings = {
-          format = lib.concatStrings [
-            "$time"
-            " [](blue) "
-            "$username"
-            "$hostname"
-            "$directory"
-            "$git_branch"
-            "$git_state"
-            "$git_status"
-            "$cmd_duration"
-            "$line_break"
-            "$python"
-            "$character"
-          ];
-
-          directory = {
-            style = "blue";
-            substitutions = {
-              "Documents" = "󰈙 ";
-              "Downloads" = " ";
-              "Music" = " ";
-              "Pictures" = " ";
-            };
-          };
-
-          character = {
-            success_symbol = "[❯](purple)";
-            error_symbol = "[❯](red)";
-            vimcmd_symbol = "[❮](green)";
-          };
-
-          git_branch = {
-            symbol = "";
-            format = " [$symbol $branch]($style) ";
-            style = "bright-black";
-          };
-
-          git_status = {
-            format = "([[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style))";
-            style = "cyan";
-            conflicted = "";
-            untracked = "";
-            modified = "";
-            staged = "";
-            renamed = "";
-            deleted = "";
-            stashed = "≡";
-          };
-
-          git_state = {
-            format = ''\([$state( $progress_current/$progress_total)]($style)\) '';
-            style = "bright-black";
-          };
-
-          cmd_duration = {
-            format = "[$duration]($style) ";
-            style = "yellow";
-          };
-
-          time = {
-            disabled = false;
-            time_format = "%R";
-            style = "bright-black";
-            format = "[ $time ]($style)";
-          };
-        };
-      };
-
       home.file.".config/zellij" = {
         source = ./modules/zellij;
         recursive = true;
       };
 
-      systemd.user.services.hyprpaper = {
-        Unit = {
-          Description = "Hyprpaper wallpaper daemon";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
-        };
-        Service = {
-          ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper --config %h/.config/hypr/hyprpaper.conf";
-          Restart = "on-failure";
-          RestartSec = "2s";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-
-      systemd.user.services.waybar = {
-        Unit = {
-          Description = "Waybar status bar";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
-        };
-        Service = {
-          ExecStart = "${pkgs.waybar}/bin/waybar";
-          Restart = "on-failure";
-          RestartSec = "2s";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-
-      systemd.user.services.hypridle = {
-        Unit = {
-          Description = "Hypridle idle daemon";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
-        };
-        Service = {
-          ExecStart = "${pkgs.hypridle}/bin/hypridle --config %h/.config/hypr/hypridle.conf";
-          Restart = "on-failure";
-          RestartSec = "2s";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-
-      systemd.user.services.mako = {
-        Unit = {
-          Description = "Mako notification daemon";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
-          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
-        };
-        Service = {
-          ExecStart = "${pkgs.mako}/bin/mako";
-          Restart = "on-failure";
-          RestartSec = "2s";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
-
-      xdg.configFile."hypr/hyprland.lua".source = ./modules/hypr/hyprland.lua;
-      xdg.configFile."hypr/hypridle.conf".source = ./modules/hypr/hypridle.conf;
-      xdg.configFile."hypr/shot.sh" = {
-        source = ./modules/hypr/shot.sh;
-        executable = true;
-      };
-      xdg.configFile."hypr/wallpapers" = {
-        source = ./modules/hypr/wallpapers;
-        recursive = true;
-      };
-      xdg.configFile."hypr/hyprpaper.conf".text =
-        let
-          wallpaper = "${./modules/hypr/wallpapers/wall00.png}";
-        in
-        ''
-          splash = false
-
-          wallpaper {
-            monitor =
-            path = ${wallpaper}
-            fit_mode = cover
-          }
-        '';
-      xdg.configFile."rofi" = {
-        source = ./modules/rofi;
-        recursive = true;
-      };
-
-      xdg.configFile."waybar" = {
-        source = ./modules/waybar;
-        recursive = true;
-      };
-
-      xdg.configFile."mako/config".text = ''
-        font=Inter 12
-        anchor=top-right
-        width=360
-        height=120
-        margin=12
-        padding=12
-        border-size=1
-        border-radius=8
-        default-timeout=5000
-        icons=1
-        max-icon-size=64
-
-        background-color=#151516
-        text-color=#cfcfcf
-        border-color=#2a2a2a
-        progress-color=over #51a4e7
-
-        [urgency=low]
-        default-timeout=3000
-        border-color=#2a2a2a
-
-        [urgency=critical]
-        default-timeout=0
-        border-color=#e55f86
-      '';
-
-      xdg.configFile."uwsm/env".source =
-        "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+      xdg.configFile."starship.toml".source = ./modules/starship.toml;
+      xdg.configFile."zathura/zathurarc".source = ./modules/zathura/zathurarc;
       xdg.configFile."fastfetch" = {
         source = ./modules/fastfetch;
         recursive = true;

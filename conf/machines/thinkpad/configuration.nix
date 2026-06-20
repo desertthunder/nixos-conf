@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
+    ../../modules/de/hypr.nix
   ];
 
   networking.hostName = "nix-haxorus";

@@ -8,7 +8,8 @@ padding, custom navigation keys, and the Poppler PDF backend.
 ## Nix location
 
 - `conf/shared.nix`: installs `zathura` and `zathura_pdf_poppler`
-- `conf/shared.nix`: `programs.zathura`
+- `conf/shared.nix`: copies `conf/modules/zathura/zathurarc`
+- `conf/modules/zathura/zathurarc`: native Zathura config
 
 ## Portable setup
 
@@ -27,7 +28,7 @@ sudo apt install zathura zathura-pdf-poppler
 ```
 
 Create `~/.config/zathura/zathurarc` and copy the settings you want from
-`conf/shared.nix`.
+`conf/modules/zathura/zathurarc`.
 
 ## Mappings
 

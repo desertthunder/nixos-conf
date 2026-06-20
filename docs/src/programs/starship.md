@@ -8,11 +8,13 @@ and the prompt character.
 
 ## Nix location
 
-- `conf/shared.nix`: `programs.starship`
-- `conf/shared.nix`: `programs.zsh.enableZshIntegration`
+- `conf/shared.nix`: installs `starship`
+- `conf/shared.nix`: runs `eval "$(starship init zsh)"` from zsh init
+- `conf/shared.nix`: copies `conf/modules/starship.toml`
+- `conf/modules/starship.toml`: native Starship prompt config
 
 Catppuccin integration is enabled globally, but Starship's Catppuccin module is
-disabled. The prompt uses explicit Starship settings instead.
+disabled. The prompt uses the explicit Starship TOML config instead.
 
 ## Portable setup
 
@@ -28,8 +30,8 @@ Add this to `~/.zshrc`:
 eval "$(starship init zsh)"
 ```
 
-Create `~/.config/starship.toml` if you want to port the full prompt. Translate
-the settings from `conf/shared.nix` under `programs.starship.settings`.
+Copy `conf/modules/starship.toml` to `~/.config/starship.toml` if you want to
+port the full prompt.
 
 ## Prompt pieces
 

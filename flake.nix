@@ -54,7 +54,12 @@
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.owais = (import ./conf/shared.nix).home;
+              home-manager.users.owais = {
+                imports = [
+                  (import ./conf/shared.nix).home
+                  ./conf/modules/de/hypr-home.nix
+                ];
+              };
               # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
               home-manager.backupFileExtension = null;
             }
