@@ -219,7 +219,7 @@ plugins {
 load_plugins {
 }
 
-theme "tokyo-night-dark"
+theme "marble"
 
 default_mode "locked"
 

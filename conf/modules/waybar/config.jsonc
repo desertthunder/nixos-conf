@@ -1,0 +1,81 @@
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 0,
+    "exclusive": true,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["mpris"],
+    "modules-right": [
+      "bluetooth",
+      "network",
+      "pulseaudio",
+      "battery",
+      "clock",
+      "custom/power",
+    ],
+
+    "hyprland/workspaces": {
+      "format": "{id}",
+      "on-click": "activate",
+      "sort-by-number": true,
+      "persistent-workspaces": {
+        "*": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      },
+    },
+
+    "mpris": {
+      "format": "♪ {artist} - {title}",
+      "format-paused": "♪ {artist} - {title}",
+      "ignored-players": ["firefox"],
+      "max-length": 60,
+    },
+
+    "battery": {
+      "format": "bat {capacity}%",
+      "format-charging": "bat {capacity}%+",
+      "format-plugged": "bat {capacity}% AC",
+      "states": {
+        "warning": 30,
+        "critical": 15,
+      },
+    },
+
+    "network": {
+      "format-wifi": "wifi {essid}",
+      "format-ethernet": "eth {ipaddr}",
+      "format-disconnected": "wifi offline",
+      "on-click": "nm-connection-editor",
+      "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    },
+
+    "pulseaudio": {
+      "format": "vol {volume}%",
+      "format-muted": "vol muted",
+      "on-click": "pavucontrol",
+      "scroll-step": 5,
+    },
+
+    "bluetooth": {
+      "format": "bt {status}",
+      "format-connected": "bt {device_alias}",
+      "format-disabled": "bt off",
+      "format-off": "bt off",
+      "on-click": "blueman-manager",
+      "tooltip-format": "{controller_alias}\t{controller_address}",
+    },
+
+    "clock": {
+      "format": "{:%H:%M}",
+      "tooltip-format": "{:%Y-%m-%d}",
+    },
+
+    "custom/power": {
+      "format": "power",
+      "on-click": "bash ~/.config/waybar/power.sh",
+      "tooltip": false,
+    },
+  },
+]

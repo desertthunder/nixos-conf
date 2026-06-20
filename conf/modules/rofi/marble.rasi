@@ -1,0 +1,116 @@
+* {
+  bg: #151516;
+  bg-alt: #181818;
+  fg: #cfcfcf;
+  muted: #7a7a7a;
+  border: #2a2a2a;
+  primary: #51a4e7;
+
+  font: "Inter 12";
+  margin: 0;
+  padding: 0;
+  spacing: 8px;
+}
+
+window {
+  width: 36%;
+  border: 1px;
+  border-color: @border;
+  border-radius: 8px;
+  background-color: @bg;
+}
+
+mainbox {
+  padding: 12px;
+  background-color: transparent;
+}
+
+inputbar {
+  padding: 8px;
+  border: 1px;
+  border-color: @border;
+  border-radius: 8px;
+  background-color: @bg-alt;
+  text-color: @fg;
+  children: [prompt, entry];
+}
+
+prompt {
+  padding: 0 8px 0 0;
+  background-color: transparent;
+  text-color: @primary;
+}
+
+entry {
+  background-color: transparent;
+  placeholder: "Search";
+  placeholder-color: @muted;
+  text-color: @fg;
+}
+
+case-indicator,
+num-filtered-rows,
+num-rows,
+textbox {
+  background-color: transparent;
+  text-color: @fg;
+}
+
+listview {
+  margin: 10px 0 0;
+  lines: 9;
+  columns: 1;
+  fixed-height: true;
+  dynamic: true;
+  scrollbar: false;
+  background-color: transparent;
+}
+
+element {
+  padding: 8px 6px;
+  border-radius: 6px;
+  background-color: transparent;
+  text-color: @fg;
+}
+
+element normal.normal,
+element alternate.normal {
+  background-color: transparent;
+  text-color: @fg;
+}
+
+element selected.normal {
+  background-color: @primary;
+  text-color: @bg;
+}
+
+element-icon {
+  background-color: transparent;
+  size: 1.1em;
+  margin: 0 4px 0 0;
+}
+
+element-text {
+  background-color: transparent;
+  margin: 0;
+  text-color: @fg;
+}
+
+element-text selected {
+  background-color: transparent;
+  text-color: @bg;
+}
+
+element-icon selected {
+  background-color: transparent;
+}
+
+message {
+  margin: 10px 0 0;
+  padding: 8px;
+  border: 1px;
+  border-color: @border;
+  border-radius: 8px;
+  background-color: @bg-alt;
+  text-color: @fg;
+}

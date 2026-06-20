@@ -1,0 +1,11 @@
+configuration {
+  modi: "drun,run,window";
+  show-icons: true;
+  terminal: "ghostty";
+  drun-display-format: "{name}";
+  display-drun: "Apps";
+  display-run: "Run";
+  display-window: "Windows";
+}
+
+@theme "marble"

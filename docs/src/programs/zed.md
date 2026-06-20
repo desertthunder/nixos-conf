@@ -41,6 +41,7 @@ gleam
 go
 gopls
 gotools
+lua
 lua-language-server
 nil
 nixd

@@ -1,0 +1,144 @@
+@define-color bg #151516;
+@define-color bg-alt #181818;
+@define-color fg #cfcfcf;
+@define-color fg-dim #7a7a7a;
+@define-color accent #51a4e7;
+@define-color border #2a2a2a;
+@define-color sel-bg #51a4e7;
+@define-color sel-fg #151516;
+@define-color warning #d8b45f;
+@define-color critical #e55f86;
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "MartianMono Nerd Font", "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+window#waybar {
+  background: @bg;
+  border-bottom: 1px solid @border;
+  color: @fg;
+}
+
+window#waybar.bottom {
+  border-bottom: none;
+  border-top: 1px solid @border;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  padding: 0 6px;
+}
+
+#workspaces,
+#mpris,
+#battery,
+#bluetooth,
+#network,
+#pulseaudio,
+#clock,
+#custom-power,
+#custom-quote,
+#custom-wm,
+#language {
+  background: transparent;
+  color: @fg;
+  padding: 0 10px;
+}
+
+#workspaces {
+  padding: 0 4px;
+}
+
+#workspaces button {
+  background: transparent;
+  border-radius: 0;
+  color: @fg-dim;
+  font-size: 12px;
+  min-width: 0;
+  padding: 0 7px;
+  transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+  background: @bg-alt;
+  box-shadow: none;
+  color: @fg;
+}
+
+#workspaces button.active {
+  background: @sel-bg;
+  color: @sel-fg;
+  font-weight: bold;
+}
+
+#workspaces button.urgent {
+  background: @border;
+  color: @fg;
+}
+
+#mpris {
+  color: @fg;
+}
+
+#battery,
+#bluetooth,
+#network,
+#pulseaudio,
+#clock {
+  padding-right: 14px;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @critical;
+}
+
+#pulseaudio.muted,
+#bluetooth.disabled,
+#bluetooth.off,
+#custom-quote,
+#custom-wm {
+  color: @fg-dim;
+}
+
+#clock {
+  color: @accent;
+  font-weight: bold;
+}
+
+#custom-power {
+  color: @accent;
+  font-weight: bold;
+  padding-right: 14px;
+}
+
+#custom-quote {
+  font-style: italic;
+  padding-left: 14px;
+}
+
+#custom-wm {
+  font-size: 11px;
+  padding-right: 14px;
+}
+
+tooltip {
+  background: @bg-alt;
+  border: 1px solid @border;
+  border-radius: 6px;
+  color: @fg;
+  padding: 4px 8px;
+}
+
+tooltip label {
+  color: @fg;
+}

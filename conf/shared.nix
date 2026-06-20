@@ -14,6 +14,8 @@
 
       networking.networkmanager.enable = true;
       networking.firewall.checkReversePath = false;
+      hardware.bluetooth.enable = true;
+      services.blueman.enable = true;
 
       time.timeZone = "America/Chicago";
       i18n.defaultLocale = "en_US.UTF-8";
@@ -32,6 +34,13 @@
       services.xserver.enable = true;
       services.displayManager.gdm.enable = true;
       services.desktopManager.gnome.enable = true;
+      programs.hyprland = {
+        enable = true;
+        withUWSM = true;
+        xwayland.enable = true;
+      };
+      security.pam.services.hyprlock = { };
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
       systemd.services.display-manager.restartIfChanged = false;
       systemd.services.display-manager.stopIfChanged = false;
       services.xserver.xkb = {
@@ -197,6 +206,7 @@
         go
         gopls
         gotools
+        lua
         lua-language-server
         nil
         nixd
@@ -325,12 +335,30 @@
       ];
 
       gui-pkgs = with pkgs; [
+        brightnessctl
+        blueman
+        grim
         gnome-extension-manager
         gnome-tweaks
         google-chrome
+        hypridle
+        hyprlock
+        hyprpaper
+        hyprpolkitagent
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         kora-icon-theme
+        libnotify
+        mako
+        nautilus
+        networkmanagerapplet
+        pavucontrol
+        playerctl
+        rofi-power-menu
+        rofi
+        satty
+        slurp
         spotify
+        waybar
         zathura
         zathuraPkgs.zathura_pdf_poppler
         mpv
@@ -407,8 +435,16 @@
 
       home.username = "owais";
       home.homeDirectory = "/home/owais";
+      home.pointerCursor = {
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+        size = 24;
+        gtk.enable = true;
+        x11.enable = true;
+      };
       xresources.properties = {
-        "Xcursor.size" = 16;
+        "Xcursor.theme" = "Adwaita";
+        "Xcursor.size" = 24;
         "Xft.dpi" = 172;
       };
 
@@ -422,6 +458,10 @@
 
         "org/gnome/desktop/interface" = {
           icon-theme = "kora";
+        };
+
+        "org/gnome/shell" = {
+          always-show-log-out = true;
         };
 
         "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -479,6 +519,7 @@
         '';
       };
 
+      # TODO: move into a module
       programs.zathura = {
         enable = true;
         options = {
@@ -501,7 +542,7 @@
           "notification-error-fg" = "rgba(243,139,168,1)";
           "notification-warning-bg" = "rgba(30,30,46,1)";
           "notification-warning-fg" = "rgba(249,226,175,1)";
-          "recolor" = false;
+          "recolor" = true;
           "recolor-lightcolor" = "rgba(30,30,46,1)";
           "recolor-darkcolor" = "rgba(205,214,244,1)";
           "index-fg" = "rgba(205,214,244,1)";
@@ -615,6 +656,7 @@
         ];
       };
 
+      # TODO: move config into a module
       programs.starship = {
         enable = true;
         enableZshIntegration = true;
@@ -689,6 +731,133 @@
 
       home.file.".config/zellij" = {
         source = ./modules/zellij;
+        recursive = true;
+      };
+
+      systemd.user.services.hyprpaper = {
+        Unit = {
+          Description = "Hyprpaper wallpaper daemon";
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+        };
+        Service = {
+          ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper --config %h/.config/hypr/hyprpaper.conf";
+          Restart = "on-failure";
+          RestartSec = "2s";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      systemd.user.services.waybar = {
+        Unit = {
+          Description = "Waybar status bar";
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+        };
+        Service = {
+          ExecStart = "${pkgs.waybar}/bin/waybar";
+          Restart = "on-failure";
+          RestartSec = "2s";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      systemd.user.services.hypridle = {
+        Unit = {
+          Description = "Hypridle idle daemon";
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+        };
+        Service = {
+          ExecStart = "${pkgs.hypridle}/bin/hypridle --config %h/.config/hypr/hypridle.conf";
+          Restart = "on-failure";
+          RestartSec = "2s";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      systemd.user.services.mako = {
+        Unit = {
+          Description = "Mako notification daemon";
+          PartOf = [ "graphical-session.target" ];
+          After = [ "graphical-session.target" ];
+          ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+        };
+        Service = {
+          ExecStart = "${pkgs.mako}/bin/mako";
+          Restart = "on-failure";
+          RestartSec = "2s";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
+
+      xdg.configFile."hypr/hyprland.lua".source = ./modules/hypr/hyprland.lua;
+      xdg.configFile."hypr/hypridle.conf".source = ./modules/hypr/hypridle.conf;
+      xdg.configFile."hypr/shot.sh" = {
+        source = ./modules/hypr/shot.sh;
+        executable = true;
+      };
+      xdg.configFile."hypr/wallpapers" = {
+        source = ./modules/hypr/wallpapers;
+        recursive = true;
+      };
+      xdg.configFile."hypr/hyprpaper.conf".text =
+        let
+          wallpaper = "${./modules/hypr/wallpapers/wall00.png}";
+        in
+        ''
+          splash = false
+
+          wallpaper {
+            monitor =
+            path = ${wallpaper}
+            fit_mode = cover
+          }
+        '';
+      xdg.configFile."rofi" = {
+        source = ./modules/rofi;
+        recursive = true;
+      };
+
+      xdg.configFile."waybar" = {
+        source = ./modules/waybar;
+        recursive = true;
+      };
+
+      xdg.configFile."mako/config".text = ''
+        font=Inter 12
+        anchor=top-right
+        width=360
+        height=120
+        margin=12
+        padding=12
+        border-size=1
+        border-radius=8
+        default-timeout=5000
+        icons=1
+        max-icon-size=64
+
+        background-color=#151516
+        text-color=#cfcfcf
+        border-color=#2a2a2a
+        progress-color=over #51a4e7
+
+        [urgency=low]
+        default-timeout=3000
+        border-color=#2a2a2a
+
+        [urgency=critical]
+        default-timeout=0
+        border-color=#e55f86
+      '';
+
+      xdg.configFile."uwsm/env".source =
+        "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+      xdg.configFile."fastfetch" = {
+        source = ./modules/fastfetch;
         recursive = true;
       };
 

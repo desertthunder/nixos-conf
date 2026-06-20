@@ -4,6 +4,8 @@ These pages document programs with reusable config. Each page lists the Nix
 source and the portable setup for non-Nix systems.
 
 - [Ghostty](./programs/ghostty.md)
+- [Fastfetch](./programs/fastfetch.md)
+- [Hyprland](./programs/hyprland.md)
 - [Zellij](./programs/zellij.md)
 - [Zed](./programs/zed.md)
 - [Zathura](./programs/zathura.md)

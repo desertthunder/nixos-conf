@@ -34,13 +34,13 @@ ZELLIJ_CONFIG_FILE="$HOME/.config/zellij/config.kdl" \
 
 Available local layouts:
 
-| Layout | Notes |
-| --- | --- |
-| `default` | single pane plus compact bar |
-| `classic` | large left pane, two stacked right panes, compact bar |
-| `ide` | strider file explorer, Neovim pane, execution and VCS panes |
-| `ide-stack` | Neovim-style top pane with a lower terminal pane |
-| `ide-stack-2` | Neovim-style pane, side pane, and testing pane |
+| Layout        | Notes                                                       |
+| ------------- | ----------------------------------------------------------- |
+| `default`     | single pane plus compact bar                                |
+| `classic`     | large left pane, two stacked right panes, compact bar       |
+| `ide`         | strider file explorer, Neovim pane, execution and VCS panes |
+| `ide-stack`   | Neovim-style top pane with a lower terminal pane            |
+| `ide-stack-2` | Neovim-style pane, side pane, and testing pane              |
 
 Run a layout by name:
 
