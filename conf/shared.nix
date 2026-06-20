@@ -202,6 +202,8 @@
         nixd
         nixfmt
         nodejs_24
+        ocamlPackages.ocaml-lsp
+        ocamlformat
         rust-analyzer
         rustfmt
         shellcheck
@@ -269,14 +271,22 @@
         dive
         clippy
         dotnet-sdk_9
+        dune_3
+        gmp
         go-task
         harlequin
+        libev
         jdk17
         lazydocker
         lldb
         markdownlint-cli
         markdownlint-cli2
         mdbook
+        ocaml
+        ocamlPackages.utop
+        opam
+        openssl
+        pkg-config
         pnpm
         rustc
         stdenv.cc
@@ -308,6 +318,7 @@
       ];
 
       media-pkgs = with pkgs; [
+        cava
         ffmpeg
         whisper-cpp
         yt-dlp
@@ -354,6 +365,7 @@
             "gleam"
             "lua"
             "nix"
+            "ocaml"
             "oxocarbon"
             "zig"
           ];
@@ -710,8 +722,8 @@
         installVimSyntax = true;
         settings = {
           font-family = "MartianMono Nerd Font";
-          font-style = "SemiBold";
-          font-size = 16;
+          font-style = "Medium";
+          font-size = 14;
           window-padding-x = 8;
           window-padding-y = 8;
           background = "1b1b1b";

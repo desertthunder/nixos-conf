@@ -49,8 +49,21 @@ Project defaults:
 --glob=!**/.build/**
 ```
 
+## OCaml
+
+Home Manager installs `opam`, `ocaml`, `dune`, `utop`, `ocamlformat`, and the
+OCaml language server.
+
+For a new switch:
+
+```bash
+opam init
+opam switch create . ocaml-base-compiler.5.4.1
+opam install . --deps-only --with-test --with-doc
+```
+
 ## Other CLI tools
 
 Home Manager installs common helpers including `fd`, `jq`, `yq`, `fzf`, `bat`,
-`dust`, `tree`, `zellij`, `gum`, `glow`, `vhs`, `btop`, `shellcheck`, `shfmt`,
-`zig`, `zls`, `lldb`, `typst`, and `mdbook`.
+`dust`, `tree`, `zellij`, `gum`, `glow`, `vhs`, `btop`, `cava`, `shellcheck`,
+`shfmt`, `zig`, `zls`, `lldb`, `typst`, and `mdbook`.
