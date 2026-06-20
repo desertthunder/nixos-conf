@@ -35,15 +35,8 @@ Configurations currently provided by the flake:
 
 ## Add a machine
 
-1. Create `conf/machines/{machine}/`.
-2. Generate hardware config:
-
-   ```bash
-   sudo nixos-generate-config --show-hardware-config \
-     > conf/machines/{machine}/hardware-configuration.nix
-   ```
-3. Add `configuration.nix` importing hardware and `(import ../../shared.nix).nixos`.
-4. Add a `nixosConfigurations.{hostname}` entry in `flake.nix`.
+See [Adding a New Machine](./adding-a-new-machine.md) for the full workflow and
+the concepts behind it.
 
 ## SOPS
 

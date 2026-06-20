@@ -53,20 +53,4 @@ The HP file currently only imports shared config and hardware config.
 
 ## Add another host
 
-1. Create `conf/machines/{machine}/`.
-2. Generate hardware config:
-
-   ```bash
-   sudo nixos-generate-config --show-hardware-config \
-     > conf/machines/{machine}/hardware-configuration.nix
-   ```
-
-3. Add `configuration.nix` that imports hardware config and
-   `(import ../../shared.nix).nixos`.
-4. Set `networking.hostName`.
-5. Add a `nixosConfigurations.{hostname}` entry in `flake.nix`.
-6. Test before switching:
-
-   ```bash
-   sudo nixos-rebuild test --flake .#{hostname}
-   ```
+See [Adding a New Machine](./adding-a-new-machine.md) for the full workflow.

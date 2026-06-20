@@ -2,7 +2,7 @@
 authors = ["Owais Jamil"]
 language = "en"
 src = "src"
-title = "Owais' NixOS Flakes & Dotfiles"
+title = "Owais' Dots & Flakes"
 
 [output.html]
 git-repository-url = "https://github.com/desertthunder/nixos-conf"

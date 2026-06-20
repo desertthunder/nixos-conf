@@ -8,6 +8,7 @@
 - [NixOS](./nixos.md)
   - [Hosts](./hosts.md)
   - [Secrets](./secrets.md)
+  - [Adding a New Machine](./adding-a-new-machine.md)
 - [Nix Notes](./notes-nix.md)
 - [Other Distros](./other.md)
   - [Dotfiles](./dotfiles.md)
