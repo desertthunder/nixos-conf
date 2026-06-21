@@ -1,0 +1,82 @@
+.forge-landing {
+  --forge-landing-width: 70rem;
+  --forge-landing-space-3: 0.75rem;
+  --forge-landing-space-4: 1rem;
+  --forge-landing-space-5: 1.25rem;
+  --forge-landing-space-7: 1.75rem;
+  --forge-landing-space-8: 2rem;
+  --forge-landing-space-10: 2.5rem;
+  --forge-landing-space-12: 3rem;
+  --forge-landing-radius: 0.5rem;
+  --forge-landing-logo-size: 11.25rem;
+  --forge-landing-title-size: 3rem;
+  --forge-landing-title-line: 1.08;
+  --forge-landing-copy-size: 1.125rem;
+  --forge-landing-copy-line: 1.6;
+  --forge-landing-shadow: 0 1.125rem 3.75rem var(--color-shadow, #00000070);
+
+  min-height: calc(100vh - 6rem);
+}
+
+.forge-landing__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--forge-landing-space-12);
+  align-items: center;
+  max-width: var(--forge-landing-width);
+  margin: 0 auto;
+  padding: 4rem var(--forge-landing-space-8) var(--forge-landing-space-10);
+}
+
+.forge-landing__eyebrow {
+  color: var(--color-primary, #51a4e7);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.forge-landing__title {
+  max-width: 47.5rem;
+  margin: var(--forge-landing-space-3) 0 var(--forge-landing-space-4);
+  color: var(--color-text, #cfcfcf);
+  font-size: var(--forge-landing-title-size);
+  line-height: var(--forge-landing-title-line);
+  letter-spacing: 0;
+}
+
+.forge-landing__copy {
+  max-width: 45rem;
+  color: var(--color-text-light-1, #a6a6a6);
+  font-size: var(--forge-landing-copy-size);
+  line-height: var(--forge-landing-copy-line);
+}
+
+.forge-landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--forge-landing-space-3);
+  margin-top: var(--forge-landing-space-7);
+}
+
+.forge-landing__logo {
+  width: var(--forge-landing-logo-size);
+  height: var(--forge-landing-logo-size);
+  padding: var(--forge-landing-space-7);
+  border: 1px solid var(--color-input-border, #2a2a2a);
+  border-radius: var(--forge-landing-radius);
+  background: var(--color-box-body, #181818);
+  box-shadow: var(--forge-landing-shadow);
+}
+
+@media (max-width: 767px) {
+  .forge-landing {
+    --forge-landing-logo-size: 8.25rem;
+    --forge-landing-title-size: 2.125rem;
+    --forge-landing-copy-size: 1rem;
+  }
+
+  .forge-landing__hero {
+    grid-template-columns: 1fr;
+    gap: var(--forge-landing-space-7);
+    padding: var(--forge-landing-space-10) var(--forge-landing-space-5) var(--forge-landing-space-7);
+  }
+}

@@ -22,13 +22,17 @@ References:
 
 Build:
 
-- [ ] Add `conf/modules/services/forgejo.nix`; import it from Baxcalibur.
-- [ ] Run Forgejo on `127.0.0.1:3030` with `ROOT_URL = "https://git.desertthunder.dev/"`.
-  - [ ] Use local PostgreSQL
-  - [ ] Enable LFS with local backed-up storage and sops-managed secrets.
-  - [ ] Disable open registration.
+- [x] Add `conf/services/forgejo.nix`; import it from Baxcalibur.
+- [x] Run Forgejo on `127.0.0.1:3030` with `ROOT_URL = "https://git.desertthunder.dev/"`.
+  - [x] Use local PostgreSQL
+  - [x] Enable LFS with local backed-up storage and sops-managed secrets.
+  - [x] Disable open registration.
   - [ ] Create the admin user and private Obsidian vault repo.
-- [ ] Publish HTTPS through Cloudflare Tunnel only.
+- [x] Publish HTTPS through Cloudflare Tunnel only.
+  - [x] Create a locally-managed Cloudflare Tunnel.
+  - [x] Add the tunnel credentials JSON to sops as `cloudflare_git_forge_tunnel_credentials`.
+  - [x] Set `cloudflareTunnel.enable = true` and `cloudflareTunnel.tunnelId`.
+  - [x] Route `git.desertthunder.dev` to the tunnel.
 - [ ] Keep SSH/admin/write paths on Tailscale only.
 - [ ] Enable MagicDNS; use Baxcalibur's tailnet name for SSH remotes.
 - [ ] Add Tailscale ACLs for Baxcalibur SSH, Forgejo SSH, and private LFS paths.

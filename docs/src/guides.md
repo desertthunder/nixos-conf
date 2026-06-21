@@ -52,16 +52,28 @@ When making small Nix changes (like adding packages), a quick local check flow:
 # 1) Format (keeps diffs small and avoids nixfmt-related CI/lint churn)
 nixfmt conf/shared.nix
 
-# 2) Ensure the flake evaluates and outputs are well-formed
+# 2) For a changed Nix file, check syntax without evaluating the module
+nix-instantiate --parse conf/shared.nix
+
+# 3) Ensure the flake evaluates and outputs are well-formed
 nix flake show --no-write-lock-file
 
-# 3) Optional, stronger checks before switching
+# 4) Optional, stronger checks before switching
 sudo nixos-rebuild build --flake .#$(hostname)
 sudo nixos-rebuild test --flake .#$(hostname)
 ```
 
 Notes:
 
+- `nix-instantiate` normally evaluates Nix expressions and produces store
+  derivation paths from expressions that evaluate to derivations. The manual
+  describes it as instantiating store derivations from Nix expressions.
+- `nix-instantiate --parse FILE` is much narrower: it only parses the file and
+  prints the abstract syntax tree as a Nix expression. It is useful as a quick
+  syntax check after editing a module.
+- `--parse` does not evaluate imports, module options, flake outputs, package
+  names, paths, assertions, or type checks. A file can parse successfully and
+  still fail during `nix flake show` or `nixos-rebuild`.
 - `nix flake show` only evaluates the flake; it does not build anything.
 - `nixos-rebuild build/test` will actually evaluate/build the system closure and
   will catch missing packages/options earlier than `switch`.

@@ -1,0 +1,21 @@
+@import url("https://cdn.jsdelivr.net/npm/@fontsource-variable/ibm-plex-sans@5.2.8/wght.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource-variable/cabin@5.2.8/wght.css");
+@import url("https://cdn.jsdelivr.net/npm/@fontsource/monaspace-neon@5.2.5/latin.css");
+
+:root {
+  --forge-font-ui: "IBM Plex Sans Variable", "IBM Plex Sans", system-ui, sans-serif;
+  --forge-font-heading: "Cabin Variable", Cabin, "IBM Plex Sans Variable", system-ui, sans-serif;
+  --forge-font-mono: "Monaspace Neon", "MonaspiceNe Nerd Font Mono", "Monaspace Neon NF", ui-monospace, monospace;
+  --fonts-proportional: var(--forge-font-ui);
+  --fonts-monospace: var(--forge-font-mono);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ui.header {
+  font-family: var(--forge-font-heading);
+}

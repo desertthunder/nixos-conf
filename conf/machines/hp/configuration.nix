@@ -5,14 +5,15 @@
   imports = [
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
+    ../../services/forgejo.nix
   ];
 
   networking.hostName = "nix-baxcalibur";
 
-  # TODO: Add HP-specific configuration here
-  # Examples:
-  # - hardware.bluetooth.enable = true;
-  # - services.blueman.enable = true;
-  # - Hardware-specific drivers
-  # - Display/graphics optimizations
+  desert.services.gitForge = {
+    enable = true;
+
+    cloudflareTunnel.enable = true;
+    cloudflareTunnel.tunnelId = "71856287-3b7f-48dc-b80d-d4c8e452c384";
+  };
 }

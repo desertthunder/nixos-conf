@@ -11,6 +11,7 @@
   - [Secrets](./secrets.md)
   - [Adding a New Machine](./adding-a-new-machine.md)
 - [Services](./services.md)
+  - [Tailscale](./services/tailscale.md)
   - [Git Forge](./services/git-forge.md)
   - [Kavita](./services/kavita.md)
 - [Nix Notes](./notes-nix.md)

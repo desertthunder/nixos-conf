@@ -1,0 +1,20 @@
+{{template "base/head" .}}
+<div role="main" aria-label="{{if .IsSigned}}{{ctx.Locale.Tr "dashboard"}}{{else}}{{ctx.Locale.Tr "home"}}{{end}}" class="page-content home forge-landing">
+	<section class="forge-landing__hero">
+		<div>
+			<div class="forge-landing__eyebrow"><a href="https://desertthunder.dev" target="_blank">Desert Thunder</a></div>
+			<h1 class="forge-landing__title">{{AppDisplayName}}</h1>
+			<p class="forge-landing__copy">Owais's personal git forge.</p>
+			<div class="forge-landing__actions">
+				<a class="ui primary button" href="{{AppSubUrl}}/explore/repos">Explore public repositories</a>
+				{{if .IsSigned}}
+					<a class="ui button" href="{{AppSubUrl}}/">Open dashboard</a>
+				{{else}}
+					<a class="ui button" href="{{AppSubUrl}}/user/login">Sign in</a>
+				{{end}}
+			</div>
+		</div>
+		<img class="forge-landing__logo" width="180" height="180" src="{{AssetUrlPrefix}}/img/logo.svg" alt="{{ctx.Locale.Tr "logo"}}">
+	</section>
+</div>
+{{template "base/footer" .}}
