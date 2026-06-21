@@ -5,7 +5,8 @@
 - `conf/shared.nix`: already configures Ghostty through Home Manager.
 - `conf/machines/thinkpad/configuration.nix`: imports Hyprland for
   `nix-haxorus`.
-- `conf/modules/de/hypr.nix`: enables GDM, GNOME, and Hyprland system pieces.
+- `conf/shared.nix`: enables shared GNOME/GDM system pieces.
+- `conf/modules/de/hypr.nix`: enables Hyprland system pieces.
 - `conf/modules/de/hypr-home.nix`: installs Hyprland companion packages and
   copies Hyprland, rofi, waybar, and mako user config.
 
@@ -52,12 +53,16 @@ Use the NixOS module for Hyprland. It adds the display-manager session and
 sets up system pieces such as XWayland, portals, fonts, dconf, graphics, and
 polkit integration.
 
-`conf/modules/de/hypr.nix` keeps GDM and GNOME enabled:
+`conf/shared.nix` keeps GDM and GNOME enabled for every NixOS host:
 
 ```nix
 services.displayManager.gdm.enable = true;
 services.desktopManager.gnome.enable = true;
+```
 
+`conf/modules/de/hypr.nix` keeps Hyprland scoped to the ThinkPad:
+
+```nix
 programs.hyprland = {
   enable = true;
   withUWSM = true;

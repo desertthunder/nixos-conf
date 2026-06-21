@@ -33,7 +33,7 @@ nix flake update
 Configurations currently provided by the flake:
 
 - `nix-haxorus`: ThinkPad
-- `owais-nix-hp`: HP
+- `nix-baxcalibur`: HP
 
 ## Add a machine
 

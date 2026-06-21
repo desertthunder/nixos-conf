@@ -32,7 +32,7 @@ Host-specific settings:
 - fingerprint daemon enabled
 - Hyprland desktop enabled through host-specific modules
 
-## owais-nix-hp
+## nix-baxcalibur
 
 HP configuration.
 
@@ -44,16 +44,16 @@ Files:
 Flake target:
 
 ```bash
-sudo nixos-rebuild test --flake .#owais-nix-hp
-sudo nixos-rebuild switch --flake .#owais-nix-hp
+sudo nixos-rebuild test --flake .#nix-baxcalibur
+sudo nixos-rebuild switch --flake .#nix-baxcalibur
 ```
 
 Host-specific settings:
 
-- hostname: `owais-nix-hp`
+- hostname: `nix-baxcalibur`
 
-The HP file currently only imports shared config and hardware config. It does
-not import the Hyprland desktop modules.
+The HP file imports shared config and hardware config. GNOME is enabled through
+shared config; Hyprland stays ThinkPad-specific.
 
 ## Add another host
 

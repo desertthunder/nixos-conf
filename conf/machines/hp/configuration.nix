@@ -7,7 +7,7 @@
     (import ../../shared.nix).nixos
   ];
 
-  networking.hostName = "owais-nix-hp";
+  networking.hostName = "nix-baxcalibur";
 
   # TODO: Add HP-specific configuration here
   # Examples:
