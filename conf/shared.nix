@@ -50,6 +50,10 @@
 
       services.printing.enable = true;
       services.openssh.enable = true;
+      services.tailscale = {
+        enable = true;
+        openFirewall = true;
+      };
 
       virtualisation.docker.enable = true;
 
@@ -127,6 +131,7 @@
       environment.systemPackages = with pkgs; [
         vim
         git
+        tailscale
         wget
         curl
         wireguard-tools
@@ -334,8 +339,10 @@
         kora-icon-theme
         nautilus
         networkmanagerapplet
+        obsidian
         pavucontrol
         spotify
+        trayscale
         zathura
         zathuraPkgs.zathura_pdf_poppler
         mpv

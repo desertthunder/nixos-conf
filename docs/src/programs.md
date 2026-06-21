@@ -15,6 +15,7 @@ source and the portable setup for non-Nix systems.
 - [Starship](./programs/starship.md)
 - [ripgrep](./programs/ripgrep.md)
 - [SSH](./programs/ssh.md)
+- [Obsidian](./programs/obsidian.md)
 
 Focus on copied config, shell setup, keybindings, and commands that verify the
 program works. The package inventory stays in the Nix files.

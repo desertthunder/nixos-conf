@@ -35,6 +35,11 @@ Configurations currently provided by the flake:
 - `nix-haxorus`: ThinkPad
 - `nix-baxcalibur`: HP
 
+## Services
+
+Baseline services shared by every host are documented under
+[Services](./services.md).
+
 ## Add a machine
 
 See [Adding a New Machine](./adding-a-new-machine.md) for the full workflow and
