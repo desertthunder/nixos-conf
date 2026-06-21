@@ -578,6 +578,7 @@
           ".sandbox/"
           "AGENTS.md"
           "CLAUDE.md"
+          "**/.claude/settings.local.json"
         ];
       };
 
