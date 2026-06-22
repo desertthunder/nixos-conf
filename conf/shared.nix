@@ -50,6 +50,7 @@
 
       services.printing.enable = true;
       services.openssh.enable = true;
+      programs.ssh.systemd-ssh-proxy.enable = false;
       services.tailscale = {
         enable = true;
         openFirewall = true;
@@ -187,6 +188,41 @@
       elixir-ls-bin = pkgs.runCommand "elixir-ls-bin" { } ''
         mkdir -p $out/bin
         ln -s ${pkgs.elixir-ls}/bin/* $out/bin/
+      '';
+
+      sshConfigText = pkgs.writeText "ssh-config" ''
+        Host *
+          AddKeysToAgent no
+
+        Host github.com
+          HostName github.com
+          User git
+          IdentityFile /run/secrets/keys_gh
+          IdentitiesOnly yes
+
+        Host codeberg.org
+          HostName codeberg.org
+          User git
+          IdentityFile /run/secrets/keys_codeberg
+          IdentitiesOnly yes
+
+        Host tangled.sh
+          HostName tangled.org
+          User git
+          IdentityFile /run/secrets/keys_tangled
+          IdentitiesOnly yes
+
+        Host knot.desertthunder.dev
+          HostName knot.desertthunder.dev
+          User git
+          IdentityFile /run/secrets/keys_tangled
+          IdentitiesOnly yes
+
+        Host nix-baxcalibur-knot
+          HostName nix-baxcalibur
+          User git
+          IdentityFile /run/secrets/keys_tangled
+          IdentitiesOnly yes
       '';
 
       editor-tool-pkgs = with pkgs; [
@@ -478,30 +514,11 @@
         ++ media-pkgs
         ++ gui-pkgs;
 
-      programs.ssh = {
-        enable = true;
-        enableDefaultConfig = false;
-        settings."*".AddKeysToAgent = "no";
-        extraConfig = ''
-          Host github.com
-            HostName github.com
-            User git
-            IdentityFile /run/secrets/keys_gh
-            IdentitiesOnly yes
-
-          Host codeberg.org
-            HostName codeberg.org
-            User git
-            IdentityFile /run/secrets/keys_codeberg
-            IdentitiesOnly yes
-
-          Host tangled.sh
-            HostName tangled.org
-            User git
-            IdentityFile /run/secrets/keys_tangled
-            IdentitiesOnly yes
-        '';
-      };
+      home.activation.installSshConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        install -d -m 0700 "$HOME/.ssh"
+        rm -f "$HOME/.ssh/config"
+        install -m 0600 ${sshConfigText} "$HOME/.ssh/config"
+      '';
 
       programs.bat = {
         enable = true;

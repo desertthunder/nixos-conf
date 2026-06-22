@@ -13,6 +13,7 @@
 - [Services](./services.md)
   - [Tailscale](./services/tailscale.md)
   - [Git Forge](./services/git-forge.md)
+  - [Tangled Knot](./services/tngl-knot.md)
   - [Kavita](./services/kavita.md)
 - [Nix Notes](./notes-nix.md)
 - [Other Distros](./other.md)
