@@ -1,119 +1,207 @@
 themes {
     marble {
         text_unselected {
+            // #CFCFCF
             base 207 207 207
+            // #181818
             background 24 24 24
+            // #51A4E7
             emphasis_0 81 164 231
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         text_selected {
+            // #151516
             base 21 21 22
+            // #51A4E7
             background 81 164 231
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         ribbon_selected {
+            // #151516
             base 21 21 22
+            // #51A4E7
             background 81 164 231
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #CFCFCF
             emphasis_2 207 207 207
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         ribbon_unselected {
+            // #CFCFCF
             base 207 207 207
+            // #181818
             background 24 24 24
+            // #51A4E7
             emphasis_0 81 164 231
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         table_title {
+            // #51A4E7
             base 81 164 231
+            // #000000
             background 0
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #CFCFCF
             emphasis_2 207 207 207
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         table_cell_selected {
+            // #151516
             base 21 21 22
+            // #51A4E7
             background 81 164 231
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         table_cell_unselected {
+            // #CFCFCF
             base 207 207 207
+            // #181818
             background 24 24 24
+            // #51A4E7
             emphasis_0 81 164 231
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         list_selected {
+            // #151516
             base 21 21 22
+            // #51A4E7
             background 81 164 231
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         list_unselected {
+            // #CFCFCF
             base 207 207 207
+            // #181818
             background 24 24 24
+            // #51A4E7
             emphasis_0 81 164 231
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         frame_selected {
+            // #51A4E7
             base 81 164 231
+            // #000000
             background 0
+            // #CFCFCF
             emphasis_0 207 207 207
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #CFCFCF
             emphasis_2 207 207 207
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         frame_highlight {
+            // #51A4E7
             base 81 164 231
+            // #000000
             background 0
+            // #51A4E7
             emphasis_0 81 164 231
+            // #7A7A7A
             emphasis_1 122 122 122
+            // #CFCFCF
             emphasis_2 207 207 207
+            // #2A2A2A
             emphasis_3 42 42 42
         }
         exit_code_success {
+            // #00D787
             base 0 215 135
+            // #000000
             background 0
+            // #51A4E7
             emphasis_0 81 164 231
+            // #CFCFCF
             emphasis_1 207 207 207
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #181818
             emphasis_3 24 24 24
         }
         exit_code_error {
+            // #E55F86
             base 229 95 134
+            // #000000
             background 0
+            // #51A4E7
             emphasis_0 81 164 231
+            // #CFCFCF
             emphasis_1 207 207 207
+            // #2A2A2A
             emphasis_2 42 42 42
+            // #181818
             emphasis_3 24 24 24
         }
         multiplayer_user_colors {
+            // #51A4E7
             player_1 81 164 231
+            // #7A7A7A
             player_2 122 122 122
+            // #2A2A2A
             player_3 42 42 42
+            // #CFCFCF
             player_4 207 207 207
+            // #2A2A2A
             player_5 42 42 42
+            // #181818
             player_6 24 24 24
+            // #51A4E7
             player_7 81 164 231
+            // #7A7A7A
             player_8 122 122 122
+            // #2A2A2A
             player_9 42 42 42
+            // #CFCFCF
             player_10 207 207 207
         }
     }
