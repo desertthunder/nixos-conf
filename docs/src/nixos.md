@@ -53,9 +53,9 @@ The system imports `sops-nix` from `conf/shared.nix` and exposes secrets under
 Useful commands:
 
 ```bash
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops conf/secrets/owais.yaml
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops -d conf/secrets/owais.yaml
-sops updatekeys conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml
+nix shell nixpkgs#sops -c sops updatekeys conf/secrets/owais.yaml
 ```
 
 The personal age key is documented in `age.txt`. `.sops.yaml` controls which

@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
     ../../services/forgejo.nix
+    ../../services/kavita.nix
     ../../services/knot.nix
   ];
 
@@ -21,4 +22,6 @@
     cloudflareTunnel.enable = true;
     cloudflareTunnel.tunnelId = "71856287-3b7f-48dc-b80d-d4c8e452c384";
   };
+
+  desert.services.kavita.enable = true;
 }

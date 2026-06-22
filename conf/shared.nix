@@ -137,6 +137,7 @@
         curl
         wireguard-tools
         proton-vpn
+        qbittorrent
         vscode
         neovim
         zsh

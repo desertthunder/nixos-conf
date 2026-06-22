@@ -26,9 +26,9 @@ SSH uses those paths in the Home Manager config.
 Use the local age key when editing or reading the encrypted file from the repo:
 
 ```bash
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops conf/secrets/owais.yaml
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops -d conf/secrets/owais.yaml
-sops updatekeys conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml
+nix shell nixpkgs#sops -c sops updatekeys conf/secrets/owais.yaml
 ```
 
 ## Non-NixOS key extraction
@@ -95,7 +95,7 @@ chmod 600 ~/.ssh/config ~/.local/share/sops/keys_*
 ## Check secrets
 
 ```bash
-sops -d conf/secrets/owais.yaml >/dev/null
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml >/dev/null
 ls -l /run/secrets/keys_*
 ssh -T git@github.com
 ```

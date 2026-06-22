@@ -36,8 +36,8 @@ both system and home changes. The shared Home Manager module is
 ## Secrets
 
 ```bash
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt sops conf/secrets/owais.yaml
-sops -d conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops conf/secrets/owais.yaml
+SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml
 ./conf/scripts/keys.sh
 ```
 

@@ -1,41 +1,79 @@
 # Kavita
 
-Kavita will run on Baxcalibur for comics, manga, ebooks, and PDFs.
+Kavita runs on Baxcalibur for comics, manga, ebooks, and PDFs.
 
 Access is tailnet-first. Use Tailscale Serve for private HTTPS access and
 Tailscale Funnel only when the library intentionally needs temporary public
 access.
 
-Tracked implementation tasks stay in `TODO.md`. This page is the durable service
-shape and operating model.
-
 ## Shape
-
-Kavita should bind locally on Baxcalibur and be published through Tailscale:
-
-- HTTP app: `127.0.0.1:5000`
-- state: `/var/lib/kavita`
-- database: `/var/lib/kavita/config/kavita.db`
-- media roots: read-only mounts under `/srv/media`
-- token key: sops-managed
 
 Kavita state and media should be treated separately. State contains app config,
 library metadata, covers, settings, logs, and the SQLite database. Media is the
 book/comic/manga library itself and should have its own backup and storage
 policy.
 
-## Boundaries
+The local module sets conservative service limits:
 
-Tailscale Serve is the normal access path. MagicDNS, tailnet HTTPS, and ACLs are
-configured in the Tailscale admin console.
+- `MemoryMax=1G`
+- `CPUQuota=150%`
+- `IOSchedulingClass=best-effort`
+- `IOSchedulingPriority=6`
 
-Funnel should stay disabled by default. If public access is needed temporarily,
-expose only Kavita's HTTPS endpoint and disable Funnel again after the access
-window ends.
+These limits are mainly for first scans, cover generation, and imports. Idle
+load should be modest.
 
-Media mounts should be read-only from Kavita's perspective. Import, rename, and
-library organization work should happen outside the service path so a bad scan
-or app bug cannot rewrite the source library.
+## Rebuild
+
+After switching:
+
+```bash
+systemctl status kavita
+journalctl -u kavita -f
+curl http://127.0.0.1:5000/site.webmanifest
+```
+
+## Media Layout
+
+Do not point Kavita at `~/Documents` or `~/Downloads`. Keep a staging inbox and
+only move organized files into Kavita's library roots:
+
+```text
+/srv/media/inbox
+/srv/media/books
+/srv/media/comics
+/srv/media/manga
+```
+
+Kavita should scan only the real library roots, not the inbox.
+
+Recommended layout:
+
+```text
+/srv/media/books/Author or Collection/Book Title.epub
+/srv/media/books/Author or Collection/Book Title.pdf
+/srv/media/comics/Series Name/Series Name v01 - Volume Title.pdf
+/srv/media/comics/Series Name/Series Name 001.cbz
+/srv/media/manga/Series Name/Series Name v01.cbz
+```
+
+For comics and manga, use series folders. For books, author or collection
+folders are not strictly required, but they keep the library easier to maintain.
+
+Move it into the library roots with:
+
+```bash
+sudo mkdir -p /srv/media/books /srv/media/comics
+sudo cp -a ~/Downloads/inbox/kavita-ready/books/. /srv/media/books/
+sudo cp -a ~/Downloads/inbox/kavita-ready/comics/. /srv/media/comics/
+sudo chmod -R a+rX /srv/media/books /srv/media/comics
+```
+
+After verifying Kavita can scan the `/srv/media` copies, remove the staged copy:
+
+```bash
+rm -r ~/Downloads/inbox/kavita-ready
+```
 
 ## Client model
 
@@ -46,6 +84,13 @@ the web UI is the baseline supported client.
 The initial admin user is created from the web UI after the service is first
 available. Library scan schedules should avoid maintenance windows and large
 media-copy operations.
+
+Android access path:
+
+1. Install Tailscale.
+2. Sign in to the same tailnet.
+3. Open the Kavita HTTPS URL from `tailscale serve status`.
+4. Use the browser's "Add to Home screen" flow if an app-like shortcut is useful.
 
 ## Reliability
 

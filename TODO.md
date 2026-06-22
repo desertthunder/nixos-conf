@@ -80,13 +80,13 @@ References:
 
 Build:
 
-- [ ] Add `conf/modules/services/kavita.nix`; import it from Baxcalibur.
-- [ ] Enable `services.kavita`.
-- [ ] Store Kavita state in `/var/lib/kavita`.
-- [ ] Generate a 512+ bit `TokenKey`; manage it with sops.
-- [ ] Run Kavita on `127.0.0.1:5000`.
-- [ ] Mount media read-only, e.g. `/srv/media/books`, `/srv/media/comics`, and `/srv/media/manga`.
-- [ ] Create the initial admin user from the web UI.
+- [x] Add `conf/services/kavita.nix`; import it from Baxcalibur.
+- [x] Enable `services.kavita`.
+- [x] Store Kavita state in `/var/lib/kavita`.
+- [x] Generate a 512+ bit `TokenKey`; manage it with sops.
+- [x] Run Kavita on `127.0.0.1:5000`.
+- [x] Add conservative systemd resource limits for scans/imports.
+- [x] Create the initial admin user from the web UI.
 - [ ] Configure libraries and scan schedules.
 
 Access:
@@ -107,4 +107,5 @@ Operations:
 - [ ] Add tailnet uptime check for Kavita.
 - [ ] Add optional public Funnel check only while Funnel is enabled.
 - [ ] Monitor disk usage for media, covers, cache, and database.
+- [ ] Keep new downloads in an inbox and only move organized files into Kavita library roots.
 - [ ] Avoid automatic reboots during library scans or imports.
