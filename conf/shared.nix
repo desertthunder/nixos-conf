@@ -35,9 +35,6 @@
         layout = "us";
         variant = "";
       };
-      services.xserver.enable = true;
-      services.displayManager.gdm.enable = true;
-      services.desktopManager.gnome.enable = true;
 
       services.pulseaudio.enable = false;
       security.rtkit.enable = true;
@@ -369,8 +366,6 @@
 
       gui-pkgs = with pkgs; [
         blueman
-        gnome-extension-manager
-        gnome-tweaks
         google-chrome
         inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         kora-icon-theme
@@ -467,42 +462,6 @@
         "Xcursor.theme" = "Adwaita";
         "Xcursor.size" = 24;
         "Xft.dpi" = 172;
-      };
-
-      /**
-        GNOME Settings
-      */
-      dconf.settings = {
-        "org/gnome/desktop/lockdown" = {
-          disable-log-out = false;
-        };
-
-        "org/gnome/desktop/interface" = {
-          icon-theme = "kora";
-        };
-
-        "org/gnome/shell" = {
-          always-show-log-out = true;
-        };
-
-        "org/gnome/settings-daemon/plugins/media-keys" = {
-          custom-keybindings = [
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty-zellij/"
-          ];
-        };
-
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty" = {
-          name = "Ghostty";
-          command = "ghostty";
-          binding = "<Control><Alt>t";
-        };
-
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty-zellij" = {
-          name = "Ghostty (zellij)";
-          command = "ghostty -e zellij";
-          binding = "<Super>z";
-        };
       };
 
       home.packages =

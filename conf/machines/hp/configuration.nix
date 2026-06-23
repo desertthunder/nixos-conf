@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
+    ../../modules/de/gnome.nix
     ../../services/forgejo.nix
     ../../services/kavita.nix
     ../../services/knot.nix

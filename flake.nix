@@ -1,3 +1,9 @@
+/**
+
+  NOTE: The line `home-manager.backupFileExtension = null;` should be added at the
+        end of each machine's configuration because we do not want to move/overwrite
+        existing home files during rebuilds. We want to fail on conflicts instead.
+*/
 {
   description = "A simple NixOS flake";
 
@@ -62,10 +68,10 @@
               home-manager.users.owais = {
                 imports = [
                   (import ./conf/shared.nix).home
+                  ./conf/modules/de/gnome-home.nix
                   ./conf/modules/de/hypr-home.nix
                 ];
               };
-              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
               home-manager.backupFileExtension = null;
             }
           ];
@@ -85,8 +91,12 @@
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.owais = (import ./conf/shared.nix).home;
-              # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
+              home-manager.users.owais = {
+                imports = [
+                  (import ./conf/shared.nix).home
+                  ./conf/modules/de/gnome-home.nix
+                ];
+              };
               home-manager.backupFileExtension = null;
             }
           ];

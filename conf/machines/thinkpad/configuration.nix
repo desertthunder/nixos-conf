@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
+    ../../modules/de/gnome.nix
     ../../modules/de/hypr.nix
   ];
 
