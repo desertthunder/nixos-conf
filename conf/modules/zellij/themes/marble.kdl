@@ -45,8 +45,8 @@ themes {
         ribbon_unselected {
             // #CFCFCF
             base 207 207 207
-            // #181818
-            background 24 24 24
+            // #27272a
+            background 39 39 42
             // #51A4E7
             emphasis_0 81 164 231
             // #7A7A7A

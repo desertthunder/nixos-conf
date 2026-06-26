@@ -69,27 +69,9 @@ Or set PATH for desktop sessions through your distro's environment mechanism.
 
 ## Settings
 
-The Nix config maps to these Zed settings:
+_todo_
 
-```json
-{
-  "theme": "Oxocarbon Dark (Variant I)",
-  "vim_mode": true,
-  "ui_font_family": "Inter",
-  "ui_font_size": 18.0,
-  "buffer_font_family": "0xProto Nerd Font Propo",
-  "buffer_font_size": 18,
-  "tab_size": 2,
-  "hard_tabs": false,
-  "format_on_save": "on",
-  "telemetry": {
-    "diagnostics": false,
-    "metrics": false
-  }
-}
-```
-
-## Check it
+## Verify
 
 ```bash
 zeditor --version

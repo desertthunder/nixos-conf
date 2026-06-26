@@ -420,14 +420,16 @@
           ];
           extraPackages = editor-tool-pkgs;
           userSettings = {
+            # TODO: Carbonfox - opaque
             theme = "Oxocarbon Dark (Variant I)";
             vim_mode = true;
             ui_font_family = "Inter";
             ui_font_size = 18.0;
-            buffer_font_family = "0xProto Nerd Font Propo";
+            buffer_font_family = "Hack Nerd Font Mono";
+            buffer_font_fallbacks = ["0xProto Nerd Font Propo"];
             buffer_font_size = 18;
             terminal = {
-              font_family = "MartianMono Nerd Font";
+              font_family = "0xProto Nerd Font Propo";
               font_size = 17;
             };
             tab_size = 2;
@@ -648,9 +650,9 @@
         installBatSyntax = true;
         installVimSyntax = true;
         settings = {
-          font-family = "MartianMono Nerd Font";
+          font-family = "0xProto Nerd Font";
           font-style = "Medium";
-          font-size = 14;
+          font-size = 16;
           window-padding-x = 8;
           window-padding-y = 8;
           background = "1b1b1b";
