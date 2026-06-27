@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
@@ -38,11 +39,20 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       sops-nix,
       self,
       ...
     }@inputs:
+    let
+      pkgsUnstableFor =
+        system:
+        import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+    in
     {
       nixosConfigurations = {
         nix-haxorus = nixpkgs.lib.nixosSystem {
@@ -56,6 +66,7 @@
                 root = ./.;
                 inherit (inputs) neovim-config;
                 inherit inputs;
+                pkgsUnstable = pkgsUnstableFor "x86_64-linux";
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -82,6 +93,7 @@
                 root = ./.;
                 inherit (inputs) neovim-config;
                 inherit inputs;
+                pkgsUnstable = pkgsUnstableFor "x86_64-linux";
               };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

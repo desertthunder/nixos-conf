@@ -2,8 +2,6 @@
 
 ## Parking Lot
 
-- [ ] Switch Zed to unstable channel
-
 ## Machines
 
 - [ ] Setup Dragonite & make sure it uses Alacritty instead of Ghostty

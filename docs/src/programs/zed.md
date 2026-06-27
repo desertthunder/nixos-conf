@@ -4,12 +4,14 @@
 
 Zed uses Vim mode, the Oxocarbon theme, Inter for the UI, 0xProto Nerd Font for
 buffers, and format-on-save. Home Manager installs language tools so Zed can
-find them when launched from the desktop.
+find them when launched from the desktop. The Zed package itself comes from the
+unstable nixpkgs input.
 
 ## Nix location
 
 - `conf/shared.nix`: `programs.zed-editor`
 - `conf/shared.nix`: `editor-tool-pkgs`
+- `flake.nix`: `nixpkgs-unstable`
 
 Configured extensions:
 

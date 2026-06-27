@@ -187,6 +187,7 @@ is used by Hyprland, rofi, and the local Zellij theme `marble`.
 | `Super-B`            | Open Zen Browser                 |
 | `Super-E`            | Open Nautilus                    |
 | `Super-R`            | Open rofi app launcher           |
+| `Super-Space`        | Open rofi app launcher           |
 | `Super-Shift-R`      | Reload Hyprland config           |
 | `Super-P`            | Open rofi run launcher           |
 | `Super-Shift-L`      | Lock session                     |

@@ -183,6 +183,7 @@
       lib,
       inputs,
       neovim-config,
+      pkgsUnstable,
       ...
     }:
     let
@@ -405,8 +406,10 @@
         */
         programs.zed-editor = {
           enable = true;
+          package = pkgsUnstable.zed-editor;
           extensions = [
             "basher"
+            "carbonfox"
             "dart"
             "deno"
             "elixir"
@@ -420,13 +423,12 @@
           ];
           extraPackages = editor-tool-pkgs;
           userSettings = {
-            # TODO: Carbonfox - opaque
-            theme = "Oxocarbon Dark (Variant I)";
+            theme = "Carbonfox - opaque";
             vim_mode = true;
             ui_font_family = "Inter";
             ui_font_size = 18.0;
             buffer_font_family = "0xProto Nerd Font Propo";
-            buffer_font_fallbacks = ["0xProto Nerd Font Propo"];
+            buffer_font_fallbacks = [ "0xProto Nerd Font Propo" ];
             buffer_font_size = 18;
             terminal = {
               font_family = "0xProto Nerd Font Propo";
