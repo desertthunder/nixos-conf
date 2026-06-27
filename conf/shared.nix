@@ -425,7 +425,7 @@
             vim_mode = true;
             ui_font_family = "Inter";
             ui_font_size = 18.0;
-            buffer_font_family = "Hack Nerd Font Mono";
+            buffer_font_family = "0xProto Nerd Font Propo";
             buffer_font_fallbacks = ["0xProto Nerd Font Propo"];
             buffer_font_size = 18;
             terminal = {
