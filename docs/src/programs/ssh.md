@@ -1,85 +1,40 @@
 # SSH
 
-## What this config does
+Home Manager writes SSH host entries for GitHub, Codeberg, Tangled, Forgejo, and
+the Tangled Knot. On NixOS, identities come from SOPS-Nix paths under
+`/run/secrets`.
 
-Home Manager writes SSH host entries for GitHub, Codeberg, and Tangled. On NixOS
-the keys come from `/run/secrets/` through `sops-nix`.
+## Host Aliases
 
-## Nix location
+| Host                     | User  | Identity        | Purpose                      |
+| ------------------------ | ----- | --------------- | ---------------------------- |
+| `github.com`             | `git` | `keys_gh`       | GitHub remotes               |
+| `codeberg.org`           | `git` | `keys_codeberg` | Codeberg remotes             |
+| `tangled.sh`             | `git` | `keys_tangled`  | Tangled hosted remotes       |
+| `knot.desertthunder.dev` | `git` | `keys_tangled`  | Knot host                    |
+| `nix-baxcalibur-knot`    | `git` | `keys_tangled`  | Tailnet Tangled Knot remotes |
 
-- `conf/shared.nix`: `programs.ssh`
-- `conf/shared.nix`: `sops.secrets`
-- `conf/secrets/owais.yaml`: encrypted key material
+The shared config sets `IdentitiesOnly yes` and `AddKeysToAgent no`.
 
-## NixOS paths
+## Secret Paths
 
-```sshconfig
-Host github.com
-  HostName github.com
-  User git
-  IdentityFile /run/secrets/keys_gh
-  IdentitiesOnly yes
+| Environment | Path style                   |
+| ----------- | ---------------------------- |
+| NixOS       | `/run/secrets/keys_*`        |
+| Non-NixOS   | `~/.local/share/sops/keys_*` |
 
-Host codeberg.org
-  HostName codeberg.org
-  User git
-  IdentityFile /run/secrets/keys_codeberg
-  IdentitiesOnly yes
-
-Host tangled.sh
-  HostName tangled.org
-  User git
-  IdentityFile /run/secrets/keys_tangled
-  IdentitiesOnly yes
-```
-
-The config sets `AddKeysToAgent no` for all hosts.
-
-## Portable setup
-
-Extract the keys first. See [Secrets](../secrets.md).
-
-Use home-directory paths outside NixOS:
-
-```sshconfig
-Host github.com
-  HostName github.com
-  User git
-  IdentityFile ~/.local/share/sops/keys_gh
-  IdentitiesOnly yes
-
-Host codeberg.org
-  HostName codeberg.org
-  User git
-  IdentityFile ~/.local/share/sops/keys_codeberg
-  IdentitiesOnly yes
-
-Host tangled.sh
-  HostName tangled.org
-  User git
-  IdentityFile ~/.local/share/sops/keys_tangled
-  IdentitiesOnly yes
-```
-
-Set permissions:
-
-```bash
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/config ~/.local/share/sops/keys_*
-```
+See [Secrets](../secrets.md) for extraction and permissions. This page should
+not duplicate the SOPS workflow.
 
 ## Validate
 
-```bash
-ssh -T git@github.com
-ssh -T git@codeberg.org
-ssh -T git@tangled.sh
-```
+| Check                 | Command                      |
+| --------------------- | ---------------------------- |
+| GitHub auth           | `ssh -T git@github.com`      |
+| Codeberg auth         | `ssh -T git@codeberg.org`    |
+| Tangled auth          | `ssh -T git@tangled.sh`      |
+| Knot over tailnet     | `ssh -T nix-baxcalibur-knot` |
+| Debug identity choice | `ssh -vT git@github.com`     |
 
-If SSH ignores a key, run:
-
-```bash
-ssh -vT git@github.com
-```
-
-Check the `Offering public key` lines and confirm the path matches your config.
+When debugging, look for `Offering public key` and confirm the path matches the
+configured identity.

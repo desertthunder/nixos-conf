@@ -1,144 +1,72 @@
 # Tailscale
 
-Tailscale is the private network layer for this setup.
+Tailscale is the private network layer. It gives trusted devices stable tailnet
+identity, MagicDNS names, and encrypted paths to private services.
 
-It gives each trusted device a stable tailnet identity, MagicDNS name, and encrypted path to
-other devices without exposing private services to the public internet.
+## Ownership
 
-## Current Shape
+| Layer                   | Owns                                                           |
+| ----------------------- | -------------------------------------------------------------- |
+| `conf/shared.nix`       | Enables `tailscaled`, opens firewall, installs CLI.            |
+| Tailscale admin console | MagicDNS, HTTPS, device approval, expiry, users, groups, ACLs. |
+| Service pages           | How individual services use tailnet access.                    |
 
-`conf/shared.nix` enables Tailscale on every NixOS host:
+## How This Repo Uses It
 
-```nix
-services.tailscale = {
-  enable = true;
-  openFirewall = true;
-};
-```
+| Use                          | Policy                                          |
+| ---------------------------- | ----------------------------------------------- |
+| Hostnames                    | Prefer MagicDNS names such as `nix-baxcalibur`. |
+| Git writes                   | Use SSH over the tailnet.                       |
+| Forgejo private/admin access | Keep on the tailnet.                            |
+| Kavita                       | Publish private HTTPS through Tailscale Serve.  |
+| Public exposure              | Use Funnel only when intentionally needed.      |
 
-The shared package set also installs the `tailscale` CLI. NixOS owns the local
-daemon and package installation. The Tailscale admin console owns tailnet policy:
+## Host Setup
 
-- MagicDNS
-- tailnet HTTPS
-- device approval and expiry
-- users, groups, tags, grants, and ACLs
-- Serve and Funnel permissions
+After a rebuild on a new host, authenticate once with `sudo tailscale up`.
+Approve the device in the admin console if the tailnet requires it.
 
-## How We Use It
+For long-lived servers, disable key expiry only after confirming the device
+identity. Do not disable expiry for casual clients by default.
 
-Use Tailscale as the default private control plane.
+## Checks
 
-- Hostnames: use MagicDNS names such as `nix-baxcalibur`.
-- Git forge writes: use SSH over the tailnet, not public HTTPS.
-- Forgejo admin/private access: keep on the tailnet.
-- Kavita: publish private web access through Tailscale Serve.
+| Check            | Command                       |
+| ---------------- | ----------------------------- |
+| Daemon           | `systemctl status tailscaled` |
+| Tailnet state    | `tailscale status`            |
+| Local tailnet IP | `tailscale ip`                |
+| MagicDNS         | `tailscale ip nix-baxcalibur` |
+| SSH path         | `ssh owais@nix-baxcalibur`    |
+| Serve routes     | `tailscale serve status`      |
 
-## Setup On NixOS
+## Serve
 
-After installing or rebuilding a host from this flake, confirm the service is enabled:
+Use Serve for private HTTPS access to a local service. The usual shape is a
+tailnet HTTPS endpoint forwarding to a service bound on `127.0.0.1`.
 
-```bash
-systemctl status tailscaled
-```
+| Service                   | Local endpoint     | Exposure         |
+| ------------------------- | ------------------ | ---------------- |
+| Kavita                    | `127.0.0.1:5000`   | Tailscale Serve  |
+| Forgejo admin/private use | `127.0.0.1:3030`   | Tailnet first    |
+| Tangled Knot SSH          | system SSH on `22` | Tailnet SSH path |
 
-Authenticate the machine into the tailnet:
+Funnel is public internet exposure. Treat it as temporary or explicitly
+intentional service policy, not the default.
 
-```bash
-sudo tailscale up
-```
+## Troubleshooting
 
-The command prints a login URL. Open it, sign in, and approve the device if the
-tailnet requires approval.
-
-Verify local state:
-
-```bash
-tailscale status
-tailscale ip
-```
-
-Verify MagicDNS from another tailnet device:
-
-```bash
-ping nix-baxcalibur
-ssh owais@nix-baxcalibur
-```
-
-For a server that should remain connected, disable key expiry in the Tailscale
-admin console after confirming the device identity. Do this only for trusted
-long-lived machines.
-
-## Setup On Other Devices
-
-For another Linux device, install Tailscale using the official package for that
-distribution or Tailscale's install script:
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
-```
-
-For Android, install the Tailscale app, sign in to the same tailnet, and keep it
-connected when using Termux for Git or SSH workflows.
-
-For macOS, Windows, iOS, and other clients, install the official client, sign in,
-then confirm the device appears in the admin console.
-
-After any device joins, test:
-
-```bash
-tailscale status
-ping nix-baxcalibur
-```
-
-## MagicDNS
-
-MagicDNS lets tailnet devices use machine names instead of Tailscale IPs. This
-repo assumes MagicDNS is enabled and that Baxcalibur is reachable as
-`nix-baxcalibur`.
-
-If a hostname does not resolve:
-
-```bash
-tailscale status
-tailscale ip nix-baxcalibur
-```
-
-Then check the admin console:
-
-- the device is connected
-- MagicDNS is enabled
-- the machine name is what the docs expect
-- the client is signed in to the correct tailnet
-
-## Tailscale Serve
-
-Use Serve for private HTTPS access to local services. Serve routes traffic from
-tailnet devices to a local service running on the host.
-
-Example shape for a service bound locally:
-
-```bash
-sudo tailscale serve --bg https / http://127.0.0.1:5000
-tailscale serve status
-```
-
-Serve requires tailnet HTTPS certificates. If HTTPS is not enabled, the CLI can
-prompt for the required admin-console consent.
-
-Use Funnel only when a service intentionally needs public internet access. Funnel
-is not the default for this repo.
+| Symptom                   | Check                                                       |
+| ------------------------- | ----------------------------------------------------------- |
+| Name does not resolve     | MagicDNS enabled, client on correct tailnet, device online. |
+| SSH hangs                 | ACLs, MagicDNS result, and target `sshd`.                   |
+| Serve URL missing         | Tailnet HTTPS enabled and Serve route configured.           |
+| Device repeatedly expires | Admin console expiry policy for that node.                  |
 
 ## References
 
-- Tailscale Linux install:
-  <https://tailscale.com/docs/install/linux>
-- Tailscale CLI:
-  <https://tailscale.com/docs/reference/tailscale-cli>
-- MagicDNS:
-  <https://tailscale.com/docs/features/magicdns>
-- Tailscale Serve:
-  <https://tailscale.com/docs/features/tailscale-serve>
-- Access controls:
-  <https://tailscale.com/docs/features/access-control/acls>
+- Tailscale Linux install: <https://tailscale.com/docs/install/linux>
+- Tailscale CLI: <https://tailscale.com/docs/reference/tailscale-cli>
+- MagicDNS: <https://tailscale.com/docs/features/magicdns>
+- Tailscale Serve: <https://tailscale.com/docs/features/tailscale-serve>
+- Access controls: <https://tailscale.com/docs/features/access-control/acls>

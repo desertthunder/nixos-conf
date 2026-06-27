@@ -1,66 +1,24 @@
 # ripgrep
 
-## What this config does
-
-Home Manager installs ripgrep and writes a default config to
+ripgrep is installed by Home Manager and gets a small default config at
 `~/.config/ripgrep/config`.
 
-## Nix location
+## Defaults
 
-- `conf/shared.nix`: installs `ripgrep`
-- `conf/shared.nix`: `home.file.".config/ripgrep/config"`
+| Setting                      | Purpose                                                  |
+| ---------------------------- | -------------------------------------------------------- |
+| `--line-number`              | Show file line numbers.                                  |
+| `--smart-case`               | Case-insensitive search unless the pattern has capitals. |
+| `--max-columns=120`          | Avoid unreadably long output lines.                      |
+| `--max-columns-preview`      | Still show a preview for long lines.                     |
+| `--type-add=nix:*.nix`       | Teach ripgrep about Nix files.                           |
+| `--glob=!.git/*`             | Skip Git internals.                                      |
+| `--glob=!**/node_modules/**` | Skip JS dependencies.                                    |
+| `--glob=!**/target/**`       | Skip Rust build output.                                  |
+| `--glob=!**/.build/**`       | Skip common build output.                                |
 
-## Portable setup
+## Usage
 
-Install ripgrep:
+General search examples live in [Tools](../tools.md).
 
-Fedora:
-
-```bash
-sudo dnf install ripgrep
-```
-
-Ubuntu/Debian:
-
-```bash
-sudo apt install ripgrep
-```
-
-Create the config file:
-
-```bash
-mkdir -p ~/.config/ripgrep
-cat > ~/.config/ripgrep/config <<'EOF'
---line-number
---smart-case
---max-columns=120
---max-columns-preview
---type-add=nix:*.nix
---glob=!.git/*
---glob=!**/node_modules/**
---glob=!**/target/**
---glob=!**/.build/**
-EOF
-```
-
-## Common commands
-
-```bash
-rg pattern
-rg -i pattern
-rg "fn name" -t nix
-rg pattern path/to/dir
-rg -n -C 2 pattern
-rg --files
-rg --files -g '*.nix'
-```
-
-## Validate
-
-```bash
-rg --version
-rg --files -t nix
-```
-
-Use `--no-config` when scripts need results that do not depend on personal rg
-settings.
+This page only documents the repo default behavior.

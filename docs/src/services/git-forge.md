@@ -5,139 +5,87 @@ Forgejo runs on Baxcalibur at `https://git.desertthunder.dev`.
 Public repositories may be readable over HTTPS. Writes, admin access, private
 repositories, SSH remotes, and private LFS paths stay on the tailnet.
 
-Tracked implementation tasks stay in `TODO.md`. This page is the durable service
-shape and operating model.
+Tracked implementation tasks stay in `TODO.md`. This page is the durable
+service shape and operating model.
 
-## Current State
+## Current Shape
 
-Forgejo is enabled from `conf/services/forgejo.nix` and imported by Baxcalibur.
-
-- Local URL: `127.0.0.1:3030`
-- Public URL: `https://git.desertthunder.dev/`
-- Database: local PostgreSQL
-- State: `/var/lib/forgejo`
-- Forgejo LFS storage on local backed-up disk
-- secrets: sops-managed
-- public ingress: Cloudflare Tunnel
-
-Open registration is disabled.
+| Area                  | Value                            |
+| --------------------- | -------------------------------- |
+| Module                | `conf/services/forgejo.nix`      |
+| Host                  | `nix-baxcalibur`                 |
+| Local URL             | `127.0.0.1:3030`                 |
+| Public URL            | `https://git.desertthunder.dev/` |
+| Database              | Local PostgreSQL                 |
+| State                 | `/var/lib/forgejo`               |
+| Public ingress        | Cloudflare Tunnel                |
+| Private control plane | Tailscale                        |
+| Registration          | Disabled                         |
 
 ## Boundaries
 
-Cloudflare Tunnel is only for public HTTPS reads.
+| Path                       | Policy                                             |
+| -------------------------- | -------------------------------------------------- |
+| Public HTTPS reads         | Cloudflare Tunnel to local Forgejo.                |
+| Writes                     | SSH over the tailnet.                              |
+| Admin/private repositories | Tailnet first.                                     |
+| LFS writes                 | Tailnet path to avoid Cloudflare free-tier limits. |
+| SSH port                   | Shared system port `22`, separated by SSH user.    |
 
-The Cloudflare tunnel maps `git.desertthunder.dev` to `http://127.0.0.1:3030` and returns `404` for unmatched hostnames.
+The Cloudflare tunnel should only route the intended hostname and return `404`
+for unmatched hostnames.
 
-Tailscale is the private control plane:
+## Client Model
 
-- SSH remotes use Baxcalibur's tailnet name.
-- Admin and private repository access stay on the tailnet.
-- LFS writes stay on the tailnet to avoid Cloudflare free-tier limits.
-- ACLs should distinguish Baxcalibur SSH, Forgejo SSH, and private LFS access.
+| Client         | Expected path                                            |
+| -------------- | -------------------------------------------------------- |
+| Desktop        | Normal Git over SSH to Baxcalibur’s tailnet name.        |
+| Android/Termux | Git and OpenSSH over Tailscale.                          |
+| Obsidian vault | Repository-local sync helper once the vault repo exists. |
 
-MagicDNS and tailnet HTTPS are configured as well.
+Use per-device SSH keys. They are easier to revoke than copied private keys
+when a device or Termux install is retired.
 
-## Customization
+## SSH Remotes
 
-Most customization happens through `services.forgejo.settings` in `conf/services/forgejo.nix`.
-Those settings render to Forgejo's `app.ini` and are the supported customization surface.
+Forgejo advertises SSH clone URLs with:
 
-After changing `services.forgejo.settings`, remember to rebuild/redeploy.
+| Field | Value            |
+| ----- | ---------------- |
+| Host  | `nix-baxcalibur` |
+| Port  | `22`             |
+| User  | `forgejo`        |
 
-NixOS will restart `forgejo.service` when the generated service configuration or
-referenced config files change. If the rebuild succeeds but the UI still shows
-old text, restart it explicitly:
-
-```bash
-sudo systemctl restart forgejo
-```
-
-Then check:
-
-```bash
-systemctl status forgejo
-```
-
-## Client model
-
-Desktop clients use normal Git over the private remote: pull fast-forward only,
-edit, commit, and push.
-
-Android uses Termux with `git` and `openssh` over Tailscale SSH. The Obsidian
-vault repository should include its own `./sync` helper once the repository
-exists.
-
-The vault repository should ignore device-local Obsidian state such as
-workspace files, trash, caches, and plugin state that should not sync across
-machines.
-
-## SSH Keys
-
-Forgejo is configured to advertise SSH clone URLs with:
-
-- SSH host: `nix-baxcalibur`
-- SSH port: `22`
-- SSH user: the Forgejo run user, normally `forgejo`
-
-That means repository remotes should look like:
+Repository remotes should look like:
 
 ```bash
-git remote set-url origin forgejo@nix-baxcalibur:USERNAME/REPO.git
+git remote set-url origin forgejo@nix-baxcalibur:USER/REPO.git
 ```
 
-Use Tailscale on each client so `nix-baxcalibur` resolves over MagicDNS.
+If using a client-side SSH alias, keep the alias device-local and point it at
+the same tailnet hostname.
 
-On any machine, create a dedicated key if one does not already exist:
+## Checks
 
-```bash
-ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519_forgejo -C "$(whoami)@$(hostname)-forgejo"
-```
+| Check        | Command                         |
+| ------------ | ------------------------------- |
+| Service      | `systemctl status forgejo`      |
+| Recent logs  | `journalctl -u forgejo -e`      |
+| Tailnet SSH  | `ssh -T nix-baxcalibur-forgejo` |
+| Remote shape | `git remote -v`                 |
 
-Add a client-side SSH config entry:
-
-```sshconfig
-Host nix-baxcalibur-forgejo
-  HostName nix-baxcalibur
-  User forgejo
-  Port 22
-  IdentityFile ~/.ssh/id_ed25519_forgejo
-  IdentitiesOnly yes
-```
-
-Then print the public key and add it in Forgejo under `Settings -> SSH / GPG Keys -> Add Key`:
-
-```bash
-cat ~/.ssh/id_ed25519_forgejo.pub
-```
-
-After the key is saved, test authentication:
-
-```bash
-ssh -T nix-baxcalibur-forgejo
-```
-
-For repositories that should use the SSH config alias, set remotes like:
-
-```bash
-git remote set-url origin nix-baxcalibur-forgejo:OWAIS_OR_ORG/REPO.git
-```
-
-Do not copy a private SSH key between devices unless you intentionally want one
-shared device identity. Per-device keys are easier to revoke from Forgejo when a
-laptop, phone, or Termux install is retired.
+NixOS restarts `forgejo.service` when generated service configuration changes.
+If a rebuild succeeds but the UI still shows old customization, restart the
+service explicitly.
 
 ## References
 
 - Forgejo: <https://forgejo.org/docs/latest/admin/config-cheat-sheet/>
 - NixOS module:
   <https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/modules/services/misc/forgejo.nix>
-- Forgejo interface customization:
+- Forgejo customization:
   <https://forgejo.org/docs/latest/admin/advanced/customization/>
 - Cloudflare Tunnel:
   <https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/>
-- Cloudflare locally-managed tunnel:
-  <https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/>
-- Cloudflare tunnel configuration:
-  <https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/configuration-file/>
 - Tailscale: <https://tailscale.com/docs/concepts/tailnet>
 - Termux: <https://termux.dev/>

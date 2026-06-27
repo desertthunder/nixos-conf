@@ -1,29 +1,17 @@
 # Dotfiles
 
-## SOPS without NixOS
+This repo can be used as a dotfile source outside NixOS, but only selected
+pieces are portable. Prefer copying app-native config directories and using
+[Secrets](./secrets.md) for key extraction.
 
-Use the local age key with the encrypted file under `conf/secrets/`:
+| Config | Portable source |
+| ------ | --------------- |
+| Zellij | `conf/modules/zellij` |
+| Fastfetch | `conf/modules/fastfetch` |
+| Starship | `conf/modules/starship.toml` |
+| Zathura | `conf/modules/zathura/zathurarc` |
+| Neovim | `github:desertthunder/nvim` |
+| SSH keys | `conf/scripts/keys.sh` plus SOPS age key |
 
-```bash
-export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
-nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml
-```
-
-Extract Git SSH keys manually:
-
-```bash
-mkdir -p ~/.local/share/sops
-for key in keys_gh keys_codeberg keys_tangled; do
-  nix shell nixpkgs#sops -c sops --extract "[\"$key\"]" -d conf/secrets/owais.yaml \
-    > ~/.local/share/sops/$key
-done
-chmod 600 ~/.local/share/sops/keys_*
-```
-
-Or run:
-
-```bash
-./conf/scripts/keys.sh
-```
-
-For NixOS, the same secrets are exposed through `/run/secrets/` by `sops-nix`.
+Avoid copying generated Home Manager outputs directly. Copy source config, then
+let the target machine own package installation and service management.

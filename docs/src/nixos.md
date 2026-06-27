@@ -1,62 +1,67 @@
 # NixOS
 
-## Layout
+This repo builds two NixOS hosts from one flake and a shared baseline.
 
-Configuration lives under `conf/`:
+| Host | Machine directory | Notes |
+| ---- | ----------------- | ----- |
+| `nix-haxorus` | `conf/machines/thinkpad/` | ThinkPad workstation with Hyprland. |
+| `nix-baxcalibur` | `conf/machines/hp/` | HP host for shared services. |
 
-```text
-conf/
-├── machines/
-│   ├── hp/
-│   └── thinkpad/
-├── modules/
-│   └── de/
-├── secrets/
-└── shared.nix
-```
+## Repository Layout
 
-- `conf/shared.nix`: shared NixOS and Home Manager modules.
-- `conf/machines/{machine}/configuration.nix`: host-specific settings.
-- `conf/machines/{machine}/hardware-configuration.nix`: generated hardware.
-- `conf/modules/`: extra modules and config assets used by Home Manager.
-- `conf/modules/de/`: desktop-environment modules such as Hyprland.
-- `conf/secrets/owais.yaml`: encrypted SOPS secrets.
+| Path | Purpose |
+| ---- | ------- |
+| `flake.nix` | Host outputs, inputs, and Home Manager wiring. |
+| `flake.lock` | Exact upstream revisions. |
+| `conf/shared.nix` | Shared NixOS and Home Manager modules. |
+| `conf/machines/*/configuration.nix` | Host-specific system choices. |
+| `conf/machines/*/hardware-configuration.nix` | Generated hardware facts. |
+| `conf/modules/` | App config assets and focused local modules. |
+| `conf/services/` | Reusable service modules. |
+| `conf/secrets/owais.yaml` | SOPS-encrypted secrets. |
 
-## Rebuild
+For the concepts behind flakes and modules, see [Nix Concepts](./concepts.md).
+
+## Rebuilds
+
+Use the hostname as the flake target:
 
 ```bash
-sudo nixos-rebuild switch --flake .#$(hostname)
 sudo nixos-rebuild test --flake .#$(hostname)
+sudo nixos-rebuild switch --flake .#$(hostname)
+```
+
+Prefer `test` before `switch` when touching boot, display managers, shells,
+networking, secrets, or Home Manager activation.
+
+## Inputs
+
+Keep `flake.lock` stable unless the task is intentionally updating packages or
+modules. For targeted updates:
+
+```bash
+nix flake lock --update-input nixpkgs-unstable
+```
+
+For a broad refresh:
+
+```bash
 nix flake update
 ```
 
-Configurations currently provided by the flake:
+Evaluate at least one host after lock changes.
 
-- `nix-haxorus`: ThinkPad
-- `nix-baxcalibur`: HP
+## Secrets
+
+SOPS-Nix decrypts configured secrets to `/run/secrets/` on NixOS hosts. See
+[Secrets](./secrets.md) for the active secret names and local edit commands.
 
 ## Services
 
-Baseline services shared by every host are documented under
+Shared service policy and host-specific service pages live under
 [Services](./services.md).
 
-## Add a machine
+## Adding Hosts
 
-See [Adding a New Machine](./adding-a-new-machine.md) for the full workflow and
-the concepts behind it.
-
-## SOPS
-
-The system imports `sops-nix` from `conf/shared.nix` and exposes secrets under
-`/run/secrets/`.
-
-Useful commands:
-
-```bash
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops conf/secrets/owais.yaml
-SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml
-nix shell nixpkgs#sops -c sops updatekeys conf/secrets/owais.yaml
-```
-
-The personal age key is documented in `age.txt`. `.sops.yaml` controls which
-files are encrypted and which recipients can decrypt them.
+Use [Adding a New Machine](./adding-a-new-machine.md) for the operational
+checklist.

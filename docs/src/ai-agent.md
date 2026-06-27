@@ -1,5 +1,9 @@
 # AI Agents
 
+## Codex
+
+Login in through the TUI.
+
 ## Claude Code
 
 Home Manager installs Claude Code and writes `~/.claude/settings.json`.
@@ -20,7 +24,7 @@ Authentication comes from `apiKeyHelper`, which reads:
 
 This keeps the API key out of the Nix store.
 
-## Nix location
+## Ownership
 
 - `conf/shared.nix`: `pkgsUnstable.claude-code`
 - `conf/shared.nix`: `home.file.".claude/settings.json"`
@@ -65,5 +69,6 @@ Inside Claude Code, run:
 /model
 ```
 
-`/status` should show the Umans base URL. `/model` should show the configured
-models or the aliases mapped to those models.
+`/status` should show the Umans base URL.
+
+`/model` should show the configured models or the aliases mapped to those models.

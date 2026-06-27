@@ -1,87 +1,17 @@
 # Zed
 
-## What this config does
+Zed is managed through Home Manager and installed from `nixpkgs-unstable` so the
+editor can move faster than the system channel.
 
-Zed uses Vim mode, the Oxocarbon theme, Inter for the UI, 0xProto Nerd Font for
-buffers, and format-on-save. Home Manager installs language tools so Zed can
-find them when launched from the desktop. The Zed package itself comes from the
-unstable nixpkgs input.
+## Extensions
 
-## Nix location
+Extensions are declared in `programs.zed-editor.extensions`. Keep that list in
+source rather than duplicating it here; it changes more often than the operating
+model.
 
-- `conf/shared.nix`: `programs.zed-editor`
-- `conf/shared.nix`: `editor-tool-pkgs`
-- `flake.nix`: `nixpkgs-unstable`
+The important rule is that registry themes must have both pieces:
 
-Configured extensions:
-
-- `basher`
-- `dart`
-- `elixir`
-- `flutter-snippets`
-- `gleam`
-- `lua`
-- `nix`
-- `oxocarbon`
-- `zig`
-
-## Portable setup
-
-Install Zed and install the extensions from Zed's extension UI.
-
-Install the language servers and formatters you need. This repo configures:
-
-```text
-bash-language-server
-clang-tools
-dprint
-elixir
-elixir-ls
-eslint_d
-flutter
-gleam
-go
-gopls
-gotools
-lua
-lua-language-server
-nil
-nixd
-nixfmt
-nodejs
-rust-analyzer
-rustfmt
-shellcheck
-shfmt
-stylua
-typescript
-typescript-language-server
-zig
-zls
-```
-
-On non-Nix systems, GUI apps may not inherit your shell PATH. If Zed cannot find
-a language server, launch it from a terminal:
-
-```bash
-zeditor .
-```
-
-Or set PATH for desktop sessions through your distro's environment mechanism.
-
-## Settings
-
-_todo_
-
-## Verify
-
-```bash
-zeditor --version
-which nixd
-which typescript-language-server
-which rust-analyzer
-which zls
-which zig
-```
-
-Open Zed's language server logs if completion or formatting fails.
+| Need                | Example              |
+| ------------------- | -------------------- |
+| Extension installed | `carbonfox`          |
+| Theme selected      | `Carbonfox - opaque` |

@@ -1,63 +1,29 @@
 # Neovim
 
-## What this config does
-
 Home Manager enables Neovim, sets it as the default editor, and copies the
-external Neovim config into `~/.config/nvim`.
+external Neovim config from the `neovim-config` flake input.
 
-## Nix location
+## Summary
 
-- `flake.nix`: `neovim-config` input
-- `conf/shared.nix`: `programs.neovim`
-- `conf/shared.nix`: `home.file.".config/nvim"`
+| Area             | Current shape                               |
+| ---------------- | ------------------------------------------- |
+| Config source    | `github:desertthunder/nvim` flake input     |
+| Installed config | `~/.config/nvim`                            |
+| Aliases          | `vi`, `vim`                                 |
+| Default editor   | Neovim                                      |
+| Provider support | Python 3 and Ruby enabled                   |
+| Tooling          | Language servers live in `editor-tool-pkgs` |
 
-The flake input points at:
+## Workflow
 
-```text
-github:desertthunder/nvim
-```
-
-## Portable setup
-
-Clone the config directly:
-
-```bash
-git clone https://github.com/desertthunder/nvim ~/.config/nvim
-```
-
-Install Neovim and the language tools used by your projects. The broader editor
-tool list lives in `conf/shared.nix` under `editor-tool-pkgs`.
-
-## Nix workflow
-
-Update the external config input from this repo:
-
-```bash
-nix flake update --update-input neovim-config
-sudo nixos-rebuild switch --flake .#$(hostname)
-```
-
-## Portable workflow
-
-Update the cloned config directly:
-
-```bash
-cd ~/.config/nvim
-git pull
-```
+Update editor behavior in the Neovim config repo. Update this repo when the
+flake input should move to a newer revision or when system language tools need
+to change.
 
 ## Validate
 
-Inside Neovim:
-
-```vim
-:checkhealth
-:map
-:Telescope keymaps
-```
-
-From the shell:
-
-```bash
-nvim --version
-```
+| Check          | Command               |
+| -------------- | --------------------- |
+| Binary         | `nvim --version`      |
+| Config health  | `nvim '+checkhealth'` |
+| Default editor | `echo "$EDITOR"`      |

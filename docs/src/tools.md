@@ -2,8 +2,8 @@
 
 ## ripgrep
 
-Ripgrep is installed by Home Manager and configured at
-`~/.config/ripgrep/config` from `conf/shared.nix`.
+Use `rg` first for repository search. The default config is documented on the
+[ripgrep](./programs/ripgrep.md) program page.
 
 Common searches:
 

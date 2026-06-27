@@ -181,4 +181,16 @@ pre,
 .ace_editor,
 .hljs {
   font-family: var(--mono-font) !important;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+  letter-spacing: 0;
+  word-spacing: normal;
+}
+
+pre,
+pre code,
+:not(pre) > code,
+:not(pre) > .hljs {
+  overflow-wrap: normal;
+  word-break: normal;
 }

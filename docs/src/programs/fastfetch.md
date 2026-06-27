@@ -1,45 +1,21 @@
 # Fastfetch
 
-- `conf/shared.nix`: installs `fastfetch`
-- `conf/shared.nix`: copies `conf/modules/fastfetch`
-- `conf/modules/fastfetch/config.jsonc`: module layout
+[Fastfetch](https://github.com/fastfetch-cli/fastfetch) is installed by Home Manager and
+configured from `conf/modules/fastfetch` as a quick host, desktop, shell, package, and
+hardware overview.
 
-## Setup
+## Summary
 
-Install Fastfetch, then copy the config:
+| Area             | Current shape            |
+| ---------------- | ------------------------ |
+| Config source    | `conf/modules/fastfetch` |
+| Installed config | `~/.config/fastfetch`    |
 
-```bash
-mkdir -p ~/.config
-cp -r conf/modules/fastfetch ~/.config/fastfetch
-```
+The config is app-native JSONC.
 
-Run it:
+## Validate
 
-```bash
-fastfetch
-```
-
-Validate the repo copy while editing:
-
-```bash
-fastfetch --config conf/modules/fastfetch/config.jsonc \
-  --pipe true \
-  --show-errors true
-```
-
-## Notes
-
-- host
-- OS
-- kernel
-- window manager
-- terminal
-- shell
-- CPU
-- disk
-- memory
-- GPU
-- swap
-- display
-- install age
-- terminal colors
+| Check          | Command                                                  |
+| -------------- | -------------------------------------------------------- |
+| Default config | `fastfetch`                                              |
+| Repo config    | `fastfetch --config conf/modules/fastfetch/config.jsonc` |

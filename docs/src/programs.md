@@ -1,7 +1,8 @@
 # Programs
 
-These pages document programs with reusable config. Each page lists the Nix
-source and the portable setup for non-Nix systems.
+These pages document reusable app behavior. They should explain intent,
+ownership, key settings, and troubleshooting. They should not mirror whole
+config files or repeat package inventories already visible in Nix source.
 
 - [Ghostty](./programs/ghostty.md)
 - [Fastfetch](./programs/fastfetch.md)
@@ -17,5 +18,5 @@ source and the portable setup for non-Nix systems.
 - [SSH](./programs/ssh.md)
 - [Obsidian](./programs/obsidian.md)
 
-Focus on copied config, shell setup, keybindings, and commands that verify the
-program works. The package inventory stays in the Nix files.
+For simple tools, prefer summary tables over install scripts. Put exact config
+in source files and exact Nix internals in [Nix Concepts](./concepts.md).

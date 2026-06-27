@@ -1,33 +1,26 @@
 # Services
 
-Self-hosted service planning lives here. Machine-specific NixOS wiring still
-belongs under `conf/machines/`; reusable service modules live under
-`conf/services/`.
+Self-hosted service documentation lives here. Service pages should describe the
+operating model: ownership, boundaries, access paths, checks, and failure modes.
 
-## Shared baseline
+Implementation details stay in `conf/services/` and host imports stay under
+`conf/machines/`.
 
-`conf/shared.nix` enables baseline services and client tools for every host.
+## Shared Baseline
 
-Tailscale is enabled with its firewall port open for direct tailnet connections.
+| Service area | Baseline                                           |
+| ------------ | -------------------------------------------------- |
+| Tailscale    | Enabled on every NixOS host with firewall support. |
+| OpenSSH      | Enabled on every NixOS host.                       |
+| PostgreSQL   | Local development database baseline.               |
+| Redis        | Local development cache baseline.                  |
+| Docker       | Local container runtime baseline.                  |
 
-After a fresh install or rebuild on a new machine, authenticate the node:
+## Service Pages
 
-```bash
-sudo tailscale up
-tailscale status
-```
-
-The Tailscale admin console owns tailnet policy such as MagicDNS, HTTPS, ACLs,
-and device approval. See [Tailscale](./services/tailscale.md) for the operating
-model and setup flow.
-
-Home Manager installs shared desktop applications for `owais`, including
-Obsidian. See [Obsidian](./programs/obsidian.md) for the note-taking workflow.
-
-## Services
-
-- [Tailscale](./services/tailscale.md): private network, MagicDNS, Serve, and
-  tailnet policy.
-- [Git Forge](./services/git-forge.md): Forgejo on Baxcalibur.
-- [Kavita](./services/kavita.md): comics, manga, ebooks, and PDFs on
-  Baxcalibur.
+| Page                                    | Scope                                                 |
+| --------------------------------------- | ----------------------------------------------------- |
+| [Tailscale](./services/tailscale.md)    | Private network, MagicDNS, Serve, and tailnet policy. |
+| [Git Forge](./services/git-forge.md)    | Forgejo on Baxcalibur.                                |
+| [Kavita](./services/kavita.md)          | Comics, manga, ebooks, and PDFs on Baxcalibur.        |
+| [Tangled Knot](./services/tngl-knot.md) | Tangled knot and SSH guard on Baxcalibur.             |

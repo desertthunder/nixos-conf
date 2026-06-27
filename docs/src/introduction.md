@@ -13,16 +13,19 @@ The repo is written for two audiences:
 ## What is here
 
 - [Guides](./guides.md): common commands, checks, secrets, and migration notes
+- [Nix Concepts](./concepts.md): teaching material for language, flakes,
+  modules, and Home Manager
 - [NixOS](./nixos.md): flake layout, rebuilds, hosts, and SOPS wiring
-- [Programs](./programs.md): portable config notes for Ghostty, Zellij, Zed,
-  Zathura, Neovim, Git, Zsh, Starship, ripgrep, and SSH
+- [Programs](./programs.md): summaries of reusable app config and key behavior
 - [Other Distros](./other.md): how to recreate the working setup without NixOS
 - [Tools](./tools.md): small command-line notes and scripts
 
 ## How to use it
 
-If you are on NixOS, start with [NixOS](./nixos.md), then read
-[Hosts](./hosts.md) and [Secrets](./secrets.md).
+If you are on NixOS, start with [NixOS](./nixos.md), then read [Hosts](./hosts.md)
+and [Secrets](./secrets.md).
+
+If the underlying Nix ideas are unclear, read [Nix Concepts](./concepts.md).
 
 If you are not on NixOS, start with [Other Distros](./other.md). Then use the
 program pages for the tools you want to copy.

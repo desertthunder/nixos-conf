@@ -1,92 +1,59 @@
-# Adding a New Machine
+# Adding A New Machine
 
-This page explains how to add a NixOS computer to this flake. It covers the
-mechanics, but also the concepts that make the workflow reliable.
+This page is the operational checklist for adding a NixOS host to the flake.
 
-The short version is:
-
-1. Generate hardware configuration on the new machine.
-2. Add a host directory under `conf/machines/`.
-3. Add a `nixosConfigurations.<hostname>` entry to `flake.nix`.
-4. Build with `test` first, then switch once the result looks right.
-
-## Mental model
-
-NixOS systems are built from modules, Nix files that declare option values.
-`configuration.nix` is a module, imported files are modules, and NixOS merges
-all of those option definitions into one system configuration.[^modules]
-
-This is how the repository models modules:
-
-```text
-conf/
-├── machines/
-│   ├── hp/
-│   └── thinkpad/
-├── modules/
-│   └── de/
-└── shared.nix
-```
-
-- `conf/shared.nix` contains reusable NixOS and Home Manager modules.
-- `conf/machines/{machine}/configuration.nix` contains host-specific choices.
-- `conf/machines/{machine}/hardware-configuration.nix` contains hardware
-  discovered on that machine.
-- `conf/modules/` contains app config assets and focused modules.
-- `conf/modules/de/` contains opt-in desktop-environment modules.
-- `flake.nix` maps a hostname to a complete NixOS system.
-
-The flake is the entry point.
-
-- `inputs` pin external dependencies such as Nixpkgs and Home Manager,
-- `outputs` expose buildable things.[^flake-format]
-
-For NixOS hosts, the important output is `nixosConfigurations.<hostname>`,
-which is the target used by `nixos-rebuild --flake .#<hostname>`.[^flake-nixos]
-
-The lock file records exact input revisions, so a rebuild uses the same source
-graph until you intentionally update it.[^flake-lock]
+For why flakes, modules, and Home Manager work this way, see [Nix Concepts](./concepts.md).
 
 ## Naming
 
-The convention I stick to is to pick two names before creating files:
+Pick two names before creating files:
 
-- Directory name: a short machine label, such as `framework` or `x1`.
-- Hostname: the value of `networking.hostName` (a Pokemon)
-  like `haxorus`
+| Name      | Example           | Used for                                      |
+| --------- | ----------------- | --------------------------------------------- |
+| Directory | `framework`, `x1` | Human-readable folder under `conf/machines/`. |
+| Hostname  | `haxorus`         | `networking.hostName` and flake target.       |
 
-The directory name is for humans (me) reading the repo.
+They may match, but they do not have to.
 
-The hostname is the flake target and the NixOS network identity. They can
-match, but they do not have to.
+Existing hosts use short hardware directory names and Pokemon hostnames.
 
-## Generate Hardware Config
+## Checklist
 
-Run this on the new NixOS machine after disks are mounted or after the machine
-is already installed:
+| Step                     | File or command                                  | Notes                                          |
+| ------------------------ | ------------------------------------------------ | ---------------------------------------------- |
+| Generate hardware config | `nixos-generate-config --show-hardware-config`   | Store it in the new host directory.            |
+| Add host module          | `conf/machines/{machine}/configuration.nix`      | Import hardware and shared NixOS config.       |
+| Set hostname             | `networking.hostName = "{hostname}";`            | Must match the flake target you plan to build. |
+| Add flake output         | `nixosConfigurations.{hostname}`                 | Copy the shape of existing hosts.              |
+| Choose architecture      | `x86_64-linux` or `aarch64-linux`                | Match the target CPU.                          |
+| Build temporarily        | `sudo nixos-rebuild test --flake .#{hostname}`   | Safer first activation.                        |
+| Make persistent          | `sudo nixos-rebuild switch --flake .#{hostname}` | Only after the test generation works.          |
 
-```bash
-sudo nixos-generate-config --show-hardware-config \
-  > conf/machines/{machine}/hardware-configuration.nix
+## Host Directory
+
+Create:
+
+```text
+conf/machines/{machine}/
+├── configuration.nix
+└── hardware-configuration.nix
 ```
 
-During a fresh install, the NixOS manual uses `nixos-generate-config --root
-/mnt` as part of the normal installation sequence.[^install-summary]
+`hardware-configuration.nix` should stay mostly generated. It captures machine
+facts: filesystems, swap, kernel modules, CPU hints, and hardware-specific
+imports.
 
-This repo stores the generated hardware module in the host directory instead
-of leaving it under `/etc/nixos`.
+`configuration.nix` should contain host choices: hostname, hardware workarounds,
+desktop stack imports, power management, and services that belong only on that
+machine.
 
-Treat `hardware-configuration.nix` as mostly generated. It usually contains
-filesystem mounts, swap devices, kernel modules, CPU microcode hints, and other
-facts that are specific to the machine. Keep shared preferences out of this
-file.
+Keep general packages, users, shell defaults, editor defaults, and shared
+secrets in `conf/shared.nix`.
 
-## Machine Module
-
-Create `conf/machines/{machine}/configuration.nix`:
+## Minimal Host Module
 
 ```nix
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -98,137 +65,48 @@ Create `conf/machines/{machine}/configuration.nix`:
 }
 ```
 
-Add host-specific settings below `networking.hostName` like:
-
-- Laptop power management.
-- Fingerprint reader support.
-- Machine-specific graphics options.
-- Hardware workarounds.
-
-Avoid putting general preferences here. If every machine should get a package,
-service, user, shell, desktop setting, or secret integration, put it in
-`conf/shared.nix` to keep new machines boring.
-
-If a desktop stack should only exist on one host, import it explicitly from the
-host module instead of adding it to `conf/shared.nix`. For example,
-`nix-haxorus` imports `../../modules/de/hypr.nix`.
+For a host-specific desktop stack, import its system module here. `nix-haxorus`
+does this for Hyprland.
 
 ## Flake Output
 
-Open `flake.nix` and add another entry inside `nixosConfigurations`:
+Add a `nixosConfigurations.{hostname}` entry in `flake.nix`. Copy an existing
+host entry and adjust:
 
-```nix
-{hostname} = nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
-  specialArgs = { inherit inputs; };
-  modules = [
-    ./conf/machines/{machine}/configuration.nix
-    home-manager.nixosModules.home-manager
-    {
-      home-manager.extraSpecialArgs = {
-        root = ./.;
-        inherit (inputs) neovim-config;
-        inherit inputs;
-      };
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.owais = (import ./conf/shared.nix).home;
-      home-manager.backupFileExtension = null;
-    }
-  ];
-};
-```
+- output name
+- `system`
+- machine configuration path
+- any host-specific Home Manager imports
 
-Use `system = "aarch64-linux";` instead if the target machine is ARM Linux.
-Flake outputs are architecture-aware, so the system string is part of the build
-identity.[^flake-schema]
+This repo wires Home Manager through each NixOS system, so normal
+`nixos-rebuild` applies both system and user changes.
 
-This repository wires Home Manager into each NixOS system as a NixOS module, so
-the user environment is built together with `nixos-rebuild`.[^home-manager]
-`home-manager.useGlobalPkgs = true` makes Home Manager use the same Nixpkgs
-instance as the system, and `home-manager.useUserPackages = true` installs user
-packages under `/etc/profiles/per-user`.[^home-manager-options]
+## Activation
 
-For host-specific Home Manager modules, wrap the shared home module in an
-imports list. `nix-haxorus` uses this for Hyprland:
-
-```nix
-home-manager.users.owais = {
-  imports = [
-    (import ./conf/shared.nix).home
-    ./conf/modules/de/hypr-home.nix
-  ];
-};
-```
-
-## Build and Activate
-
-From the repo on the NixOS machine:
+Build and activate temporarily:
 
 ```bash
 sudo nixos-rebuild test --flake .#{hostname}
 ```
 
-`test` builds the system and activates it for the running boot only.
-
-If the configuration breaks the machine, rebooting returns to the previous boot
-default.[^rebuild]
-
-Once the result works:
+If it works, make it the boot default:
 
 ```bash
 sudo nixos-rebuild switch --flake .#{hostname}
 ```
 
-`switch` builds, activates, and makes the new generation the boot default.[^rebuild]
-If a bad generation was switched, roll back with:
+If a switched generation is bad:
 
 ```bash
 sudo nixos-rebuild switch --rollback
 ```
 
-This is possible because NixOS keeps previous generations.[^rollback]
+## Final Review
 
-## Update inputs intentionally
-
-Keep the lock file stable unless the task is specifically to update the system:
-
-```bash
-nix flake update
-```
-
-After an input update, rebuild one host with `test` before switching every
-machine.
-
-## Checklist
-
-- [ ] `conf/machines/{machine}/hardware-configuration.nix` exists.
-- [ ] `conf/machines/{machine}/configuration.nix` imports hardware and shared NixOS
-      config.
-- [ ] `networking.hostName` matches the intended flake target.
-- [ ] `flake.nix` has `nixosConfigurations.{hostname}`.
-- [ ] The `system` value matches the CPU architecture.
-- [ ] The machine builds
-  - `sudo nixos-rebuild test --flake .#{hostname}`.
-- [ ] The machine switches
-  - `sudo nixos-rebuild switch --flake .#{hostname}`.
-
-[^modules]: [NixOS Manual: Modularity](https://nixos.org/manual/nixos/stable/#sec-modularity).
-
-[^flake-format]: [Nix Reference Manual: Flake format](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake#flake-format).
-
-[^flake-nixos]: [Official NixOS Wiki: Flake schema](https://wiki.nixos.org/wiki/Flakes#Flake_schema).
-
-[^flake-lock]: [Nix Reference Manual: Lock files](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake#lock-files).
-
-[^install-summary]: [NixOS Manual: Installation Summary](https://nixos.org/manual/nixos/stable/#sec-installation-manual-summary).
-
-[^flake-schema]: [Official NixOS Wiki: Output schema](https://wiki.nixos.org/wiki/Flakes#Output_schema).
-
-[^home-manager]: [Home Manager Manual](https://nix-community.github.io/home-manager/).
-
-[^home-manager-options]: [Home Manager NixOS options](https://nix-community.github.io/home-manager/options/nixos/home-manager.html).
-
-[^rebuild]: [NixOS Manual: Changing the Configuration](https://nixos.org/manual/nixos/stable/#sec-changing-config).
-
-[^rollback]: [NixOS Manual: Rolling Back Configuration Changes](https://nixos.org/manual/nixos/stable/#sec-rollback).
+- Hardware config is present and machine-specific.
+- Host module imports shared NixOS config.
+- Hostname and flake output name match.
+- Architecture matches the machine.
+- Host-only features stayed out of `conf/shared.nix`.
+- Shared behavior went into `conf/shared.nix`.
+- `test` succeeded before `switch`.
