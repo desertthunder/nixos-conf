@@ -68,7 +68,7 @@ chmod 700 ~/.ssh
 chmod 600 ~/.ssh/config ~/.local/share/sops/keys_*
 ```
 
-## Check it
+## Validate
 
 ```bash
 ssh -T git@github.com

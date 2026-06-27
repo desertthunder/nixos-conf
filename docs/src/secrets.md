@@ -16,10 +16,11 @@ It exposes these secrets:
 - `/run/secrets/keys_gh`
 - `/run/secrets/keys_codeberg`
 - `/run/secrets/keys_tangled`
+- `/run/secrets/umans_key`
 
 The files belong to user `owais`, group `users`, with mode `0600`.
 
-SSH uses those paths in the Home Manager config.
+SSH and Claude Code use those paths in the Home Manager config.
 
 ## Local SOPS commands
 
@@ -97,12 +98,13 @@ chmod 600 ~/.ssh/config ~/.local/share/sops/keys_*
 ```bash
 SOPS_AGE_KEY_FILE=$(pwd)/age.txt nix shell nixpkgs#sops -c sops -d conf/secrets/owais.yaml >/dev/null
 ls -l /run/secrets/keys_*
+ls -l /run/secrets/umans_key
 ssh -T git@github.com
 ```
 
 On non-NixOS, check the extracted key path instead of `/run/secrets/`.
 
-## Common failures
+## Common failure modes
 
 If SOPS cannot decrypt, check that `SOPS_AGE_KEY_FILE` points at the right age
 key.

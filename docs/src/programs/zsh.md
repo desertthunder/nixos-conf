@@ -69,7 +69,7 @@ alias nboot='sudo nixos-rebuild boot --flake "$NIXOS_CONFIG#$(hostname)"'
 alias tbuild='sudo nixos-rebuild test --flake "$NIXOS_CONFIG#$(hostname)"'
 ```
 
-## Check it
+## Validate
 
 ```bash
 zsh --version

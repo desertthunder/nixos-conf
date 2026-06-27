@@ -72,7 +72,7 @@ git config --global core.excludesfile ~/.gitignore_global
 SSH host config lives on the [SSH](./ssh.md) page. SOPS key extraction lives on
 the [Secrets](../secrets.md) page.
 
-## Check it
+## Validate
 
 ```bash
 git config --global --get user.name

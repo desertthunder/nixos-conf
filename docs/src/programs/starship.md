@@ -50,14 +50,14 @@ Configured modules:
 
 Directory substitutions:
 
-| Directory | Symbol |
-| --- | --- |
-| `Documents` | `󰈙` |
-| `Downloads` | `` |
-| `Music` | `` |
-| `Pictures` | `` |
+| Directory   | Symbol |
+| ----------- | ------ |
+| `Documents` | `󰈙`    |
+| `Downloads` | ``    |
+| `Music`     | ``    |
+| `Pictures`  | ``    |
 
-## Check it
+## Validate
 
 ```bash
 starship --version

@@ -3,6 +3,7 @@
 - [Welcome](./introduction.md)
 - [Guides](./guides.md)
 - [Writing docs](./writing.md)
+- [AI Agent](./ai-agent.md)
 - [Development](./development.md)
   - [Neovim](./neovim.md)
 - [Debugging](./debug.md)

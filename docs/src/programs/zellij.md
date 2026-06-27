@@ -62,14 +62,14 @@ mode.
 
 Common bindings:
 
+- `Ctrl-p`: pane mode
+- `Ctrl-t`: tab mode
+- `Ctrl-s`: scroll mode
+- `Ctrl-n`: resize mode
+- `Ctrl-o`: session mode
+- `Ctrl-h`: move mode
+- `p`, `t`, `s`, `r`, `o`, `m`: modal shortcuts after unlocking
 - `Alt-h`, `Alt-j`, `Alt-k`, `Alt-l`: move focus
 - `Alt-[`, `Alt-]`: cycle swap layouts
 - `Alt-n`: new pane
 - `Alt-f`: toggle floating panes
-
-## Check it
-
-```bash
-zellij --version
-zellij setup --check
-```

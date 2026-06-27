@@ -55,7 +55,7 @@ rg --files
 rg --files -g '*.nix'
 ```
 
-## Check it
+## Validate
 
 ```bash
 rg --version

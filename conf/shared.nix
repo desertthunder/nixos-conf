@@ -172,6 +172,11 @@
             group = "users";
             mode = "0600";
           };
+          umans_key = {
+            owner = "owais";
+            group = "users";
+            mode = "0600";
+          };
         };
       };
     };
@@ -227,6 +232,31 @@
           IdentitiesOnly yes
       '';
 
+      claudeCodeSettings = {
+        "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+        apiKeyHelper = "${pkgs.coreutils}/bin/cat /run/secrets/umans_key";
+        model = "umans-glm-5.2";
+        fallbackModel = [ "umans-coder" ];
+        availableModels = [
+          "umans-glm-5.2"
+          "umans-coder"
+        ];
+        env = {
+          ANTHROPIC_BASE_URL = "https://api.code.umans.ai";
+          ANTHROPIC_DEFAULT_FABLE_MODEL = "umans-glm-5.2";
+          ANTHROPIC_DEFAULT_FABLE_MODEL_NAME = "Umans GLM 5.2";
+          ANTHROPIC_DEFAULT_OPUS_MODEL = "umans-glm-5.2";
+          ANTHROPIC_DEFAULT_OPUS_MODEL_NAME = "Umans GLM 5.2";
+          ANTHROPIC_DEFAULT_SONNET_MODEL = "umans-glm-5.2";
+          ANTHROPIC_DEFAULT_SONNET_MODEL_NAME = "Umans GLM 5.2";
+          ANTHROPIC_DEFAULT_HAIKU_MODEL = "umans-coder";
+          ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME = "Umans Coder";
+          CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY = "1";
+          DISABLE_LOGIN_COMMAND = "1";
+          DISABLE_LOGOUT_COMMAND = "1";
+        };
+      };
+
       editor-tool-pkgs = with pkgs; [
         bash-language-server
         clang-tools
@@ -263,6 +293,7 @@
       #  some of these could be dev-tool-pkgs (hurl, jq, just, etc.)
       cli-tool-pkgs = with pkgs; [
         bat
+        pkgsUnstable.claude-code
         codex
         dust
         fastfetch
@@ -615,6 +646,8 @@
         source = ./modules/zellij;
         recursive = true;
       };
+
+      home.file.".claude/settings.json".text = builtins.toJSON claudeCodeSettings;
 
       xdg.configFile."starship.toml".source = ./modules/starship.toml;
       xdg.configFile."zathura/zathurarc".source = ./modules/zathura/zathurarc;

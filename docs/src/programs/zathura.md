@@ -32,19 +32,19 @@ Create `~/.config/zathura/zathurarc` and copy the settings you want from
 
 ## Mappings
 
-| Key | Action |
-| --- | --- |
-| `u` | half page up |
-| `d` | half page down |
-| `J` | full page down |
-| `K` | full page up |
-| `T` | toggle page mode |
-| `r` | reload |
-| `R` | rotate |
-| `A` | zoom in |
-| `D` | zoom out |
-| `i` | recolor |
-| `p` | print |
+| Key | Action            |
+| --- | ----------------- |
+| `u` | half page up      |
+| `d` | half page down    |
+| `J` | full page down    |
+| `K` | full page up      |
+| `T` | toggle page mode  |
+| `r` | reload            |
+| `R` | rotate            |
+| `A` | zoom in           |
+| `D` | zoom out          |
+| `i` | recolor           |
+| `p` | print             |
 | `b` | toggle status bar |
 
 ## Useful portable config
@@ -68,7 +68,7 @@ map p print
 map b toggle_statusbar
 ```
 
-## Check it
+## Validate
 
 ```bash
 zathura --version

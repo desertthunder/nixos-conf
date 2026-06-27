@@ -74,7 +74,7 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ghostty-zellij/ binding '<Super>z'
 ```
 
-## Check it
+## Validate
 
 ```bash
 ghostty --version

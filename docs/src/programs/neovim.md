@@ -46,7 +46,7 @@ cd ~/.config/nvim
 git pull
 ```
 
-## Check it
+## Validate
 
 Inside Neovim:
 
