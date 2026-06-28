@@ -471,12 +471,18 @@
               diagnostics = false;
               metrics = false;
             };
+            # TODO: do I need this?
             lsp.deno.settings.deno = {
               enable = true;
               lint = true;
             };
             toolbar = {
               breadcrumbs = false;
+              quick_actions =  false;
+            };
+            tab_bar = {
+              show = true;
+              show_nav_history_buttons = false;
             };
           };
         };
