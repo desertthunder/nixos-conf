@@ -5,14 +5,14 @@ external Neovim config from the `neovim-config` flake input.
 
 ## Summary
 
-| Area             | Current shape                               |
-| ---------------- | ------------------------------------------- |
-| Config source    | `github:desertthunder/nvim` flake input     |
-| Installed config | `~/.config/nvim`                            |
-| Aliases          | `vi`, `vim`                                 |
-| Default editor   | Neovim                                      |
-| Provider support | Python 3 and Ruby enabled                   |
-| Tooling          | Language servers live in `editor-tool-pkgs` |
+| Area             | Current shape                                                                    |
+| ---------------- | -------------------------------------------------------------------------------- |
+| Config source    | [`github:desertthunder/nvim`](https://github.com/desertthunder/nvim) flake input |
+| Installed config | `~/.config/nvim`                                                                 |
+| Aliases          | `vi`, `vim`                                                                      |
+| Default editor   | Neovim                                                                           |
+| Provider support | Python 3 and Ruby enabled                                                        |
+| Tooling          | Language servers live in `editor-tool-pkgs`                                      |
 
 ## Workflow
 
