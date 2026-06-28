@@ -1,7 +1,8 @@
 # Welcome
 
-This site documents my NixOS workstation, dotfiles, editor setup, terminal
-workflow, and the parts that can be reused outside NixOS.
+Hi! Welcome to the documentation site for my ([Owais](https://desertthunder.dev))
+dotfiles & flakes. More specifically, my NixOS workstation, dotfiles, editor setup,
+terminal workflow, and the parts that can be reused outside NixOS.
 
 The repo is written for two audiences:
 
@@ -42,8 +43,6 @@ conf/
 ├── secrets/       # SOPS-encrypted secrets
 └── shared.nix     # shared NixOS and Home Manager modules
 
-docs/src/          # mdBook source
+docs/src/          # This book's source (mdBook)
 shells/            # project shell helpers
 ```
-
-The generated book lives in `docs/book/`. Edit `docs/src/` instead.
