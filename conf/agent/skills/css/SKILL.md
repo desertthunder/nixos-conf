@@ -1,61 +1,89 @@
 ---
 name: css
-description: Write and refactor well-structured vanilla CSS using BEM-style component classes, CSS custom properties, small utilities, semantic HTML, accessible colour palettes, and flexible layouts. Use when replacing utility CSS, organizing stylesheets, naming classes, or reviewing CSS architecture.
+description: Write, refactor, and review well-structured vanilla CSS. Use when replacing utility CSS, organizing stylesheets, naming component classes, defining tokens, choosing accessible colours, or improving CSS architecture without a utility-first framework.
 ---
 
-# Vanilla CSS
+# CSS
 
 Use this skill when writing or refactoring plain CSS. The goal is CSS that is
-boring to maintain: named components, predictable files, shared tokens, and few
-surprises across the site.
+boring to maintain: semantic HTML, named components, explicit tokens, flexible
+layouts, and small files with clear responsibilities.
 
-Read `references/jvns-css-notes.md` for the source notes behind this approach.
+This skill consolidates the local CSS notes with the former `styling-with-css`
+skill.
 
-## Principles
+## References
 
-- Use semantic HTML first. Add classes for styling hooks, not to describe every
-  property applied to the element.
-- Organize most CSS by component. A component has one block class and one file.
-- Keep components isolated by convention: a component stylesheet should not reach
-  into unrelated components.
-- Put design choices in custom properties: colours, font sizes, line heights,
-  spacing steps, radii, shadows, and z-index values.
-- Start with a reset, a palette, a type scale, a tiny base file, component files,
-  and a small utilities file.
-- Prefer plain CSS features before a framework: imports, nesting, custom
-  properties, grid, container queries, cascade layers, and scope when available.
-- Use a build step only when it earns its keep. Native CSS imports and nesting are
-  fine during development; bundling for production is optional.
+Read these when the task needs more detail:
 
-## Suggested file structure
+- `references/jvns-css-notes.md`: source notes from Julia Evans on moving away
+  from Tailwind and structuring CSS.
+- `references/structure.md`: file responsibilities, component rules, spacing,
+  responsive layout, and build notes.
+- `references/colors.md`: Reasonable Colors usage and contrast heuristics.
+- `references/reasonable-colors.css`: full Reasonable Colors variables.
+
+## Default approach
+
+1. Start with semantic HTML.
+2. Add classes as styling hooks, not as property descriptions.
+3. Put shared design decisions in CSS custom properties.
+4. Put most styling in component files.
+5. Keep reset, base, and utilities small.
+6. Let parent layout containers own spacing.
+7. Prefer grid, intrinsic sizing, and container/media queries over breakpoint
+   sprawl.
+8. Use a build step only when it earns its keep.
+
+## File structure
+
+Start with this shape and adapt only when the project demands it:
 
 ```text
 styles/
-  main.css
+  style.css
   reset.css
-  tokens.css
   base.css
   utilities.css
+  tokens/
+    colors.css
+    type.css
+    spacing.css
   components/
     card.css
     site-header.css
-    zine-list.css
 ```
 
-`main.css` imports files in this order:
+`style.css` should compose the system in this order:
 
 ```css
 @import "reset.css";
-@import "tokens.css";
+@import "tokens/colors.css";
+@import "tokens/type.css";
+@import "tokens/spacing.css";
 @import "base.css";
 @import "utilities.css";
 @import "components/card.css";
-@import "components/site-header.css";
 ```
 
-## BEM-style naming
+A smaller project can use one `tokens.css` file instead of a `tokens/`
+directory. Native CSS imports and nesting are fine during development. Bundle
+for production only if needed.
 
-Use BEM as a naming convention, not as ceremony.
+## Layers of responsibility
+
+- **Reset:** Known browser baseline, including `box-sizing: border-box`, sensible
+  line height, form normalization, and accessibility defaults.
+- **Tokens:** Colours, type, spacing, radii, shadows, and z-index values.
+- **Base:** Site-wide element rules you truly want everywhere.
+- **Utilities:** Rare helpers such as `.sr-only`, `.stack`, or `.cluster`.
+- **Components:** Most CSS. Each component gets one root class and one file.
+- **Layouts:** Parent containers arrange children and own spacing.
+
+## Component naming
+
+Use BEM-style naming when it helps clarity. Treat it as a convention, not
+ceremony.
 
 ```html
 <article class="card card--featured">
@@ -69,21 +97,17 @@ Use BEM as a naming convention, not as ceremony.
   display: grid;
   gap: var(--space-3);
   padding: var(--space-4);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
+  color: var(--text);
+  background: var(--surface);
 }
 
 .card__title {
   font-size: var(--size-lg);
-  line-height: var(--line-height-lg);
-}
-
-.card__summary {
-  color: var(--color-text-muted);
+  line-height: var(--line-lg);
 }
 
 .card--featured {
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--accent);
 }
 ```
 
@@ -92,73 +116,68 @@ Rules:
 - Block: `.card`, `.site-header`, `.zine-list`.
 - Element: `.card__title`, `.site-header__nav`.
 - Modifier: `.card--featured`, `.site-header--compact`.
-- Do not chain unrelated blocks, such as `.sidebar .card`, unless the layout
+- Do not chain unrelated blocks, such as `.sidebar .card`, unless a layout
   component is intentionally arranging its children.
-- Avoid class names based on appearance alone, such as `.blue-box` or
-  `.big-text`, unless they are true utilities.
+- Avoid appearance-only names such as `.blue-box` or `.big-text` unless they are
+  true utilities.
+- Nested CSS is fine when it stays inside the component root.
 
-## Tokens
+## Tokens and colour
 
-Keep shared values in `tokens.css`.
+Keep repeated values in tokens. Use semantic aliases in components.
 
 ```css
 :root {
-  --color-text: #1f1f1f;
-  --color-text-muted: #666;
-  --color-surface: #fff;
-  --color-accent: #de751f;
+  --surface: var(--color-gray-1);
+  --surface-raised: white;
+  --text: var(--color-gray-6);
+  --muted: var(--color-gray-4);
+  --accent: var(--color-blue-4);
+  --accent-bg: var(--color-blue-1);
 
-  --size-sm: 0.875rem;
-  --line-height-sm: 1.25rem;
   --size-base: 1rem;
-  --line-height-base: 1.5rem;
+  --line-base: 1.5rem;
   --size-lg: 1.125rem;
-  --line-height-lg: 1.75rem;
+  --line-lg: 1.75rem;
 
-  --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-6: 1.5rem;
-  --space-8: 2rem;
 
   --radius-md: 0.5rem;
 }
 ```
 
-Guidelines:
+When colour design is not the task, use a known palette. Prefer Reasonable
+Colors by default in this skill. For readable text/background pairs, choose
+shade differences of at least 3, or at least 4 for stronger contrast.
 
-- All colours used on the site should be listed in one palette file.
-- Use a known palette when colour design is not the task. Good candidates include
-  uchu, flexoki, reasonable colours, Radix, the US Web Design System, and
-  Material Design.
-- Check contrast for text, focus states, hover states, disabled states, and dark
-  mode if present.
-- Use OKLCH only when it makes the palette easier to reason about or generate.
+Check text, focus, hover, active, disabled, visited, and dark-mode states when
+those states exist.
 
-## Base styles
+## Base and utilities
 
-Keep `base.css` small. It can set document-wide defaults and plain element
-styles that are safe everywhere.
+Keep `base.css` small:
 
 ```css
-html {
-  line-height: 1.5;
-}
-
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  color: var(--color-text);
-  background: var(--color-surface);
+  color: var(--text);
+  background: var(--surface);
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--accent);
 }
 ```
 
 Move repeated component styles into base only after the repetition is clear.
+
+Keep utilities few and stable. Good utilities are generic, accessible, and used
+across components. Avoid recreating a utility framework one class at a time. If
+`utilities.css` keeps growing, move styles back into components or tokens.
 
 ## Layout and spacing
 
@@ -167,7 +186,7 @@ Let layout containers own spacing where possible.
 ```css
 .section {
   --inner-width: 60rem;
-  padding: var(--space-8) max(var(--space-4), (100% - var(--inner-width)) / 2);
+  padding: var(--space-6) max(var(--space-4), (100% - var(--inner-width)) / 2);
 }
 
 .stack > * + * {
@@ -185,30 +204,8 @@ For responsive layouts, try grid before adding breakpoints.
 }
 ```
 
-Use media queries when the design actually changes at a breakpoint. Do not add
-breakpoints just to copy a framework pattern.
-
-## Utilities
-
-Keep utilities few and stable. Good utilities are generic, accessible, and used
-across components.
-
-```css
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-```
-
-Avoid recreating a full utility framework one class at a time. If the utilities
-file keeps growing, move styles back into components or tokens.
+Use media or container queries when the design actually changes at a breakpoint.
+Do not add breakpoints just to copy a framework pattern.
 
 ## Refactoring workflow
 
@@ -219,15 +216,14 @@ file keeps growing, move styles back into components or tokens.
 5. Put shared spacing on layout containers.
 6. Replace breakpoint-heavy layout rules with grid or intrinsic sizing when it is
    clearer.
-7. Check that editing a component file cannot accidentally restyle unrelated
-   components.
+7. Check that editing a component file cannot restyle unrelated components.
 8. Remove unused classes and duplicated declarations.
 
 ## Review checklist
 
 - Does every component have one clear block class?
 - Are element and modifier names tied to the component they belong to?
-- Are colours, sizes, and spacing values tokenized?
+- Are colours, type, sizes, and spacing tokenized?
 - Is `base.css` still small?
 - Are utilities genuinely shared and generic?
 - Are margins owned by layout containers where possible?
@@ -235,3 +231,20 @@ file keeps growing, move styles back into components or tokens.
   queries?
 - Are focus, hover, active, disabled, and visited states covered where needed?
 - Is the CSS easy to delete when the component is deleted?
+
+## Self-update
+
+This is a living skill. When CSS work reveals a reusable lesson, update this
+`SKILL.md` or its references with the smallest rule that would prevent the same
+issue next time.
+
+Update when:
+
+- a file structure, naming rule, or token pattern works repeatedly;
+- a rule causes awkward CSS and should be softened;
+- a palette, contrast rule, or accessibility check catches a real issue;
+- a refactor exposes a better way to separate base, utilities, layouts, and
+  components;
+- the user corrects the preferred CSS style.
+
+Keep updates project-local, concrete, and free of one-off page details.

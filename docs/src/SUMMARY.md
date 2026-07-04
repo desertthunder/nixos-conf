@@ -33,6 +33,7 @@
   - [Git](./programs/git.md)
   - [Zsh](./programs/zsh.md)
   - [AI Agents](./ai-agent.md)
+  - [Agent Skills](./agent-skills.md)
   - [Starship](./programs/starship.md)
   - [ripgrep](./programs/ripgrep.md)
   - [SSH](./programs/ssh.md)

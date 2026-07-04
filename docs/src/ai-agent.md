@@ -1,5 +1,7 @@
 # AI Agents
 
+Project-local skills are documented in [Agent Skills](./agent-skills.md).
+
 ## Codex
 
 Login in through the TUI.
