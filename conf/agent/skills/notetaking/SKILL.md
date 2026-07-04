@@ -1,37 +1,35 @@
 ---
 name: notetaking
 description: >
-    Convert Markdown, articles, and web pages into concise, reviewable notes that
-    preserve the source’s thesis, key claims, evidence, concepts, and open questions.
+  Convert Markdown, articles, and web pages into concise, reviewable notes that
+  preserve the source’s thesis, key claims, evidence, concepts, and open questions.
 ---
 
-## Purpose
+Use this skill to turn Markdown, web pages, articles, or document text into
+concise, useful notes that preserve the source's main ideas and make them
+reviewable later.
 
-Turn Markdown, web pages, articles, or document text into concise, useful notes that
-preserve the source’s main ideas and make them reviewable later.
-
-The goal is not to summarize everything but to capture what is worth remembering,
+The goal is not to summarize everything. Capture what is worth remembering,
 questioning, and reusing.
 
-Regardless of the project you're asked to use this skill in, you must focus on the
-content of the article, not tieing it back to the project at hand.
+Regardless of the project you're asked to use this skill in, focus on the source
+content. Do not force connections back to the current repository unless the user
+asks for that.
 
-## Core Rules
+## Core rules
 
-1. **Capture the thesis.**
-   Identify the source’s central point in one sentence.
-2. **Extract important claims.**
-   Record what the author says, what supports it, and any caveats.
-3. **Prefer paraphrase over copying.**
-   Rewrite ideas in clear original language. Use quotes only when exact wording matters.
-4. **Make notes reviewable.**
-   Generate active-recall questions for the most important ideas.
-5. **Preserve provenance.**
-   Keep source URL, title, author, date, and section references when available.
-6. **Separate fact, inference, and uncertainty.**
-   Do not mix what the source directly states with your own synthesis.
+1. **Capture the thesis.** Identify the source's central point in one sentence.
+2. **Extract important claims.** Record what the author says, what supports it,
+   and any caveats.
+3. **Prefer paraphrase over copying.** Use quotes only when exact wording matters.
+4. **Make notes reviewable.** Generate active-recall questions for important
+   ideas.
+5. **Preserve provenance.** Keep source URL, title, author, date, and section
+   references when available.
+6. **Separate fact, inference, and uncertainty.** Do not mix source claims with
+   your synthesis.
 
-## Output Format
+## Output format
 
 ```markdown
 ---
@@ -39,13 +37,13 @@ Notes: <title>
 Source: <url or source name>
 Author: <author if available>
 Date: <published/updated date if available, if not: captured>
-Captured: <capture date (optional - only if date has a value)>
+Captured: <capture date, optional>
 Tags: <tags>
 ---
 
 ## Summary
 
-<One sentence explaining the source’s main point.>
+<One sentence explaining the source's main point.>
 
 ## Key Ideas
 
@@ -59,13 +57,13 @@ Tags: <tags>
 
 <support: evidence, example, reasoning>
 
-<caveat/confidence + high medium or low>
+<caveat/confidence: high, medium, or low>
 
 ## Important Terms
 
 | Term     | Meaning                       |
 | -------- | ----------------------------- |
-| `<term>` | `<plain-language definition>`  |
+| `<term>` | `<plain-language definition>` |
 
 ## Questions for Review
 
@@ -89,9 +87,9 @@ Tags: <tags>
 
 ## Notable Quotes
 
-> “<short quote only if worth preserving>”
+> "<short quote only if worth preserving>"
 
-## Takeways
+## Takeaways
 
 - <Most important takeaway>
 - <Second takeaway>
@@ -101,14 +99,15 @@ Tags: <tags>
 ## Procedure
 
 1. Read the title, metadata, headings, and conclusion first.
-2. Identify the source type: tutorial, opinion, research, reference, announcement, or essay.
+2. Identify the source type: tutorial, opinion, research, reference,
+   announcement, or essay.
 3. Extract the central thesis.
 4. Capture only the strongest ideas, claims, terms, and examples.
 5. Add caveats where support is weak or missing.
 6. Generate review questions that require recall or explanation.
 7. End with three compressed takeaways.
 
-## Quality Checklist
+## Quality checklist
 
 A good note should answer:
 
@@ -123,16 +122,27 @@ A good note should answer:
 
 ## Avoid
 
-- Long generic summaries
-- Copying large passages
-- Capturing every detail
-- Treating unsupported claims as facts
-- Mixing source claims with interpretation
-- Creating shallow yes/no questions
-- Losing the source URL or metadata
+- Long generic summaries.
+- Copying large passages.
+- Capturing every detail.
+- Treating unsupported claims as facts.
+- Mixing source claims with interpretation.
+- Creating shallow yes/no questions.
+- Losing the source URL or metadata.
 
-## Self-Update
+## Self-update
 
-Update this skill as you receive feedback on the quality of your notes.
+This is a living skill. When a notetaking session reveals a reusable lesson,
+update this `SKILL.md` or add a reference file with the smallest rule that would
+improve future notes.
 
-Review how your notes have been updated and update as well.
+Update when:
+
+- the user asks for a recurring note structure change;
+- notes miss an important source detail, caveat, or provenance field;
+- review questions are too shallow or too numerous;
+- a better template or metadata convention proves useful repeatedly;
+- the distinction between source claims and synthesis needs to be clearer.
+
+Do not add one-off preferences from a single source. Keep updates concrete and
+focused on note quality.

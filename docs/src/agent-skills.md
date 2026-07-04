@@ -25,6 +25,7 @@ Examples:
 - "Make this memo sound less AI-generated" should trigger `writing`.
 - "Turn this idea into a PRD" should trigger `spec-writing`.
 - "Take notes from this article" should trigger `notetaking`.
+- "Add SvelteKit form action tests" should trigger `svelte-testing`.
 - "Audit this repo before changing it" should trigger
   `investigate-new-codebase`.
 
@@ -40,6 +41,7 @@ examples, templates, and catalogs into `references/`.
 | `investigate-new-codebase` | First-pass repo audits, legacy rescue, risk mapping, git-history analysis, and triage.                   |
 | `notetaking`               | Turning articles, Markdown, or web pages into concise notes with claims, evidence, and review questions. |
 | `spec-writing`             | Specs, PRDs, implementation plans, task breakdowns, acceptance criteria, and agent instructions.         |
+| `svelte-testing`           | Svelte and SvelteKit unit, component, server, SSR, browser, and E2E testing.                             |
 | `writing`                  | Drafting, revising, editing, and desloping prose in a direct human voice.                                |
 
 ## Installation pattern
