@@ -1,6 +1,10 @@
 ---
 name: spec-writing
-description: Write, review, and iterate software specs for AI coding agents. Use when the user asks for a spec, PRD, SRS, implementation plan, task breakdown, acceptance criteria, agent instructions, or wants to turn an idea into code-ready requirements.
+description: >
+  Write, review, and iterate software specs for AI coding agents. 
+  Use when the user asks for a spec, PRD, SRS, implementation plan, task breakdown, 
+  acceptance criteria, agent instructions, or wants to turn an idea into code-ready 
+  requirements.
 ---
 
 # Spec Writing
@@ -40,7 +44,6 @@ For most coding tasks, cover these sections:
 - **Objective:** What are we building and why?
 - **Users / use cases:** Who needs this, and what must they be able to do?
 - **Success criteria:** Observable outcomes and acceptance criteria.
-- **Non-goals:** What is intentionally out of scope.
 - **Current state:** Existing files, APIs, flows, constraints, and known issues.
 - **Tech stack:** Specific frameworks, versions, libraries, and platform rules.
 - **Commands:** Exact build, test, lint, typecheck, and dev commands.
@@ -50,11 +53,20 @@ For most coding tasks, cover these sections:
 - **Boundaries:** What the agent may do freely, must ask before doing, and must
   never do.
 - **Implementation plan:** Ordered steps small enough to verify one at a time.
+- **Deferred milestones:** Essential work that belongs later, with the reason it is sequenced later.
 - **Risks / open questions:** Unknowns, tradeoffs, security issues, migrations,
   data loss, performance, accessibility, or compatibility concerns.
 
 Use only sections that matter for the request. For a small function, a signature,
 behavior list, edge cases, and tests may be enough.
+
+## Scope rules
+
+- Do not use a `Non-goals` section by default.
+  Essential feature work should be planned as milestones, deferred milestones,
+  dependencies, or explicit sequencing rather than trimmed out of the spec.
+- Only describe something as out of scope when it is truly not part of the product
+  direction, not merely too large for the first implementation pass.
 
 ## Planning rules
 
@@ -95,7 +107,7 @@ prevent the same issue next time.
 
 Update when:
 
-- the user corrects a missing or harmful spec pattern;
+- the user corrects a missing or harmful spec pattern, such as using non-goals to hide essential deferred work;
 - a generated spec causes implementation drift;
 - a verification step was missing or too vague;
 - a better template, boundary, or review question proves useful repeatedly;

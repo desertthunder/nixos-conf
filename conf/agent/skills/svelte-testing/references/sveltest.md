@@ -143,10 +143,8 @@ Vitest browser mode is strict. If multiple elements match, use `.first()`,
 
 ## Examples to consult
 
-- <https://sveltest.dev/examples>: overview of unit, integration, E2E, form, and
-  component testing patterns.
-- <https://sveltest.dev/examples/unit>: unit/component examples.
-- <https://sveltest.dev/examples/todos>: SvelteKit form/action examples and live
-  todo app.
-- <https://sveltest.dev/todos>: live demo.
 - <https://github.com/spences10/sveltest>: source repository.
+- <https://sveltest.dev/examples>: overview of unit, integration, E2E, form, and component testing patterns.
+  - <https://sveltest.dev/examples/unit>: unit/component examples.
+  - <https://sveltest.dev/examples/todos>: SvelteKit form/action examples and live todo app.
+- <https://sveltest.dev/todos>: live demo.
