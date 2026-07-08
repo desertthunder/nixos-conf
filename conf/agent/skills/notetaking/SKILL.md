@@ -25,7 +25,8 @@ asks for that.
 4. **Make notes reviewable.** Generate active-recall questions for important
    ideas.
 5. **Preserve provenance.** Keep source URL, title, author, date, and section
-   references when available.
+   references when available. When notes are based on URL sources, write
+   `Source` as a YAML list of URLs.
 6. **Separate fact, inference, and uncertainty.** Do not mix source claims with
    your synthesis.
 
@@ -33,12 +34,16 @@ asks for that.
 
 ```markdown
 ---
-Notes: <title>
-Source: <url or source name>
-Author: <author if available>
-Date: <published/updated date if available, if not: captured>
-Captured: <capture date, optional>
-Tags: <tags>
+title: <title>
+sources:
+  - <url>
+  - <url>
+author: author if available
+Date: published/updated date if available, if not: captured
+captured: capture date, optional
+tags: 
+  - <tag>
+  - <tag>
 ---
 
 ## Summary

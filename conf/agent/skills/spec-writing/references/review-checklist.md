@@ -6,6 +6,8 @@ Before handing a spec to an agent, check:
 - Are stack, files, commands, and tests specific?
 - Are boundaries explicit?
 - Is the task sliced into verifiable steps?
+- Is ticket-level sequencing left for `ticket-writing` instead of mixed into the
+  spec?
 - Are unresolved decisions marked as questions instead of hidden assumptions?
 - Is the spec short enough to keep the agent focused?
 

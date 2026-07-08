@@ -24,11 +24,21 @@ status: "{{draft}} | {{ready}} | {{done}}"
 
 - {{Existing files, flows, APIs, or constraints.}}
 
+## User Stories
+
+1. As a {{actor}}, I want {{capability}}, so that {{benefit}}.
+
 ## Technical Plan
 
 - Stack: <specific tools and versions>
-- Files to touch: <paths>
 - Data/API changes: <schemas, contracts, migrations>
+- Implementation decisions: <settled choices, interfaces, schema/API contracts>
+
+## Testing Plan
+
+- Test boundary: <highest stable behavior boundary to verify through>
+- Prior art: <similar tests or checks in this codebase>
+- Commands: <exact commands, when known>
 
 ## Boundaries
 
@@ -36,15 +46,9 @@ status: "{{draft}} | {{ready}} | {{done}}"
 - Ask first: <approval-required changes>
 - Never: <hard stops>
 
-## Deferred
+## Deferred Milestones
 
 - {{Essential follow-up work that should be planned later, not discarded.}}
-
-## Implementation tasks
-
-1. {{Small verifiable step}}
-2. {{Small verifiable step}}
-3. {{Small verifiable step}}
 
 ## Verification
 
@@ -63,3 +67,10 @@ status: "{{draft}} | {{ready}} | {{done}}"
   changing schemas, touching auth, changing public APIs, or broad refactors.
 - **Never:** Hard stops, such as committing secrets, editing generated/vendor
   files, deleting data, or changing production config unless explicitly requested.
+
+## Notes
+
+- Keep implementation tickets out of the spec. Use `ticket-writing` when the
+  user wants task breakdowns, dependency edges, or milestone checklists.
+- Avoid brittle file paths unless they are essential current-state context. File
+  paths age faster than architecture decisions.

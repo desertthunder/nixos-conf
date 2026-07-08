@@ -2,19 +2,22 @@
 name: spec-writing
 description: >
   Write, review, and iterate software specs for AI coding agents. 
-  Use when the user asks for a spec, PRD, SRS, implementation plan, task breakdown, 
-  acceptance criteria, agent instructions, or wants to turn an idea into code-ready 
-  requirements.
+  Use when the user asks for a spec, PRD, SRS, implementation plan, acceptance
+  criteria, agent instructions, "to spec", or wants to turn an idea, plan, or
+  settled conversation into code-ready requirements. For task lists, tickets,
+  milestone checklists, or splitting a spec into implementation work, use
+  ticket-writing instead.
 ---
 
 # Spec Writing
 
-Use this skill to turn a rough idea into a clear, code-ready spec for a human
-or AI coding agent. The goal is enough structure to prevent drift without
-burying the agent in irrelevant context.
+Use this skill to turn a rough idea, repo finding, or settled conversation into
+a clear, code-ready spec for a human or AI coding agent. The goal is enough
+structure to prevent drift without burying the agent in irrelevant context.
 
-This skill is based on Addy Osmani's "How to write a good spec for AI agents"
-and Simon Willison's "Here's how I use LLMs to help me write code".
+When the user asks to convert the current conversation into a spec, synthesize
+what is already known. Do not reopen discovery unless a missing decision would
+materially change the implementation.
 
 ## References
 
@@ -28,13 +31,15 @@ Read these when the task needs more detail:
 ## Default approach
 
 1. Start with the user's goal, users, and definition of success.
-2. Ask only the missing questions that would change the implementation.
-3. Draft a small spec first, then expand details where ambiguity remains.
-4. Separate product intent from technical plan and task execution.
-5. Keep each agent task focused. Do not turn a large project into one giant
+2. Inspect the repo or source material before inventing structure.
+3. Ask only missing questions that would change the implementation.
+4. Draft the smallest useful spec first, then expand details where ambiguity
+   remains.
+5. Separate product intent from technical decisions and task execution.
+6. Keep each agent task focused. Do not turn a large project into one giant
    prompt.
-6. Include tests, commands, boundaries, and review checkpoints.
-7. Treat the spec as a living artifact. Update it when implementation teaches
+7. Include tests, commands, boundaries, and review checkpoints.
+8. Treat the spec as a living artifact. Update it when implementation teaches
    you something.
 
 ## What a good spec includes
@@ -48,6 +53,8 @@ For most coding tasks, cover these sections:
 - **Tech stack:** Specific frameworks, versions, libraries, and platform rules.
 - **Commands:** Exact build, test, lint, typecheck, and dev commands.
 - **Testing plan:** What tests to add or run, and what must pass.
+- **Test boundary:** The highest stable behavior boundary the work should be
+  verified through, preferring existing boundaries.
 - **Project structure:** Where code, tests, docs, migrations, assets, or config go.
 - **Code style:** Concrete conventions or one short example of preferred style.
 - **Boundaries:** What the agent may do freely, must ask before doing, and must
@@ -70,11 +77,12 @@ behavior list, edge cases, and tests may be enough.
 
 ## Planning rules
 
-- Inspect the repo or source material before inventing structure.
 - Identify the smallest useful deliverable.
 - Present options with tradeoffs when several designs are plausible.
+- Check the proposed test boundary with the user when it affects architecture
+  or task shape.
 - Use stable Markdown headings so sections can be pasted into future prompts.
-- Break large work into phases: specify, plan, tasks, implement, verify.
+- Break large work into phases: specify, ticket, implement, verify.
 - Define what evidence proves each phase complete.
 
 For production code, be precise and directive. Function signatures, exact file
@@ -99,6 +107,12 @@ points where relevant.
 Do not trust generated code without review. The human remains responsible for
 correctness.
 
+## Handoff
+
+When the user wants the spec split into implementation tickets, stop using this
+skill and invoke `ticket-writing`. The ticket step should preserve the spec's
+intent and slice the work into verifiable tasks with explicit dependencies.
+
 ## Self-update
 
 This is a living skill. When a spec-writing session reveals a reusable lesson,
@@ -122,3 +136,5 @@ adding one-off project details.
   https://addyosmani.com/blog/good-spec/
 - Simon Willison, "Here's how I use LLMs to help me write code":
   https://simonwillison.net/2025/Mar/11/using-llms-for-code/
+- Matt Pocock skills, `to-spec` and `to-tickets`:
+  https://github.com/mattpocock/skills
