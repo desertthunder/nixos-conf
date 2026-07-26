@@ -98,6 +98,19 @@ paths, examples, and failing test cases usually beat prose.
 - Start a fresh agent session when the current conversation becomes noisy, and
   seed it with the approved spec plus only the relevant current files.
 
+## Artifact size
+
+- Target at most roughly 600 lines for one spec file. This is a focus boundary,
+  not permission to omit requirements, verification, risks, or settled
+  decisions.
+- Remove repetition and tighten prose before splitting the artifact.
+- If a complete spec would still exceed the target, keep the core product and
+  architecture contract in the main spec and move a cohesive supporting body,
+  such as a protocol schema, fixture catalogue, or migration appendix, into a
+  clearly linked companion file.
+- Do not create a separate decision log when settled decisions can be stated
+  once in the relevant spec sections.
+
 ## Verification rules
 
 A spec is incomplete until it says how the result will be checked. Include exact

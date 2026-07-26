@@ -26,7 +26,7 @@ structure.
 
 Keep the session bounded by default:
 
-- Ask at most 8 substantive questions in one pass.
+- Ask at most 8-10 substantive questions in one pass.
 - Stop earlier when no remaining answer would materially change the plan.
 - After 3 unanswered or deferred questions, summarize the unresolved risks and
   ask whether to continue, write a spec, or pause.

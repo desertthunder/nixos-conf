@@ -26,9 +26,15 @@ asks for that.
    ideas.
 5. **Preserve provenance.** Keep source URL, title, author, date, and section
    references when available. When notes are based on URL sources, write
-   `Source` as a YAML list of URLs.
+   `sources` as a YAML list of URLs.
 6. **Separate fact, inference, and uncertainty.** Do not mix source claims with
    your synthesis.
+7. **Name source boundaries.** When a note covers similarly named projects,
+   multiple artifacts, or a site plus an implementation repo, add a short
+   section that explains which claims come from which source.
+8. **Capture mechanisms.** For technical sources, include focused sections that
+   preserve how the system works: architecture, prompts, loop, data flow, tools,
+   state, or failure handling as relevant.
 
 ## Output format
 
@@ -39,9 +45,9 @@ sources:
   - <url>
   - <url>
 author: author if available
-Date: published/updated date if available, if not: captured
+date: published/updated date if available, if not omit it
 captured: capture date, optional
-tags: 
+tags:
   - <tag>
   - <tag>
 ---
@@ -50,11 +56,28 @@ tags:
 
 <One sentence explaining the source's main point.>
 
+## Source Boundary
+
+- **<Source or artifact A>:** <What this source contributes to the note.>
+- **<Source or artifact B>:** <What this source contributes to the note.>
+
 ## Key Ideas
 
 - **<Idea 1>:** <Plain-language explanation.>
 - **<Idea 2>:** <Plain-language explanation.>
 - **<Idea 3>:** <Plain-language explanation.>
+
+## What <Subject> Does
+
+- <Concrete capability or behavior>
+- <Concrete capability or behavior>
+- <Concrete capability or behavior>
+
+## How It Works
+
+<Use source-specific sections when useful, such as `Architecture`, `Prompt Surface`,
+`Tool Prompting`, `Agent Loop`, `State`, `Sessions`, `Compaction`, or `Failure Handling`.
+Prefer concrete mechanisms over generic summaries.>
 
 ## Claims & Evidence
 
@@ -70,12 +93,22 @@ tags:
 | -------- | ----------------------------- |
 | `<term>` | `<plain-language definition>` |
 
+## Lessons To Reuse
+
+- <Reusable design, writing, research, or implementation lesson>
+- <Reusable lesson>
+- <Reusable lesson>
+
 ## Questions for Review
 
 - <Question that tests recall of the main thesis?>
+  - <Answer or expected explanation>
 - <Question that tests understanding of a key mechanism?>
+  - <Answer or expected explanation>
 - <Question that asks how the idea applies?>
+  - <Answer or expected explanation>
 - <Question that asks when the idea might fail?>
+  - <Answer or expected explanation>
 
 ## Connections
 
@@ -108,9 +141,14 @@ tags:
    announcement, or essay.
 3. Extract the central thesis.
 4. Capture only the strongest ideas, claims, terms, and examples.
-5. Add caveats where support is weak or missing.
-6. Generate review questions that require recall or explanation.
-7. End with three compressed takeaways.
+5. If multiple sources share a name or play different roles, add a
+   `Source Boundary` section before synthesis.
+6. For technical sources, identify the mechanism sections worth preserving:
+   architecture, prompt shape, loop, tools, state, errors, storage, or UX.
+7. Add caveats where support is weak or missing.
+8. Generate review questions that require recall or explanation, and include
+   short answers when they make the note easier to review later.
+9. End with three compressed takeaways.
 
 ## Quality checklist
 
@@ -121,6 +159,8 @@ A good note should answer:
 - What claims does it make?
 - What evidence supports those claims?
 - What terms or concepts matter?
+- How does the system/process actually work?
+- Which parts are facts from sources, and which are synthesis or reusable lessons?
 - What should I be able to recall later?
 - What remains uncertain?
 - Where can this connect to other knowledge?

@@ -46,6 +46,17 @@ When the user asks for milestones instead of tickets, group tickets into ordered
 milestones with an exit criterion for each milestone. Keep individual checklist
 items verifiable and preserve blockers between milestones.
 
+## Artifact size
+
+- Target at most roughly 600 lines for one ticket file while preserving every
+  genuine blocker, acceptance criterion, verification step, and frontier item.
+- Tighten repeated boilerplate and notes before changing ticket granularity.
+- If a complete ticket set would still exceed the target, split it by approved
+  milestone or dependency frontier and link each file back to the same source
+  spec. Do not split merely by technical layer.
+- Keep one ticket small enough for a fresh implementation-agent context; file
+  length is not a reason to merge unrelated outcomes into a large ticket.
+
 ## Handoff
 
 End with the frontier: the ticket or tickets that can be started immediately.
