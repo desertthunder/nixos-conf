@@ -22,6 +22,8 @@ work, common synonyms, and when to use the skill.
 Examples:
 
 - "Refactor this Tailwind into plain CSS" should trigger `css`.
+- "Make this dashboard clearer and more polished" should trigger
+  `frontend-design`.
 - "Make this memo sound less AI-generated" should trigger `writing`.
 - "Turn this idea into a PRD" should trigger `spec-writing`.
 - "Take notes from this article" should trigger `notetaking`.
@@ -38,6 +40,7 @@ examples, templates, and catalogs into `references/`.
 | Skill                      | Use it for                                                                                               |
 | -------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `css`                      | Vanilla CSS structure, component classes, tokens, accessible colours, and replacing utility CSS.         |
+| `frontend-design`          | Building, redesigning, reviewing, and polishing accessible, responsive frontend interfaces.             |
 | `investigate-new-codebase` | First-pass repo audits, legacy rescue, risk mapping, git-history analysis, and triage.                   |
 | `notetaking`               | Turning articles, Markdown, or web pages into concise notes with claims, evidence, and review questions. |
 | `spec-writing`             | Specs, PRDs, implementation plans, task breakdowns, acceptance criteria, and agent instructions.         |
@@ -67,10 +70,15 @@ For generic agent harnesses that read `~/.agents/skills`, expose project skills
 with symlinks rather than copies:
 
 ```bash
-mkdir -p ~/.agents/skills/css
-ln -s "$PWD/conf/agent/skills/css/SKILL.md" ~/.agents/skills/css/SKILL.md
-ln -s "$PWD/conf/agent/skills/css/references" ~/.agents/skills/css/references
+mkdir -p ~/.agents/skills ~/.codex/skills
+ln -s "$PWD/conf/agent/skills/frontend-design" \
+  ~/.agents/skills/frontend-design
+ln -s "$PWD/conf/agent/skills/frontend-design" \
+  ~/.codex/skills/frontend-design
 ```
+
+Link the whole skill directory so `SKILL.md`, references, license files, and
+agent metadata stay together.
 
 Do not keep duplicate standalone skills in `~/.agents/skills` or
 `~/.pi/agent/skills` when their guidance has been consolidated into this repo.

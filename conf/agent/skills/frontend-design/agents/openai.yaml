@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "Design and polish production frontend interfaces"
+  default_prompt: "Use $frontend-design to create or improve this interface with a clear visual direction, complete interaction states, and responsive behavior."
