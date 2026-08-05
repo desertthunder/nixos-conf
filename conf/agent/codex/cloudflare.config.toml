@@ -1,0 +1,34 @@
+# Opt into Cloudflare platform skills for a session with:
+# codex --profile cloudflare
+
+[[skills.config]]
+path = "~/.codex/skills/agents-sdk/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/cloudflare-email-service/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/cloudflare/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/durable-objects/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/sandbox-sdk/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/web-perf/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/workers-best-practices/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/wrangler/SKILL.md"
+enabled = true

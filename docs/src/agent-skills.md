@@ -49,12 +49,59 @@ examples, templates, and catalogs into `references/`.
 
 ## Installation pattern
 
-The source of truth is always this repository:
+The source of truth for global agent instructions, settings, and project skills
+is this repository:
 
 ```text
+conf/agent/AGENTS.md
+conf/agent/codex/cloudflare.config.toml
+conf/agent/codex/config.toml
+conf/agent/codex/extras.config.toml
+conf/agent/codex/full.config.toml
+conf/agent/codex/handoff.config.toml
+conf/agent/codex/macos.config.toml
+conf/agent/codex/media.config.toml
+conf/agent/codex/hooks.json
+conf/agent/pi/settings.json
 conf/agent/skills/<skill>/SKILL.md
 conf/agent/skills/<skill>/references/
 ```
+
+On macOS, publish the global files as writable, out-of-store symlinks:
+
+```bash
+conf/agent/link-global-configs.sh
+```
+
+The installer selects `macos.config.toml` on macOS and the portable
+`config.toml` on Linux. Home-relative skill paths work on macOS, NixOS, and
+Ubuntu. Machine-generated project trust and desktop settings remain in the
+macOS file instead of leaking into the Linux configuration.
+
+Approval rules remain machine-local because they grant permission to execute
+commands outside the sandbox.
+
+The default Codex configuration keeps artifact and publishing plugins disabled
+to reduce the fixed context attached to ordinary coding turns. Start a CLI
+session with `codex --profile full` when it needs documents, spreadsheets,
+presentations, PDFs, Sites, templates, or visualizations.
+
+Image generation, plugin installation, plugin creation, skill discovery,
+copywriting, and Fallow are grouped behind `codex --profile extras`. Recent
+sessions rarely loaded them, and the writing skill covers normal prose and
+website copy in the base profile.
+
+PixiJS, Remotion, and Mediabunny have many specialized skills, so the base
+profile leaves them out of ordinary prompts. Use `codex --profile media` for
+graphics or video work.
+
+Cloudflare platform skills are similarly grouped behind
+`codex --profile cloudflare`.
+
+The base profile leaves `code-change-status` disabled. Use
+`codex --profile handoff` only when work needs a durable cross-session handoff.
+The writing skill remains part of the base profile and applies to documentation
+and other prose by default.
 
 On NixOS, Home Manager publishes the project skills to Pi:
 

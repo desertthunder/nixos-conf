@@ -1,0 +1,174 @@
+# Opt into PixiJS, Remotion, and Mediabunny skills for a session with:
+# codex --profile media
+
+[[skills.config]]
+path = "~/.agents/skills/mediabunny/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-accessibility/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-application/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-assets/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-blend-modes/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-color/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-core-concepts/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-create/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-custom-rendering/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-environments/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-events/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-filters/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-html-source/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-math/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-migration-v8/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-performance/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-container/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-core-concepts/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-dom-container/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-gif/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-graphics/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-mesh/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-particle-container/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-sprite/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-text/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-ticker/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/mediabunny/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-captions/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-create/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-docs/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-interactivity/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-markup/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-render/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-saas/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-captions/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-create/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-docs/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-interactivity/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-markup/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-render/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-saas/SKILL.md"
+enabled = true

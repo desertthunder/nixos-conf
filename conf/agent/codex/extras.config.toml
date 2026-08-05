@@ -1,0 +1,26 @@
+# Opt into rarely used specialist and Codex-maintenance skills with:
+# codex --profile extras
+
+[[skills.config]]
+path = "~/.codex/skills/.system/imagegen/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/.system/plugin-creator/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.codex/skills/.system/skill-installer/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/copywriting/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/fallow-skills/fallow/skills/fallow/SKILL.md"
+enabled = true
+
+[[skills.config]]
+path = "~/.agents/skills/find-skills/SKILL.md"
+enabled = true

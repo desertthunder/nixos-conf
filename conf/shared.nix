@@ -192,6 +192,8 @@
       ...
     }:
     let
+      agentConfigDir = "${config.home.homeDirectory}/Projects/nixos-conf/conf/agent";
+
       elixir-ls-bin = pkgs.runCommand "elixir-ls-bin" { } ''
         mkdir -p $out/bin
         ln -s ${pkgs.elixir-ls}/bin/* $out/bin/
@@ -661,8 +663,53 @@
         recursive = true;
       };
 
+      home.file.".codex/AGENTS.md" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/AGENTS.md";
+        force = true;
+      };
+
+      home.file.".codex/config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/config.toml";
+        force = true;
+      };
+
+      home.file.".codex/cloudflare.config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/cloudflare.config.toml";
+        force = true;
+      };
+
+      home.file.".codex/full.config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/full.config.toml";
+        force = true;
+      };
+
+      home.file.".codex/extras.config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/extras.config.toml";
+        force = true;
+      };
+
+      home.file.".codex/handoff.config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/handoff.config.toml";
+        force = true;
+      };
+
+      home.file.".codex/hooks.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/hooks.json";
+        force = true;
+      };
+
+      home.file.".codex/media.config.toml" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/codex/media.config.toml";
+        force = true;
+      };
+
       home.file.".pi/agent/AGENTS.md" = {
-        source = ./agent/AGENTS.md;
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/AGENTS.md";
+        force = true;
+      };
+
+      home.file.".pi/agent/settings.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/pi/settings.json";
         force = true;
       };
 

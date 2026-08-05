@@ -1,0 +1,301 @@
+personality = "pragmatic"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "medium"
+model_auto_compact_token_limit = 64000
+project_doc_max_bytes = 16384
+
+plan_mode_reasoning_effort = "high"
+approvals_reviewer = "user"
+
+[[skills.config]]
+path = "~/.codex/skills/.system/imagegen/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/.system/plugin-creator/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/.system/skill-installer/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/copywriting/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/fallow-skills/fallow/skills/fallow/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/find-skills/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/code-change-status/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/agents-sdk/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/cloudflare-email-service/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/cloudflare/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/durable-objects/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/sandbox-sdk/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/web-perf/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/workers-best-practices/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.codex/skills/wrangler/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/mediabunny/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-accessibility/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-application/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-assets/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-blend-modes/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-color/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-core-concepts/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-create/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-custom-rendering/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-environments/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-events/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-filters/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-html-source/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-math/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-migration-v8/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-performance/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-container/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-core-concepts/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-dom-container/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-gif/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-graphics/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-mesh/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-particle-container/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-sprite/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-scene-text/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs-ticker/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/pixijs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/mediabunny/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-captions/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-create/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-docs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-interactivity/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-markup/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-render/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-best-practices/remotion-saas/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-captions/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-create/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-docs/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-interactivity/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-markup/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-render/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "~/.agents/skills/remotion-saas/SKILL.md"
+enabled = false
+
+[agents]
+default_subagent_model = "gpt-5.6-terra"
+default_subagent_reasoning_effort = "medium"
+
+[notice]
+"hide_gpt-5.1-codex-max_migration_prompt" = true
+hide_rate_limit_model_nudge = true
+
+[notice.model_migrations]
+"gpt-5.2-codex" = "gpt-5.3-codex"
+"gpt-5.3-codex" = "gpt-5.4"
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = false
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = false
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = false
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = false
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = false
+
+[plugins."sites@openai-bundled"]
+enabled = false
+
+[plugins."visualize@openai-bundled"]
+enabled = false
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[mcp_servers.svelte]
+enabled = false
+command = "npx"
+args = ["-y", "@sveltejs/mcp"]
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[tui]
+status_line = ["model-with-reasoning", "run-state", "context-remaining", "weekly-limit"]
+status_line_use_colors = true
+theme = "zenburn"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+"gpt-5.6-sol" = 4
+
+[features]
+hooks = true
+remote_models = true
+js_repl = false

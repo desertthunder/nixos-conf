@@ -6,8 +6,7 @@ description: Write implementation tickets, task breakdowns, milestone checklists
 # Ticket Writing
 
 Use this skill after the plan or spec is clear enough to split into work. Produce
-agent-ready tickets with explicit dependencies, acceptance criteria, and a clear
-frontier of what can start first.
+agent-ready tickets with explicit dependencies and acceptance criteria.
 
 Read:
 
@@ -20,7 +19,7 @@ Read:
 2. Inspect the repo when task shape depends on current architecture.
 3. Draft work as vertical, verifiable slices rather than layer-only tasks.
 4. Put enabling prefactors first when they make the implementation simpler.
-5. Give every ticket its blockers. A ticket with no blockers is on the frontier.
+5. Give every ticket its blockers.
 6. Ask the user to approve granularity and dependencies before publishing or
    writing tracker issues.
 7. Write local Markdown by default. Create or modify tracker issues only when the
@@ -49,16 +48,13 @@ items verifiable and preserve blockers between milestones.
 ## Artifact size
 
 - Target at most roughly 600 lines for one ticket file while preserving every
-  genuine blocker, acceptance criterion, verification step, and frontier item.
+  genuine blocker, acceptance criterion, and verification step.
 - Tighten repeated boilerplate and notes before changing ticket granularity.
 - If a complete ticket set would still exceed the target, split it by approved
-  milestone or dependency frontier and link each file back to the same source
+  milestone or dependency group and link each file back to the same source
   spec. Do not split merely by technical layer.
 - Keep one ticket small enough for a fresh implementation-agent context; file
   length is not a reason to merge unrelated outcomes into a large ticket.
 
-## Handoff
-
-End with the frontier: the ticket or tickets that can be started immediately.
 Recommend working one ticket per fresh context when the implementation will be
 handled by an agent.

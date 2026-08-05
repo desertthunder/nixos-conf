@@ -1,0 +1,6 @@
+# Opt into automatic code-change status files for a session with:
+# codex --profile handoff
+
+[[skills.config]]
+path = "~/.agents/skills/code-change-status/SKILL.md"
+enabled = true

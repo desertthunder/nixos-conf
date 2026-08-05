@@ -33,8 +33,7 @@ behavior.
 Every ticket declares its blockers. Blockers should be real gates, not loose
 ordering preferences.
 
-Publish or list tickets in dependency order: blockers first. The frontier is any
-ticket whose blockers are complete.
+Publish or list tickets in dependency order: blockers first.
 
 ## Wide refactor exception
 

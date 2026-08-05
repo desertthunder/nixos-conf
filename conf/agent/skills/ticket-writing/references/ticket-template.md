@@ -8,8 +8,6 @@
 <One-line summary of what these tickets build. Reference the source spec if one
 exists.>
 
-Work the frontier: any ticket whose blockers are complete.
-
 ## <Ticket title>
 
 **What to build:** <End-to-end behavior this ticket makes work from the user's
