@@ -1,9 +1,12 @@
 ---
 name: frontend-design
-description: Create, redesign, review, and polish production frontend interfaces. Use for websites, landing pages, dashboards, app shells, components, forms, settings, onboarding, empty states, responsive layouts, visual hierarchy, typography, color, spacing, motion, interaction states, accessibility, UX copy, or requests to make a UI feel distinctive, coherent, bolder, quieter, clearer, or less generic.
+description: Create, redesign, review, and polish browser-based frontend interfaces implemented with HTML/CSS or web UI frameworks. Use for websites, landing pages, dashboards, web app shells, components, forms, responsive layouts, visual hierarchy, typography, color, spacing, motion, interaction states, accessibility, and UX copy. Do not use for terminal user interfaces (TUIs), CLI output, shell prompts, terminal themes, or other text-mode interfaces.
 ---
 
 # Frontend Design
+
+Use this skill for graphical web interfaces. Do not use it for TUIs,
+command-line output, shell prompts, or terminal styling.
 
 Create working interfaces with a clear point of view, strong usability, and
 polished details. Match the project's framework and conventions. Improve existing

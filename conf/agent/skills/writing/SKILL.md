@@ -22,6 +22,12 @@ Read these when the task needs more detail:
 
 ## Default approach
 
+- When writing for Owais, treat his edited prose as the style authority. Match
+  its density, directness, sentence length, and tolerance for informality.
+- Keep useful operational constraints, but remove tutorial narration, repeated
+  rationale, and polish that turns plain instructions into corporate prose.
+- Prefer short practical paragraphs and compact lists. Explain why only when it
+  changes a decision.
 - Prefer clear, concrete language over ornate phrasing.
 - Keep claims specific. Name sources, people, tools, and constraints when they
   matter.
@@ -113,6 +119,26 @@ Do not over-explain, apologize for the argument, or narrate the structure. Cut
 fractal summaries: telling the reader what you will say, saying it, then
 summarizing what you said.
 
+### Name the behavior
+
+Do not use reassuring labels in place of evidence. Words such as "safe",
+"stable", "clear", "useful", "complete", and "portable" should name a defined
+property or be replaced with the behavior that supports the claim.
+
+Cut defensive closing clauses built around "without", "remains", "stays", or
+"keeps" when they repeat a guarantee already stated. Resolve floating references
+such as "same", "existing", and "explicit" when the reader has to infer their
+noun.
+
+Use document terminology that matches the audience. Keep milestones, tickets,
+phases, and planning status in planning material. Use "contract" for a formal
+interface or compatibility guarantee. Otherwise name the API, schema, format,
+behavior, or rule.
+
+State a guarantee where the documentation owns it. Elsewhere, explain the local
+consequence or link to the authoritative description instead of repeating the
+guarantee.
+
 ### Watch formatting tells
 
 Avoid:
@@ -136,7 +162,9 @@ When revising prose:
 5. Name actors and sources where possible.
 6. Read for rhythm: combine choppy fragments, split overloaded sentences, and
    keep punctuation plain.
-7. Return either the revised text or a compact list of changes, depending on what
+7. Check for fragments, tense mismatches, broken list grammar, and headings that
+   promise more than their sections deliver.
+8. Return either the revised text or a compact list of changes, depending on what
    the user asked for.
 
 ## Quick checks before returning prose
@@ -148,6 +176,19 @@ When revising prose:
 - Any unnamed authority? Name the source or remove the claim.
 - Any inanimate subject doing a human action? Name the actor.
 - Any cluster of -ly adverbs? Cut or replace them.
+- Any repeated "bounded", "deliberately small", "narrow", or similar promise
+  of restraint? Name the actual limit or cut the modifier.
+- Any reassuring adjective standing in for evidence? Name the behavior or remove
+  the adjective.
+- Any defensive tail that repeats the preceding claim? Cut it.
+- Any "same", "existing", or "explicit" without a clear referent? Name the noun.
+- Any planning terminology outside planning material? Replace it with the
+  feature, version, availability, or prerequisite the reader needs.
+- Any generic use of "contract"? Name the API, schema, format, behavior, or rule.
+- Any guarantee repeated across documents? Keep it in the authoritative page and
+  state only the local consequence elsewhere.
+- Any cluster of semicolons or colons? Rewrite with sentences or plain
+  conjunctions. Use `&` only where it is part of a name or compact interface.
 - Any repeated metaphor? Keep one use and remove the rest.
 - Any bold-first list pattern? Remove the bold labels unless they help scanning.
 - Any paragraph that only restates the previous paragraph? Delete it.

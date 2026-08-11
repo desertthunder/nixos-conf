@@ -212,8 +212,21 @@ Wh- openers become a crutch. "What makes this hard is..." becomes "The constrain
 | Questions answered immediately | Let questions breathe or cut them   |
 | Every paragraph ends punchily  | Vary endings                        |
 | Em dashes                      | Remove. Use commas or periods.      |
+| Semicolon chains               | Split the sentence or use "and"     |
+| Colon-heavy exposition         | Keep colons for real lists/examples |
 | Staccato fragmentation         | Do not stack short punchy sentences |
 | "Not always. Not perfectly."   | Hedging disguised as reassurance    |
+
+## Punctuation Tells
+
+Repeated semicolons and colons give plain prose a formal, model-written cadence.
+A semicolon is useful for two closely related independent clauses. Do not use
+several to pack a paragraph with qualifications. A colon should introduce a
+real list, example, quotation, or explanation. Avoid using colons to turn every
+sentence into a labeled declaration.
+
+Write "and" in prose. Reserve `&` for proper names, established labels, tables,
+or interfaces where space matters.
 
 ## Formatting Tells
 

@@ -53,28 +53,28 @@ Phrases that assume the reader needs a teacher. Cut them.
 
 Replace with plain language.
 
-| Avoid | Use instead |
-|-------|-------------|
-| Navigate (challenges) | Handle, address |
-| Unpack (analysis) | Explain, examine |
-| Lean into | Accept, embrace |
-| Landscape (context) | Situation, field |
-| Game-changer | Significant, important |
-| Double down | Commit, increase |
-| Deep dive | Analysis, examination |
-| Take a step back | Reconsider |
-| Moving forward | Next, from now |
-| Circle back | Return to, revisit |
-| On the same page | Aligned, agreed |
-| Leverage (verb) | Use |
-| Utilize | Use |
-| Robust | Strong, solid |
-| Streamline | Simplify |
-| Harness | Use, apply |
-| Paradigm | Model, approach |
-| Synergy | Cooperation, combined effect |
-| Ecosystem | System, field, community |
-| Framework | Structure, approach |
+| Avoid                 | Use instead                  |
+| --------------------- | ---------------------------- |
+| Navigate (challenges) | Handle, address              |
+| Unpack (analysis)     | Explain, examine             |
+| Lean into             | Accept, embrace              |
+| Landscape (context)   | Situation, field             |
+| Game-changer          | Significant, important       |
+| Double down           | Commit, increase             |
+| Deep dive             | Analysis, examination        |
+| Take a step back      | Reconsider                   |
+| Moving forward        | Next, from now               |
+| Circle back           | Return to, revisit           |
+| On the same page      | Aligned, agreed              |
+| Leverage (verb)       | Use                          |
+| Utilize               | Use                          |
+| Robust                | Strong, solid                |
+| Streamline            | Simplify                     |
+| Harness               | Use, apply                   |
+| Paradigm              | Model, approach              |
+| Synergy               | Cooperation, combined effect |
+| Ecosystem             | System, field, community     |
+| Framework             | Structure, approach          |
 
 ## AI Vocabulary Tells
 
@@ -86,16 +86,32 @@ Words that became dramatically overrepresented in AI-generated text. Avoid or re
 - "landscape" when meaning "field" or "situation"
 - "nuanced" (use: complex, subtle, specific)
 
+## Vague Constraint Signals
+
+Models often add words that promise care or restraint without stating a useful
+constraint.
+
+- "deliberately small"
+- "intentionally narrow"
+- "carefully bounded"
+- "strictly scoped"
+- "lightweight"
+- "minimal" when nothing defines the minimum
+
+Delete the modifier or name the limit. "A bounded response" says little. "The
+response contains at most five records or 256 tokens" gives the reader a rule.
+Do not ban technical uses of "bounded" when the text identifies the bound.
+
 ## The "Serves As" Dodge
 
 AI replaces simple "is" or "are" with pompous alternatives. Use the simple verb.
 
-| Avoid | Use instead |
-|-------|-------------|
-| serves as | is |
-| stands as | is |
-| marks (when meaning "is") | is |
-| represents (when meaning "is") | is |
+| Avoid                          | Use instead |
+| ------------------------------ | ----------- |
+| serves as                      | is          |
+| stands as                      | is          |
+| marks (when meaning "is")      | is          |
+| represents (when meaning "is") | is          |
 
 ## Adverbs
 
