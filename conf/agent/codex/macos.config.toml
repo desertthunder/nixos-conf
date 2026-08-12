@@ -377,9 +377,6 @@ trust_level = "trusted"
 [projects."/Users/owais/Projects/hotdog"]
 trust_level = "trusted"
 
-[projects."/Users/owais/Projects"]
-trust_level = "trusted"
-
 [projects."/Users/owais/Projects/web_1_components"]
 trust_level = "trusted"
 
@@ -455,9 +452,6 @@ trust_level = "trusted"
 [projects."/Users/owais/Projects/DesertThunder/effective"]
 trust_level = "trusted"
 
-[projects."/Users/owais/.agents/skills"]
-trust_level = "trusted"
-
 [projects."/Users/owais/Projects/DesertThunder/AI/research_notebook"]
 trust_level = "trusted"
 
@@ -492,15 +486,6 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/owais/Projects/DesertThunder/LLM_WIKI"]
-trust_level = "trusted"
-
-[projects."/private/tmp/thndrs-ticket1-study-20260805/codex/edit"]
-trust_level = "trusted"
-
-[projects."/private/tmp/thndrs-ticket1-study-20260805/codex/failure"]
-trust_level = "trusted"
-
-[projects."/private/tmp/thndrs-ticket1-study-20260805/codex/orientation"]
 trust_level = "trusted"
 
 [projects."/Users/owais/Projects/StormlightLabs/OpenSource/agent-memory"]
@@ -588,8 +573,10 @@ enabled = false
 url = "https://developers.openai.com/mcp"
 
 [mcp_servers.stormbuffer]
-command = "stormbuffer-mcp"
+command = "/Users/owais/.cargo/bin/stormbuffer-mcp"
 args = ["--stdio"]
+startup_timeout_sec = 30
+tool_timeout_sec = 120
 
 [tui]
 status_line = ["model-with-reasoning", "run-state", "context-remaining", "weekly-limit"]
@@ -633,6 +620,9 @@ global = "zed"
 hooks = true
 remote_models = true
 js_repl = false
+
+[shell_environment_policy]
+ignore_default_excludes = false
 
 [shell_environment_policy.set]
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"

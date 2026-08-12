@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrate with Pi"
+  short_description: "Delegate bounded work through Herdr and Pi"
+  default_prompt: "Use $orchestrate to delegate this work to Pi through Herdr."

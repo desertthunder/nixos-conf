@@ -43,6 +43,23 @@ Read these when the task needs more detail:
 - If the user asks for an edit, make the smallest useful change unless they ask
   for a rewrite.
 
+## Structure budget
+
+Optimize prose for reading as plain text.
+
+- Wrap prose at 79-88 columns, depending on the final word.
+- Prefer paragraphs of roughly 3-8 wrapped lines.
+- Reconsider paragraphs longer than 10-12 wrapped lines.
+- Keep most sections within 20-50 lines.
+- Reconsider sections longer than 60-75 lines.
+- Keep a single prose document or reference file under roughly 250 lines.
+- Above 250-300 lines, look for a natural boundary and split the document.
+- Prefer no more than three levels of headings.
+  - If `####` headings become common, the document should at least have a split considered
+- Prefer lists of 3-7 items. Group lists that grow beyond roughly 10 items.
+- Keep list items short enough to scan; move multi-paragraph arguments back into prose.
+- Treat tables as structured data, not prose.
+
 ## Deslop rules
 
 ### Cut filler
