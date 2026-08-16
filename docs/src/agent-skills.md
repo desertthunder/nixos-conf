@@ -40,70 +40,36 @@ examples, templates, and catalogs into `references/`.
 | Skill                      | Use it for                                                                                               |
 | -------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `css`                      | Vanilla CSS structure, component classes, tokens, accessible colours, and replacing utility CSS.         |
-| `frontend-design`          | Building, redesigning, reviewing, and polishing accessible, responsive frontend interfaces.             |
+| `frontend-design`          | Building, redesigning, reviewing, and polishing accessible, responsive frontend interfaces.              |
 | `investigate-new-codebase` | First-pass repo audits, legacy rescue, risk mapping, git-history analysis, and triage.                   |
 | `notetaking`               | Turning articles, Markdown, or web pages into concise notes with claims, evidence, and review questions. |
 | `spec-writing`             | Specs, PRDs, implementation plans, task breakdowns, acceptance criteria, and agent instructions.         |
 | `svelte-testing`           | Svelte and SvelteKit unit, component, server, SSR, browser, and E2E testing.                             |
 | `writing`                  | Drafting, revising, editing, and desloping prose in a direct human voice.                                |
 
-## Installation pattern
+## What belongs in this repository
 
-The source of truth for global agent instructions, settings, and project skills
-is this repository:
+The repository owns reusable instructions and skills:
 
 ```text
 conf/agent/AGENTS.md
-conf/agent/codex/cloudflare.config.toml
-conf/agent/codex/config.toml
-conf/agent/codex/extras.config.toml
-conf/agent/codex/full.config.toml
-conf/agent/codex/handoff.config.toml
-conf/agent/codex/macos.config.toml
-conf/agent/codex/media.config.toml
-conf/agent/codex/hooks.json
-conf/agent/pi/settings.json
 conf/agent/skills/<skill>/SKILL.md
 conf/agent/skills/<skill>/references/
 ```
 
-On macOS, publish the global files as writable, out-of-store symlinks:
+Codex and Pi runtime settings live in `~/.codex` and `~/.pi/agent`. Those files
+accumulate absolute application paths, installed plugins, project trust, hook
+state, and local package paths. Keeping them on the machine avoids presenting
+one computer's state as portable dotfiles.
+
+Run the linker when setting up a machine that should use the shared agent
+instructions:
 
 ```bash
-conf/agent/link-global-configs.sh
+conf/agent/link-global-instructions.sh
 ```
 
-The installer selects `macos.config.toml` on macOS and the portable
-`config.toml` on Linux. Home-relative skill paths work on macOS, NixOS, and
-Ubuntu. Machine-generated project trust and desktop settings remain in the
-macOS file instead of leaking into the Linux configuration.
-
-Approval rules remain machine-local because they grant permission to execute
-commands outside the sandbox.
-
-The default Codex configuration keeps artifact and publishing plugins disabled
-to reduce the fixed context attached to ordinary coding turns. Start a CLI
-session with `codex --profile full` when it needs documents, spreadsheets,
-presentations, PDFs, Sites, templates, or visualizations.
-
-Image generation, plugin installation, plugin creation, skill discovery,
-copywriting, and Fallow are grouped behind `codex --profile extras`. Recent
-sessions rarely loaded them, and the writing skill covers normal prose and
-website copy in the base profile.
-
-PixiJS, Remotion, and Mediabunny have many specialized skills, so the base
-profile leaves them out of ordinary prompts. Use `codex --profile media` for
-graphics or video work.
-
-Cloudflare platform skills are similarly grouped behind
-`codex --profile cloudflare`.
-
-The base profile leaves `code-change-status` disabled. Use
-`codex --profile handoff` only when work needs a durable cross-session handoff.
-The writing skill remains part of the base profile and applies to documentation
-and other prose by default.
-
-On NixOS, Home Manager publishes the project skills to Pi:
+On NixOS, Home Manager publishes the instructions and project skills to Pi:
 
 ```nix
 home.file.".pi/agent/skills" = {
@@ -130,6 +96,36 @@ agent metadata stay together.
 Do not keep duplicate standalone skills in `~/.agents/skills` or
 `~/.pi/agent/skills` when their guidance has been consolidated into this repo.
 Duplicates drift and make it unclear which behavior the agent should follow.
+
+## Rebuilding local agent settings
+
+Codex reads user settings from `~/.codex/config.toml`. Start with the settings
+you use everywhere, then let each machine add its own notification command,
+desktop preferences, MCP servers, project trust, plugins, and hook approvals.
+The [official configuration reference](https://developers.openai.com/codex/config-reference)
+documents the available keys.
+
+Optional Codex profiles sit beside the main file as
+`~/.codex/<name>.config.toml` and are selected with `codex --profile <name>`.
+Use profiles to keep the base Codex session's context lean:
+
+- Use `full` for document and publishing plugins.
+- Use `extras` for infrequent maintenance and discovery skills.
+- Use `media` for larger graphics and video skill sets.
+- Use `cloudflare` for platform-specific skills.
+- Use `handoff` for cross-session handoff behavior.
+
+Keep common tools in the base configuration and group coherent specialist tools
+into profiles.
+
+Pi reads its settings from `~/.pi/agent/settings.json`. Configure its provider,
+model, thinking level, theme, and compaction there. Add packages only after they
+are installed on that machine. In particular, local package paths and
+`lastChangelogVersion` are machine state rather than reusable configuration.
+
+Keep authentication, trust databases, approval rules, generated caches, and
+absolute paths out of a reconstruction guide. Recreate them through the owning
+application so a new machine records its own paths and permissions.
 
 ## Self-updating pattern
 

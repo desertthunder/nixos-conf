@@ -1,4 +1,0 @@
-interface:
-  display_name: "Stormbuffer Global Memory"
-  short_description: "Recall context and update working memory"
-  default_prompt: "Use $stormbuffer-global-memory to recall cross-project context and add new memories."

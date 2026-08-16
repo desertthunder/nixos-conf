@@ -12,11 +12,11 @@ pieces are portable. Prefer copying app-native config directories and using
 | Zathura      | `conf/modules/zathura/zathurarc`         |
 | Neovim       | `github:desertthunder/nvim`              |
 | SSH keys     | `conf/scripts/keys.sh` plus SOPS age key |
-| Codex and Pi | `conf/agent`                             |
 
 Avoid copying generated Home Manager outputs directly. Copy source config, then
 let the target machine own package installation and service management.
 
-Codex and Pi are the exception: `conf/agent/link-global-configs.sh` creates
-writable symlinks from their global config paths back to this repository. This
-keeps instructions and token-use defaults consistent without copying files.
+Reusable agent instructions and skills live under `conf/agent`. Codex and Pi
+settings live in their native global directories because they contain
+machine-specific paths and application state. See [Agent Skills](./agent-skills.md)
+for the split and the reconstruction notes.
