@@ -100,7 +100,17 @@ constraint.
 
 Delete the modifier or name the limit. "A bounded response" says little. "The
 response contains at most five records or 256 tokens" gives the reader a rule.
-Do not ban technical uses of "bounded" when the text identifies the bound.
+Keep "bounded" when the text identifies the limit.
+
+The same rule applies to related terms:
+
+- Keep "boundary" for an actual edge, separation, or interface. Otherwise say
+  what is included, excluded, or where the work stops.
+- Keep "contract" for a formal API, protocol, schema, or compatibility guarantee.
+  Otherwise name the rule, requirement, format, or behavior.
+- Do not stack these terms in ordinary scope statements. One specific limit or
+  description is clearer than "a bounded context at the boundary of the
+  contract."
 
 ## The "Serves As" Dodge
 

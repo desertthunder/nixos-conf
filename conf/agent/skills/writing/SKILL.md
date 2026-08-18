@@ -53,7 +53,7 @@ Optimize prose for reading as plain text.
 - Keep most sections within 20-50 lines.
 - Reconsider sections longer than 60-75 lines.
 - Keep a single prose document or reference file under roughly 250 lines.
-- Above 250-300 lines, look for a natural boundary and split the document.
+- Above 250-300 lines, look for a natural split and divide the document.
 - Prefer no more than three levels of headings.
   - If `####` headings become common, the document should at least have a split considered
 - Prefer lists of 3-7 items. Group lists that grow beyond roughly 10 items.
@@ -148,9 +148,11 @@ such as "same", "existing", and "explicit" when the reader has to infer their
 noun.
 
 Use document terminology that matches the audience. Keep milestones, tickets,
-phases, and planning status in planning material. Use "contract" for a formal
-interface or compatibility guarantee. Otherwise name the API, schema, format,
-behavior, or rule.
+phases, and planning status in planning material. Reserve "bounded" for a stated
+limit, "boundary" for a real edge or separation, and "contract" for a formal API,
+protocol, schema, or compatibility guarantee. Otherwise name the included feature,
+excluded work, rule, format, behavior, or limit. Do not use several of these words
+together to make ordinary scope sound more rigorous.
 
 State a guarantee where the documentation owns it. Elsewhere, explain the local
 consequence or link to the authoritative description instead of repeating the
@@ -193,15 +195,14 @@ When revising prose:
 - Any unnamed authority? Name the source or remove the claim.
 - Any inanimate subject doing a human action? Name the actor.
 - Any cluster of -ly adverbs? Cut or replace them.
-- Any repeated "bounded", "deliberately small", "narrow", or similar promise
-  of restraint? Name the actual limit or cut the modifier.
+- Any generic "bounded", "boundary", or "contract"? Name the actual limit, edge,
+  API, schema, format, behavior, or rule. Remove the word if it adds no precision.
 - Any reassuring adjective standing in for evidence? Name the behavior or remove
   the adjective.
 - Any defensive tail that repeats the preceding claim? Cut it.
 - Any "same", "existing", or "explicit" without a clear referent? Name the noun.
 - Any planning terminology outside planning material? Replace it with the
   feature, version, availability, or prerequisite the reader needs.
-- Any generic use of "contract"? Name the API, schema, format, behavior, or rule.
 - Any guarantee repeated across documents? Keep it in the authoritative page and
   state only the local consequence elsewhere.
 - Any cluster of semicolons or colons? Rewrite with sentences or plain
