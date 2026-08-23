@@ -123,11 +123,13 @@ AI replaces simple "is" or "are" with pompous alternatives. Use the simple verb.
 | marks (when meaning "is")      | is          |
 | represents (when meaning "is") | is          |
 
-## Adverbs
+## Empty adverbs
 
-Kill all adverbs. No -ly words. No softeners, no intensifiers, no hedges.
+Cut adverbs that soften, inflate, or claim significance without adding a fact.
+Keep adverbs that express a necessary manner, degree, time, or technical
+distinction.
 
-Specific offenders:
+Common offenders:
 
 - "really"
 - "just"

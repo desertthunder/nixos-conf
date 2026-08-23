@@ -1,242 +1,198 @@
 ---
 name: writing
-description: Write, revise, edit, and deslop prose in a direct human voice. Use for blog posts, essays, documentation, website copy, notes, reports, scientific prose, and any task where style, clarity, or avoiding AI writing tells matters.
+description: Write, revise, edit, and deslop prose in a direct human voice. Use for blog posts, essays, documentation, website copy, notes, reports, scientific prose, technical instructions, and any task where style, clarity, or avoiding AI writing tells matters.
 ---
 
 # Writing
 
-Use this skill when drafting or editing prose. Aim for writing that sounds like a
-specific person made choices, not like a model filled a template.
+Write like a person choosing words for a reader, not a model filling a template.
+Preserve the author's voice and facts. Remove whatever does not help.
 
-This skill consolidates the local writing notes with the former `skill-deslop`
-skill.
+This skill applies to the answer as well as the requested prose.
 
 ## References
 
-Read these when the task needs more detail:
+Read only the references the task needs:
 
-- `references/tropes.md`: full catalog of AI writing tropes.
+- `references/tropes.md`: current catalog of AI writing behaviors and tells.
+- `references/technical-english.md`: plain technical English, controlled writing,
+  and Orwell's rules.
 - `references/phrases.md`: phrases to remove or replace.
 - `references/structures.md`: formulaic structures to avoid.
 - `references/examples.md`: before/after deslop examples.
 
-## Default approach
+## Response discipline
+
+- Lead with the answer, revised text, or completed change. Do not announce it or
+  restate the prompt.
+- Keep planning and deliberation out of the result.
+- Match the detail to the request. Do not expand into adjacent work because it
+  might be useful.
+- Make the point before its evidence. Do not build a paragraph that has already
+  implied the point several times before stating it.
+- Stop when the answer is complete. Do not add a recap, tie-back, or ceremonial
+  conclusion.
+- Remove before adding. Replace stale guidance instead of appending corrections
+  or a changelog.
+- Do not soften a necessary correction to appease the reader. Be accurate and
+  civil.
+- Break any style rule that would make the result wrong, unsafe, unclear, or
+  unsuited to its audience.
+
+## Choose a mode
+
+### Voice-preserving prose
+
+Use for essays, blog posts, notes, reports, and personal writing.
 
 - When writing for Owais, treat his edited prose as the style authority. Match
-  its density, directness, sentence length, and tolerance for informality.
-- Keep useful operational constraints, but remove tutorial narration, repeated
-  rationale, and polish that turns plain instructions into corporate prose.
-- Prefer short practical paragraphs and compact lists. Explain why only when it
-  changes a decision.
-- Prefer clear, concrete language over ornate phrasing.
-- Keep claims specific. Name sources, people, tools, and constraints when they
-  matter.
-- Preserve the user's voice, vocabulary, and level of formality.
-- Cut filler before polishing.
-- Use structure only when it helps the reader. Do not force numbered sections,
-  summaries, or dramatic transitions.
-- Vary sentence length naturally. Avoid manufactured punchiness.
-- Match the register to the context. A blog post can use "you". Scientific prose
-  may need formality, citations, and "we" for the authors' work.
-- If the user asks for a draft, write the draft. Do not preface it with a long
-  explanation.
-- If the user asks for an edit, make the smallest useful change unless they ask
-  for a rewrite.
+  its density, rhythm, vocabulary, and tolerance for informality.
+- Preserve distinctive phrasing when it works. Do not flatten the author's
+  voice into controlled English.
+- Vary sentence length naturally. Avoid both long chains and manufactured
+  punchiness.
+- Use metaphor, humor, fragments, and rhetorical questions only when they fit
+  the author's voice and do real work.
 
-## Structure budget
+### Plain technical prose
 
-Optimize prose for reading as plain text.
+Use by default for documentation, READMEs, release notes, error messages, API
+text, comments, and operational guidance. Read
+`references/technical-english.md`.
 
-- Wrap prose at 79-88 columns, depending on the final word.
-- Prefer paragraphs of roughly 3-8 wrapped lines.
-- Reconsider paragraphs longer than 10-12 wrapped lines.
-- Keep most sections within 20-50 lines.
-- Reconsider sections longer than 60-75 lines.
-- Keep a single prose document or reference file under roughly 250 lines.
-- Above 250-300 lines, look for a natural split and divide the document.
-- Prefer no more than three levels of headings.
-  - If `####` headings become common, the document should at least have a split considered
-- Prefer lists of 3-7 items. Group lists that grow beyond roughly 10 items.
-- Keep list items short enough to scan; move multi-paragraph arguments back into prose.
-- Treat tables as structured data, not prose.
+- Use one term for one thing. Do not cycle through synonyms.
+- Prefer short common words and plain verbs.
+- Put the actor before the action when the actor matters.
+- Use concrete nouns, observable behavior, exact limits, and named sources.
+- Give each paragraph one topic. Put conditions before the instruction they
+  govern.
+- Keep all facts, numbers, qualifiers, identifiers, and safety language.
+- Treat sentence-length limits as warnings, not reasons to delete information.
+
+### Strict controlled English
+
+Use only when the user requests Simplified Technical English (STE), controlled
+English, or a strict procedure or safety style.
+
+Apply the stricter rules in `references/technical-english.md`, including simple
+verb tenses, one instruction per sentence, sentence-length checks, articles,
+and consistent terminology. Say that the result is STE-inspired unless it was
+checked against the full ASD-STE100 specification by a qualified human.
+
+## Core rules
+
+- Let the intended meaning choose the words. Do not assemble the sentence from
+  familiar phrases.
+- Prefer concrete language over vague abstractions.
+- Use the shortest familiar word that preserves the meaning and register.
+- Cut any word, sentence, or section that adds no fact, reasoning, instruction,
+  texture, or useful transition.
+- Prefer active voice when it clarifies responsibility. Keep passive voice when
+  the actor is unknown, irrelevant, or deliberately backgrounded.
+- Use a verb for the action: "analyze the log," not "perform an analysis of the
+  log."
+- Repeat the correct noun when clarity needs it. Do not rename a dashboard as an
+  interface, portal, and analytics hub.
+- Name the source. Drop claims attributed only to "experts," "observers," or
+  "reports."
+- Keep claims proportional. Do not turn a local product or design choice into a
+  historical turning point.
+- Prefer one developed example over a string of names or analogies.
+- Use formatting because the content needs it, not because every answer needs a
+  template.
 
 ## Deslop rules
 
-### Cut filler
+### Start and stop cleanly
 
-Remove throat-clearing, emphasis crutches, and meta-commentary:
+Cut preambles such as "Here's the thing," "Let's break this down," and "It's
+worth noting." Do not state how many points will follow unless the count itself
+matters. Do not close with "In summary" or repeat the answer in different words.
 
-- "Here's the thing"
-- "Let's break this down"
-- "It's worth noting"
-- "In conclusion"
-- "This matters because"
-- "Let that sink in"
-- "At its core"
-- "In today's world"
+### Avoid generated drama
 
-State the point directly.
+Watch for repeated:
 
-### Break formulaic structures
+- negative reframes such as "not X, but Y";
+- negative countdowns such as "Not X. Not Y. Just Z.";
+- self-answered rhetorical questions;
+- short standalone fragments used for emphasis;
+- tricolons, anaphora, and quotable one-line slogans;
+- false suspense, grand claims, and forced metaphors.
 
-Avoid repeated use of:
+One instance can fit a human voice. Repetition is the tell.
 
-- negative reframes such as "not X, but Y" or "it isn't X, it's Y";
-- negative listings such as "Not a X. Not a Y. A Z.";
-- self-posed rhetorical questions such as "The result?";
-- dramatic fragments such as "Speed. That's it.";
-- anaphora and repeated sentence openings;
-- tricolon habit, where every list has three items;
-- false ranges such as "from innovation to transformation" when there is no
-  real spectrum.
+### Remove model behavior from the prose
 
-One instance can work. Repetition is the tell.
+Do not narrate what the text is doing, what you intend to explain, or why you
+are choosing a structure. Do not defend minor claims against objections nobody
+raised. Do not summarize the same point at paragraph, section, and document
+level.
 
-### Use active voice with human subjects
+### Use plain words
 
-Name the actor when possible.
+Prefer "use" to "utilize" or "leverage," "start" to "commence," and "is" to
+"serves as." Avoid promotional adjectives and significance adverbs such as
+"seamless," "robust," "quietly," "fundamentally," and "remarkably" unless the
+word names a demonstrable property.
 
-- Weak: "The decision was reached."
-- Better: "The team decided."
-
-Avoid giving inanimate things human agency when a person, team, reader, or
-system is doing the work.
-
-### Be specific
-
-Replace vague declarations with concrete claims.
-
-- Weak: "The implications are significant."
-- Better: Name the implication.
-
-Avoid vague authorities such as "experts say" unless the source is named. Avoid
-lazy extremes such as "always", "never", "everyone", and "nobody" unless they
-are literally true.
-
-### Use plain verbs
-
-Prefer simple verbs when they work:
-
-| Avoid      | Prefer           |
-| ---------- | ---------------- |
-| leverage   | use              |
-| utilize    | use              |
-| harness    | use, apply       |
-| streamline | simplify         |
-| navigate   | handle           |
-| delve      | examine, look at |
-| serves as  | is               |
-
-Domain terminology is fine when it is precise. The problem is vague business
-language and AI vocabulary tells leaking into otherwise clear prose.
-
-### Trust the reader
-
-Do not over-explain, apologize for the argument, or narrate the structure. Cut
-fractal summaries: telling the reader what you will say, saying it, then
-summarizing what you said.
+Domain terminology is correct when it is precise and the audience knows it.
+Define necessary unfamiliar terms. Do not replace precise technical terms with
+vague everyday words.
 
 ### Name the behavior
 
-Do not use reassuring labels in place of evidence. Words such as "safe",
-"stable", "clear", "useful", "complete", and "portable" should name a defined
-property or be replaced with the behavior that supports the claim.
+Words such as "safe," "stable," "clear," "complete," "portable," "minimal,"
+and "lightweight" need evidence or a defined property. State the timeout, size,
+compatibility rule, failure behavior, or other fact.
 
-Cut defensive closing clauses built around "without", "remains", "stays", or
-"keeps" when they repeat a guarantee already stated. Resolve floating references
-such as "same", "existing", and "explicit" when the reader has to infer their
-noun.
+Reserve "boundary" for an edge or separation and "contract" for a formal API,
+protocol, schema, or compatibility guarantee. Use "bounded" only with a stated
+limit. Replace planning terminology with the feature, prerequisite, or version
+that the reader needs.
 
-Use document terminology that matches the audience. Keep milestones, tickets,
-phases, and planning status in planning material. Reserve "bounded" for a stated
-limit, "boundary" for a real edge or separation, and "contract" for a formal API,
-protocol, schema, or compatibility guarantee. Otherwise name the included feature,
-excluded work, rule, format, behavior, or limit. Do not use several of these words
-together to make ordinary scope sound more rigorous.
+### Keep formatting ordinary
 
-State a guarantee where the documentation owns it. Elsewhere, explain the local
-consequence or link to the authoritative description instead of repeating the
-guarantee.
+- Use sentence case for headings.
+- Avoid bold-first bullets as a default pattern.
+- Avoid decorative Unicode and repeated em dashes.
+- Use lists for lists. Do not disguise them as paragraphs beginning "First,"
+  "Second," and "Third."
+- Use semicolons and colons only when their grammatical function helps.
+- Treat tables as structured data, not a place to compress prose.
 
-### Watch formatting tells
+## Editing method
 
-Avoid:
+1. Identify the audience, purpose, register, and selected mode.
+2. Mark the facts, conditions, examples, and voice that must survive.
+3. State each point once, before its support.
+4. Cut preambles, duplication, filler, vague claims, and template endings.
+5. Replace abstractions, nominalizations, and synonym cycling with concrete
+   nouns and verbs.
+6. Read for rhythm, grammar, tense, list parallelism, and clear references.
+7. Check the relevant trope and technical-English references.
+8. Return the revised text or the review format the user requested.
 
-- bold-first bullets where every item starts with a bolded label;
-- decorative unicode arrows;
-- excessive em dashes;
-- signposted conclusions;
-- punchline paragraphs that all end the same way.
+For a small edit, change the smallest useful span. For a rewrite, preserve every
+fact and scope qualifier unless the user authorizes substantive changes.
 
-Use plain formatting unless the structure genuinely helps.
+## Quick check
 
-## Editing checklist
-
-When revising prose:
-
-1. Identify the audience, purpose, and register.
-2. Preserve the user's strongest specific details.
-3. Remove throat-clearing, duplicated ideas, and template conclusions.
-4. Replace generic abstractions with concrete nouns and verbs.
-5. Name actors and sources where possible.
-6. Read for rhythm: combine choppy fragments, split overloaded sentences, and
-   keep punctuation plain.
-7. Check for fragments, tense mismatches, broken list grammar, and headings that
-   promise more than their sections deliver.
-8. Return either the revised text or a compact list of changes, depending on what
-   the user asked for.
-
-## Quick checks before returning prose
-
-- Any "here's what/why" opener? Cut it.
-- Any "not X, but Y" contrast? State Y directly.
-- Any rhetorical question answered immediately? Fold it into a statement.
-- Any vague declarative? Name the specific thing.
-- Any unnamed authority? Name the source or remove the claim.
-- Any inanimate subject doing a human action? Name the actor.
-- Any cluster of -ly adverbs? Cut or replace them.
-- Any generic "bounded", "boundary", or "contract"? Name the actual limit, edge,
-  API, schema, format, behavior, or rule. Remove the word if it adds no precision.
-- Any reassuring adjective standing in for evidence? Name the behavior or remove
-  the adjective.
-- Any defensive tail that repeats the preceding claim? Cut it.
-- Any "same", "existing", or "explicit" without a clear referent? Name the noun.
-- Any planning terminology outside planning material? Replace it with the
-  feature, version, availability, or prerequisite the reader needs.
-- Any guarantee repeated across documents? Keep it in the authoritative page and
-  state only the local consequence elsewhere.
-- Any cluster of semicolons or colons? Rewrite with sentences or plain
-  conjunctions. Use `&` only where it is part of a name or compact interface.
-- Any repeated metaphor? Keep one use and remove the rest.
-- Any bold-first list pattern? Remove the bold labels unless they help scanning.
-- Any paragraph that only restates the previous paragraph? Delete it.
-
-## Review scoring
-
-When reviewing text for AI tells, score 1-10 on each dimension:
-
-| Dimension    | Question                                      |
-| ------------ | --------------------------------------------- |
-| Directness   | Does it state claims, or announce them?       |
-| Rhythm       | Does the rhythm vary naturally?               |
-| Trust        | Does it respect the reader's intelligence?    |
-| Authenticity | Does it sound like a specific human wrote it? |
-| Density      | Is anything easy to cut?                      |
-
-Below 35/50, revise before returning.
+- Does the first sentence answer instead of announce?
+- Is any reasoning or planning leaking into the result?
+- Does each claim appear once and before its evidence?
+- Can any word or paragraph disappear without loss?
+- Does each pronoun and floating word such as "same" or "existing" have a clear
+  referent?
+- Did the prose name actors, sources, limits, and behavior where needed?
+- Did one trope or rhythm recur enough to become visible?
+- Does the ending stop, or does it explain that it has ended?
+- Did a style rule damage accuracy, safety, clarity, or the author's voice? If
+  so, break the rule.
 
 ## Self-update
 
-This is a living skill. When a writing session reveals a reusable lesson, update
-this `SKILL.md` or its references with the smallest rule that would prevent the
-same issue next time.
-
-Update when:
-
-- the user flags a phrase, structure, or tone as AI-like;
-- a repeated edit pattern appears across several writing tasks;
-- a reference file needs a new trope, phrase, structure, or example;
-- a rule is too broad and damages the user's voice;
-- the user gives a project-specific preference for prose.
-
-Keep updates concrete, and focused on reusable writing behavior.
+When a writing session reveals a reusable lesson, update the smallest owning
+rule in this file or one reference. Replace stale guidance instead of adding a
+history of corrections. Keep the main skill concise and put detailed catalogs
+in one-level references.

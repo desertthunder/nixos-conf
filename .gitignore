@@ -83,3 +83,4 @@ overrides.nix
 .sandbox
 dist
 !conf/agent/AGENTS.md
+.pi

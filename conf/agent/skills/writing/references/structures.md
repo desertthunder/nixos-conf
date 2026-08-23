@@ -187,15 +187,16 @@ AI acknowledges problems only to immediately dismiss them. Always follows the sa
 
 **Fix:** If challenges are worth mentioning, analyze them. If they are not, skip them.
 
-## Sentence Starters to Avoid
+## Formulaic sentence starters
 
-| Pattern                                                         | Fix                                             |
-| --------------------------------------------------------------- | ----------------------------------------------- |
-| Sentences starting with What, When, Where, Which, Who, Why, How | Restructure. Lead with the subject or the verb. |
-| Paragraphs starting with "So"                                   | Start with content                              |
-| Sentences starting with "Look,"                                 | Remove                                          |
+Repeated Wh-word headings and sentences such as "What makes this hard is..."
+often delay the subject. Name the constraint directly when that is clearer.
+Keep a Wh-word opener when it asks a real question or expresses a necessary
+condition.
 
-Wh- openers become a crutch. "What makes this hard is..." becomes "The constraint is..." or better, name the specific constraint.
+Paragraphs that repeatedly start with "So" can usually start with the content.
+Remove conversational commands such as "Look," unless they fit the author's
+voice.
 
 ## Formulaic Constructions
 
