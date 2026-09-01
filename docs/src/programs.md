@@ -7,6 +7,7 @@ config files or repeat package inventories already visible in Nix source.
 - [Ghostty](./programs/ghostty.md)
 - [Fastfetch](./programs/fastfetch.md)
 - [Hyprland](./programs/hyprland.md)
+- [tmux](./programs/tmux.md)
 - [Zellij](./programs/zellij.md)
 - [Zed](./programs/zed.md)
 - [Zathura](./programs/zathura.md)

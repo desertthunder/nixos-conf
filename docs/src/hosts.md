@@ -13,6 +13,7 @@ Files:
 - `conf/machines/thinkpad/hardware-configuration.nix`
 - `conf/modules/de/hypr.nix`
 - `conf/modules/de/hypr-home.nix`
+- `conf/services/searxng.nix`
 
 Flake target:
 
@@ -31,6 +32,7 @@ Host-specific settings:
 - CPU governor set to `performance` on AC and `powersave` on battery
 - fingerprint daemon enabled
 - Hyprland desktop enabled through host-specific modules
+- SearXNG listening on `127.0.0.1:9090`
 
 ## nix-baxcalibur
 
@@ -53,7 +55,7 @@ Host-specific settings:
 - hostname: `nix-baxcalibur`
 
 The HP file imports shared config and hardware config. GNOME is enabled through
-shared config; Hyprland stays ThinkPad-specific.
+shared config; Hyprland and SearXNG stay ThinkPad-specific.
 
 ## Add another host
 

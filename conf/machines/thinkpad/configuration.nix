@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
     ../../modules/de/hypr.nix
+    ../../services/searxng.nix
   ];
 
   networking.hostName = "nix-haxorus";
@@ -21,4 +22,6 @@
   };
 
   services.fprintd.enable = true;
+
+  desert.services.searxng.enable = true;
 }

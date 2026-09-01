@@ -20,6 +20,7 @@ Implementation details stay in `conf/services/` and host imports stay under
 
 | Page                                    | Scope                                                 |
 | --------------------------------------- | ----------------------------------------------------- |
+| [SearXNG](./services/searxng.md)        | Local metasearch on Haxorus.                          |
 | [Tailscale](./services/tailscale.md)    | Private network, MagicDNS, Serve, and tailnet policy. |
 | [Git Forge](./services/git-forge.md)    | Forgejo on Baxcalibur.                                |
 | [Kavita](./services/kavita.md)          | Comics, manga, ebooks, and PDFs on Baxcalibur.        |

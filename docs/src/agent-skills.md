@@ -69,9 +69,14 @@ instructions:
 conf/agent/link-global-instructions.sh
 ```
 
-On NixOS, Home Manager publishes the instructions and project skills to Pi:
+On NixOS, Home Manager publishes the project skills to Codex and Pi:
 
 ```nix
+home.file.".agents/skills" = {
+  source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
+  force = true;
+};
+
 home.file.".pi/agent/skills" = {
   source = ./agent/skills;
   recursive = true;
@@ -79,19 +84,16 @@ home.file.".pi/agent/skills" = {
 };
 ```
 
-For generic agent harnesses that read `~/.agents/skills`, expose project skills
-with symlinks rather than copies:
+Outside NixOS, expose the project skills to Codex with a symlink:
 
 ```bash
-mkdir -p ~/.agents/skills ~/.codex/skills
-ln -s "$PWD/conf/agent/skills/frontend-design" \
-  ~/.agents/skills/frontend-design
-ln -s "$PWD/conf/agent/skills/frontend-design" \
-  ~/.codex/skills/frontend-design
+mkdir -p ~/.agents
+ln -s "$PWD/conf/agent/skills" ~/.agents/skills
 ```
 
-Link the whole skill directory so `SKILL.md`, references, license files, and
-agent metadata stay together.
+Codex scans repository `.agents/skills` directories and the user-level
+`~/.agents/skills` directory. Link the whole skill directory so `SKILL.md`,
+references, license files, and agent metadata stay together.
 
 Do not keep duplicate standalone skills in `~/.agents/skills` or
 `~/.pi/agent/skills` when their guidance has been consolidated into this repo.
@@ -140,8 +142,8 @@ A self-updating skill is a small feedback loop:
    examples, templates, catalogs, and source notes in `references/`.
 5. **Review the change.** Human review matters because a bad skill update affects
    every future use.
-6. **Let symlinks publish it.** Since `~/.agents` points back to this repo, the
-   next agent run sees the update without copying files.
+6. **Let symlinks publish it.** Since `~/.agents/skills` points back to this
+   repo, the next agent run sees the update without copying files.
 
 Each self-updating skill should include a `## Self-update` section that says when
 to update it and what not to add.

@@ -459,7 +459,7 @@
             vim_mode = true;
             ui_font_family = ".ZedSans";
             ui_font_size = 18.0;
-            buffer_font_family = "iMWritingDuo Nerd Font Propo";
+            buffer_font_family = "CommitMono Nerd Font";
             buffer_font_fallbacks = [ "0xProto Nerd Font Propo" ];
             buffer_font_size = 18;
             terminal = {
@@ -480,7 +480,7 @@
             };
             toolbar = {
               breadcrumbs = false;
-              quick_actions =  false;
+              quick_actions = false;
             };
             tab_bar = {
               show = true;
@@ -580,6 +580,53 @@
         nix-direnv.enable = true;
       };
 
+      programs.tmux = {
+        enable = true;
+        baseIndex = 1;
+        clock24 = true;
+        customPaneNavigationAndResize = true;
+        escapeTime = 0;
+        focusEvents = true;
+        historyLimit = 100000;
+        keyMode = "vi";
+        mouse = true;
+        resizeAmount = 5;
+        secureSocket = false;
+        terminal = "tmux-256color";
+
+        extraConfig = ''
+          set -as terminal-features ',xterm*:RGB'
+          set -g renumber-windows on
+          set -g set-clipboard off
+          set -s copy-command '${pkgs.wl-clipboard}/bin/wl-copy'
+
+          bind c new-window -c '#{pane_current_path}'
+          bind | split-window -h -c '#{pane_current_path}'
+          bind - split-window -v -c '#{pane_current_path}'
+
+          bind -T copy-mode-vi v send -X begin-selection
+          bind -T copy-mode-vi V send -X select-line
+          bind -T copy-mode-vi C-v send -X rectangle-toggle
+          bind -T copy-mode-vi y send -X copy-pipe-and-cancel
+          bind -T copy-mode-vi Enter send -X copy-pipe-and-cancel
+
+          set -g status-position bottom
+          set -g status-style 'bg=#151516,fg=#cfcfcf'
+          set -g status-left-length 30
+          set -g status-left '#[bg=#51a4e7,fg=#151516,bold] #S #[bg=#151516] '
+          set -g status-right '#[fg=#7a7a7a] %Y-%m-%d #[fg=#cfcfcf] %H:%M '
+          set -g window-status-separator ""
+          set -g window-status-format '#[bg=#151516,fg=#7a7a7a] #I:#W '
+          set -g window-status-current-format '#[bg=#51a4e7,fg=#151516,bold] #I:#W '
+
+          set -g pane-border-style 'fg=#2a2a2a'
+          set -g pane-active-border-style 'fg=#51a4e7'
+          set -g message-style 'bg=#181818,fg=#cfcfcf'
+          set -g message-command-style 'bg=#181818,fg=#51a4e7'
+          set -g mode-style 'bg=#51a4e7,fg=#151516,bold'
+        '';
+      };
+
       catppuccin = {
         enable = true;
         autoEnable = false;
@@ -665,6 +712,11 @@
 
       home.file.".codex/AGENTS.md" = {
         source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/AGENTS.md";
+        force = true;
+      };
+
+      home.file.".agents/skills" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
         force = true;
       };
 

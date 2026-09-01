@@ -86,12 +86,12 @@
     executable = true;
   };
   xdg.configFile."hypr/wallpapers" = {
-    source = ../hypr/wallpapers;
+    source = ../wallpapers;
     recursive = true;
   };
   xdg.configFile."hypr/hyprpaper.conf".text =
     let
-      wallpaper = "${../hypr/wallpapers/wall00.png}";
+      wallpaper = "${../wallpapers/wall00.png}";
     in
     ''
       splash = false
