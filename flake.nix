@@ -34,6 +34,12 @@
       url = "git+https://tangled.org/@tangled.org/core";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Keep the stable Python implementation while Ignis is rewritten in Rust.
+    ignis = {
+      url = "github:ignis-sh/ignis/v0.5.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

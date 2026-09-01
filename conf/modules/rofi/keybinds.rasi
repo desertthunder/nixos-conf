@@ -1,0 +1,10 @@
+@import "marble.rasi"
+
+element {
+  width: 100%;
+}
+
+element-text {
+  font: "{{mono}} 11";
+  horizontal-align: 0.0;
+}

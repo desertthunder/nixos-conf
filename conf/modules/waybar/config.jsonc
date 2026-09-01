@@ -4,22 +4,28 @@
     "position": "top",
     "height": 34,
     "spacing": 0,
+    "margin-top": 8,
+    "margin-left": 8,
+    "margin-right": 8,
     "exclusive": true,
 
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["mpris"],
-    "modules-right": [
-      "bluetooth",
-      "network",
-      "pulseaudio",
-      "backlight",
-      "battery",
-      "idle_inhibitor",
-      "custom/notifications",
-      "tray",
-      "clock",
-      "custom/power",
-    ],
+    "modules-right": ["group/status", "clock", "custom/power"],
+
+    "group/status": {
+      "orientation": "inherit",
+      "modules": [
+        "network",
+        "bluetooth",
+        "pulseaudio",
+        "backlight",
+        "battery",
+        "idle_inhibitor",
+        "custom/notifications",
+        "tray",
+      ],
+    },
 
     "hyprland/workspaces": {
       "format": "{id}",
@@ -88,6 +94,7 @@
 
     "custom/notifications": {
       "exec": "notification-status",
+      "return-type": "json",
       "interval": 2,
       "on-click": "makoctl restore",
       "on-click-right": "makoctl mode -t do-not-disturb",
@@ -107,7 +114,7 @@
 
     "custom/power": {
       "format": "power",
-      "on-click": "uwsm app -- bash ~/.config/waybar/power.sh",
+      "on-click": "uwsm app -- desktop-power-menu",
       "tooltip": false,
     },
   },

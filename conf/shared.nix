@@ -659,6 +659,7 @@
           cat = "bat --paging=never --style=plain";
           less = "bat";
           preview = "bat --style=numbers,changes --color=always";
+          pfetch = "pokeget haxorus --hide-name | fastfetch --file-raw -";
 
           zed = "zeditor";
           zedn = "zeditor --new";

@@ -6,8 +6,17 @@
 
 ### Haxorus
 
-Keep Hyprland as the primary desktop and finish the surrounding desktop
-plumbing before adding more visual customization.
+Hyprland is the primary desktop. The completed setup includes:
+
+- UWSM-managed desktop services, Polkit authentication, idle locking and
+  suspend, clipboard history, SwayOSD, Mako, and Waybar status controls.
+- Described Hyprland bindings, searchable `Super-?` help, and a small Ignis
+  shortcut widget generated from the same binding data.
+- Packaged desktop helpers, shared theme values, and explicit laptop, docked,
+  and multi-monitor workspace behavior.
+- A restrained charcoal desktop theme built around `wall00.png`, with compact
+  Waybar and rofi surfaces, crisp application windows, a background-layer
+  shortcut reference, and a matching Hyprlock layout.
 
 References:
 
@@ -18,127 +27,16 @@ References:
 - SwayOSD: <https://github.com/ErikReider/SwayOSD>
 - Ignis: <https://ignis-sh.github.io/ignis/>
 
-Desktop plumbing:
+#### Verification
 
-- [x] Start `hyprpolkitagent` with the Hyprland graphical session.
-- [x] Add real `hypridle` listeners.
-  - [x] Lock after a reasonable idle timeout.
-  - [x] Turn displays off after the lock timeout.
-  - [x] Suspend after a longer idle timeout.
-  - [x] Restore DPMS on activity and resume.
-- [x] Add `cliphist` clipboard history.
-  - [x] Persist text and image clipboard entries.
-  - [x] Add a rofi clipboard picker on `Super-V`.
-  - [x] Add an explicit action for clearing clipboard history.
-- [x] Add SwayOSD for volume, microphone, and brightness feedback.
-- [x] Launch graphical applications through `uwsm app --` where appropriate.
-- [x] Add Waybar `tray` and `idle_inhibitor` modules.
-- [x] Add a backlight module if it remains useful after SwayOSD is enabled.
-- [x] Expose Mako notification history and a do-not-disturb toggle.
-- [x] Give `hyprlock` a deliberate theme matching the existing desktop palette.
-
-Keybind discovery:
-
-- [ ] Add descriptions to Hyprland bindings and keep Hyprland as the source of
-      truth for shortcut documentation.
-- [ ] Add `Super-?` help generated from `hyprctl -j binds`.
-  - [ ] Start with a small formatter plus Glow or rofi rather than a bespoke TUI.
-  - [ ] Keep the complete searchable help separate from the persistent widget.
-- [ ] Add an Ignis desktop widget for common shortcuts.
-  - [ ] Pin the supported Ignis version in Nix while its Rust rewrite settles.
-  - [ ] Place the widget on the background or bottom layer so normal windows
-        cover it.
-  - [ ] Show only the small set of shortcuts worth remembering at a glance.
-  - [ ] Read binding descriptions rather than duplicating a Markdown keybind
-        list.
-  - [ ] Keep Waybar, rofi, and Mako as separate components for now.
-
-Polish:
-
-- [ ] Move the shared Hyprland/Waybar/rofi/Mako/Ignis palette into reusable Nix
-      theme values instead of maintaining duplicate color literals.
-- [ ] Convert desktop helper scripts such as screenshots and power actions into
-      `writeShellApplication` packages with explicit runtime dependencies.
-- [ ] Add intentional laptop and docked monitor layouts instead of relying only
-      on the catch-all monitor rule.
-- [ ] Define workspace behavior for multi-monitor use once the docked layout is
-      known.
-- [ ] Test screen sharing, file pickers, authentication prompts, suspend/resume,
-      clipboard history, screenshots, and notification actions under Hyprland.
-
-Visual polish:
-
-Keep `wall00.png` as the visual anchor for Haxorus. Its bright green/blue
-landscape supplies the desktop's personality; shell components should remain
-dark, restrained, and legible against it.
-
-1. Preserve the existing charcoal/blue palette instead of introducing a
-   wallpaper-derived or multi-accent theme.
-
-- [ ] Treat blue as an active/actionable state rather than a general-purpose
-      highlight.
-- [ ] Keep normal status information neutral.
-- [ ] Reserve warning and critical colors for exceptional states.
-
-2. Refine Waybar into a compact instrument panel around the existing content.
-
-- [ ] Keep the bar dark and substantially opaque against `wall00.png`.
-- [ ] Add small outer margins and match the existing `8px` corner radius.
-- [ ] Keep a thin border rather than adding prominent shadows or glass effects.
-- [ ] Group related network, Bluetooth, audio, battery, and tray modules.
-- [ ] Keep inactive workspaces as dim numbers and give only the active
-      workspace an accent treatment.
-- [ ] Avoid adding persistent CPU, RAM, temperature, or visualizer modules.
-
-3. Make application windows slightly crisper.
-
-- [ ] Raise `inactive_opacity` from `0.9` to roughly `0.97` or `1.0`.
-- [ ] Keep the existing `4px` inner gaps, `8px` outer gaps, `8px` rounding,
-      and thin borders unless actual use suggests otherwise.
-- [ ] Keep animations restrained and avoid adding wobble, motion blur, or
-      decorative border effects.
-- [ ] Limit noticeable transparency and blur primarily to shell surfaces
-      where they improve separation from the wallpaper.
-- [ ] Refine rofi into the common command-palette surface for the desktop.
-  - [ ] Use a narrow single-column layout rather than a large application grid.
-  - [ ] Use the shared dark surface, thin border, and restrained corner radius.
-  - [ ] Indicate selection with the surface color and a small blue accent rather
-        than a large bright selection block.
-  - [ ] Reuse the same treatment for applications, clipboard history, power,
-        notification history, and other rofi menus.
-
-4. Style the Ignis shortcut widget as part of the desktop rather than another
-   panel.
-
-- [ ] Anchor it near the bottom-right of the desktop on the background or
-      bottom layer with no keyboard focus.
-- [ ] Keep it visible only when the wallpaper is exposed; normal windows
-      should cover it.
-- [ ] Use a compact typographic treatment with a small `HAXORUS` heading,
-      action labels, and key combinations.
-- [ ] Use little or no container chrome; prefer typography, spacing, and a
-      subtle accent rule over a large card.
-- [ ] Show only the most useful shortcuts and leave the complete list to
-      `Super-?`.
-- [ ] Match the Waybar/rofi font and color tokens rather than defining another
-      theme.
-
-5. Give Hyprlock the same restrained visual language.
-
-- [ ] Continue using `wall00.png` rather than introducing a separate lock
-      screen background.
-- [ ] Keep the layout close to the simple GNOME lock-screen model: prominent
-      time and date, minimal authentication UI, and little additional status.
-- [ ] Use sans-serif typography for large human-facing text and the desktop
-      monospace for small system information where appropriate.
-- [ ] Avoid dashboard widgets, large profile images, and excessive blur.
-
-6. Review the finished desktop as a whole at laptop resolution.
-
-- [ ] Confirm `wall00.png` remains visually dominant when no windows are open.
-- [ ] Confirm the Waybar, rofi, Ignis widget, Mako, SwayOSD, and Hyprlock read
-      as parts of one visual system.
-- [ ] Remove visual elements that duplicate information or draw attention
+- [ ] Test screen sharing, file pickers, authentication prompts, suspend and
+      resume, clipboard history, screenshots, and notification actions under
+      Hyprland.
+- [ ] Review the desktop at laptop resolution and confirm that `wall00.png`
+      remains dominant when no windows are open.
+- [ ] Confirm that Waybar, rofi, the Ignis widget, Mako, SwayOSD, and Hyprlock
+      read as one visual system.
+- [ ] Remove any visual element that duplicates information or draws attention
       without helping normal use.
 
 ### Dragonite

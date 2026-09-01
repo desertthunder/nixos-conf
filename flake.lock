@@ -224,6 +224,27 @@
         "url": "https://github.com/IBM/plex/releases/download/@ibm%2Fplex-mono@1.1.0/ibm-plex-mono.zip"
       }
     },
+    "ignis": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748439200,
+        "narHash": "sha256-/E0xqzW1qFOg3GJup/htQf6g1gz7NiHg7mOluYsArtw=",
+        "owner": "ignis-sh",
+        "repo": "ignis",
+        "rev": "50bea7b144329b3ef07ad336cfff1880a4e2855a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ignis-sh",
+        "ref": "v0.5.1",
+        "repo": "ignis",
+        "type": "github"
+      }
+    },
     "indigo": {
       "flake": false,
       "locked": {
@@ -364,6 +385,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "home-manager": "home-manager",
+        "ignis": "ignis",
         "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
