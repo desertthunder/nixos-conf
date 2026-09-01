@@ -1,8 +1,56 @@
 { config, pkgs, ... }:
 
+let
+  clipboardPicker = pkgs.writeShellApplication {
+    name = "clipboard-picker";
+    runtimeInputs = with pkgs; [
+      cliphist
+      rofi
+      wl-clipboard
+    ];
+    text = ''
+      selection="$(cliphist list | rofi -dmenu -p Clipboard)"
+      [ -n "$selection" ] || exit 0
+      printf '%s' "$selection" | cliphist decode | wl-copy
+    '';
+  };
+
+  clearClipboardHistory = pkgs.writeShellApplication {
+    name = "clear-clipboard-history";
+    runtimeInputs = with pkgs; [
+      cliphist
+      rofi
+      wl-clipboard
+    ];
+    text = ''
+      choice="$(printf 'Cancel\nClear\n' | rofi -dmenu -p 'Clear clipboard history?')"
+      [ "$choice" = Clear ] || exit 0
+      cliphist wipe
+      wl-copy --clear
+    '';
+  };
+
+  notificationStatus = pkgs.writeShellApplication {
+    name = "notification-status";
+    runtimeInputs = with pkgs; [
+      gnugrep
+      mako
+    ];
+    text = ''
+      if makoctl mode | grep -qx do-not-disturb; then
+        printf 'notifications off\n'
+      else
+        printf 'notifications\n'
+      fi
+    '';
+  };
+in
 {
   home.packages = with pkgs; [
     brightnessctl
+    clearClipboardHistory
+    clipboardPicker
+    cliphist
     grim
     hypridle
     hyprlock
@@ -10,14 +58,31 @@
     hyprpolkitagent
     libnotify
     mako
+    notificationStatus
     playerctl
     rofi
     rofi-power-menu
     satty
     slurp
+    swayosd
     waybar
     wl-clipboard
   ];
+
+  systemd.user.services.hyprpolkitagent = {
+    Unit = {
+      Description = "Hyprland Polkit authentication agent";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+    };
+    Service = {
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
   systemd.user.services.hyprpaper = {
     Unit = {
@@ -64,6 +129,51 @@
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
+  systemd.user.services.cliphist-text = {
+    Unit = {
+      Description = "Cliphist text clipboard watcher";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+    };
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  systemd.user.services.cliphist-image = {
+    Unit = {
+      Description = "Cliphist image clipboard watcher";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+    };
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
+  systemd.user.services.swayosd = {
+    Unit = {
+      Description = "SwayOSD on-screen display server";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+      ConditionEnvironment = "HYPRLAND_INSTANCE_SIGNATURE";
+    };
+    Service = {
+      ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
+      Restart = "on-failure";
+      RestartSec = "2s";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   systemd.user.services.mako = {
     Unit = {
       Description = "Mako notification daemon";
@@ -81,6 +191,64 @@
 
   xdg.configFile."hypr/hyprland.lua".source = ../hypr/hyprland.lua;
   xdg.configFile."hypr/hypridle.conf".source = ../hypr/hypridle.conf;
+  xdg.configFile."hypr/hyprlock.conf".text =
+    let
+      wallpaper = "${../wallpapers/wall00.png}";
+    in
+    ''
+      general {
+        disable_loading_bar = true
+        hide_cursor = true
+      }
+
+      background {
+        monitor =
+        path = ${wallpaper}
+        blur_passes = 2
+        blur_size = 4
+        color = rgb(151516)
+      }
+
+      label {
+        monitor =
+        text = cmd[update:1000] date +"%H:%M"
+        color = rgb(cfcfcf)
+        font_family = Inter
+        font_size = 72
+        position = 0, 100
+        halign = center
+        valign = center
+      }
+
+      label {
+        monitor =
+        text = cmd[update:60000] date +"%A, %d %B"
+        color = rgb(7a7a7a)
+        font_family = Inter
+        font_size = 18
+        position = 0, 35
+        halign = center
+        valign = center
+      }
+
+      input-field {
+        monitor =
+        size = 320, 48
+        outline_thickness = 1
+        dots_size = 0.22
+        dots_spacing = 0.3
+        outer_color = rgb(2a2a2a)
+        inner_color = rgb(151516)
+        font_color = rgb(cfcfcf)
+        fade_on_empty = false
+        placeholder_text = <span foreground="##7a7a7a">Password</span>
+        check_color = rgb(51a4e7)
+        fail_color = rgb(e55f86)
+        position = 0, -45
+        halign = center
+        valign = center
+      }
+    '';
   xdg.configFile."hypr/shot.sh" = {
     source = ../hypr/shot.sh;
     executable = true;
@@ -138,6 +306,9 @@
     [urgency=critical]
     default-timeout=0
     border-color=#e55f86
+
+    [mode=do-not-disturb]
+    invisible=1
   '';
 
   xdg.configFile."uwsm/env".source =

@@ -12,7 +12,11 @@
       "bluetooth",
       "network",
       "pulseaudio",
+      "backlight",
       "battery",
+      "idle_inhibitor",
+      "custom/notifications",
+      "tray",
       "clock",
       "custom/power",
     ],
@@ -33,6 +37,11 @@
       "max-length": 60,
     },
 
+    "backlight": {
+      "format": "light {percent}%",
+      "tooltip": false,
+    },
+
     "battery": {
       "format": "bat {capacity}%",
       "format-charging": "bat {capacity}%+",
@@ -47,14 +56,14 @@
       "format-wifi": "wifi {essid}",
       "format-ethernet": "eth {ipaddr}",
       "format-disconnected": "wifi offline",
-      "on-click": "nm-connection-editor",
+      "on-click": "uwsm app -- nm-connection-editor",
       "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
     },
 
     "pulseaudio": {
       "format": "vol {volume}%",
       "format-muted": "vol muted",
-      "on-click": "pavucontrol",
+      "on-click": "uwsm app -- pavucontrol",
       "scroll-step": 5,
     },
 
@@ -63,8 +72,32 @@
       "format-connected": "bt {device_alias}",
       "format-disabled": "bt off",
       "format-off": "bt off",
-      "on-click": "blueman-manager",
+      "on-click": "uwsm app -- blueman-manager",
       "tooltip-format": "{controller_alias}\t{controller_address}",
+    },
+
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": {
+        "activated": "idle held",
+        "deactivated": "idle",
+      },
+      "tooltip-format-activated": "Idle lock and suspend inhibited",
+      "tooltip-format-deactivated": "Idle lock and suspend active",
+    },
+
+    "custom/notifications": {
+      "exec": "notification-status",
+      "interval": 2,
+      "on-click": "makoctl restore",
+      "on-click-right": "makoctl mode -t do-not-disturb",
+      "tooltip": true,
+      "tooltip-format": "Left: restore last notification\nRight: toggle do not disturb",
+    },
+
+    "tray": {
+      "icon-size": 16,
+      "spacing": 8,
     },
 
     "clock": {
@@ -74,7 +107,7 @@
 
     "custom/power": {
       "format": "power",
-      "on-click": "bash ~/.config/waybar/power.sh",
+      "on-click": "uwsm app -- bash ~/.config/waybar/power.sh",
       "tooltip": false,
     },
   },

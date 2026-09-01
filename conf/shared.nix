@@ -725,12 +725,6 @@
         force = true;
       };
 
-      home.file.".pi/agent/skills" = {
-        source = ./agent/skills;
-        recursive = true;
-        force = true;
-      };
-
       home.file.".config/ripgrep/config".text = ''
         --line-number
         --smart-case

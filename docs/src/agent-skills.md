@@ -69,20 +69,18 @@ instructions:
 conf/agent/link-global-instructions.sh
 ```
 
-On NixOS, Home Manager publishes the project skills to Codex and Pi:
+On NixOS, Home Manager publishes the project skills through the shared agent
+skill directory:
 
 ```nix
 home.file.".agents/skills" = {
   source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
   force = true;
 };
-
-home.file.".pi/agent/skills" = {
-  source = ./agent/skills;
-  recursive = true;
-  force = true;
-};
 ```
+
+Pi and other compatible agents use `~/.agents/skills`; do not install a second
+copy under an agent-specific settings directory.
 
 Outside NixOS, expose the project skills to Codex with a symlink:
 
@@ -95,9 +93,9 @@ Codex scans repository `.agents/skills` directories and the user-level
 `~/.agents/skills` directory. Link the whole skill directory so `SKILL.md`,
 references, license files, and agent metadata stay together.
 
-Do not keep duplicate standalone skills in `~/.agents/skills` or
-`~/.pi/agent/skills` when their guidance has been consolidated into this repo.
-Duplicates drift and make it unclear which behavior the agent should follow.
+Do not keep duplicate standalone skills beside the managed
+`~/.agents/skills` directory. Duplicates drift and make it unclear which
+behavior the agent should follow.
 
 ## Rebuilding local agent settings
 

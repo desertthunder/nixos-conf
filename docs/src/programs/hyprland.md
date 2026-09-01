@@ -4,15 +4,15 @@ Hyprland is intentionally scoped to `nix-haxorus`. Other hosts keep the shared
 GNOME/GDM baseline and do not inherit Hyprland, Waybar, rofi, mako, or related
 user services.
 
-## Session Model
+## Session model
 
 Hyprland uses UWSM. In GDM, choose the `Hyprland (uwsm-managed)` session.
 
-UWSM wraps the compositor as a systemd-managed Wayland session.
-That gives cleaner environment propagation, XDG autostart behavior, and shutdown
-handling than launching the compositor as a plain process.
+UWSM wraps the compositor as a systemd-managed Wayland session. Graphical apps
+started from Hyprland and Waybar use `uwsm app --` so their scopes stop with the
+session. Session services run under `graphical-session.target`.
 
-## Companion Apps
+## Companion apps
 
 | App                | Role                                         |
 | ------------------ | -------------------------------------------- |
@@ -21,13 +21,20 @@ handling than launching the compositor as a plain process.
 | rofi               | App and run launcher.                        |
 | Waybar             | Panel.                                       |
 | hyprpaper          | Wallpaper service.                           |
-| hypridle           | Idle handling.                               |
-| hyprlock           | Lock screen.                                 |
-| mako               | Notifications.                               |
+| hypridle           | Lock, display power, and suspend timeouts.   |
+| hyprlock           | Themed lock screen.                          |
+| hyprpolkitagent    | Authentication prompts.                      |
+| cliphist           | Text and image clipboard history.            |
+| SwayOSD            | Volume, microphone, and brightness feedback. |
+| mako               | Notifications, history, and do not disturb.  |
 | grim, slurp, satty | Screenshot flow.                             |
 
 Ghostty is shared config, but Hyprland binds it directly with
 `Super-Return`. `Super-Z` launches `ghostty -e zellij`.
+
+Hypridle locks after five minutes, turns displays off 30 seconds later, and
+suspends after 15 minutes. Activity and resume turn the displays back on. The
+Waybar idle inhibitor pauses these timeouts when needed.
 
 ## Theme
 
@@ -54,6 +61,10 @@ theme.
 | `Super-E`                | Open Nautilus                    |
 | `Super-R`, `Super-Space` | Open rofi app launcher           |
 | `Super-P`                | Open rofi run launcher           |
+| `Super-V`                | Open clipboard history           |
+| `Super-Shift-V`          | Clear clipboard history          |
+| `Super-N`                | Restore the last notification    |
+| `Super-Shift-N`          | Toggle do not disturb            |
 | `Super-Shift-R`          | Reload Hyprland config           |
 | `Super-Shift-L`          | Lock session                     |
 | `Super-Q`                | Close focused window             |
@@ -76,7 +87,8 @@ theme.
 | `Ctrl-Print`             | Region screenshot, no editor     |
 | `Ctrl-Shift-Print`       | Full screenshot, no editor       |
 
-Media keys control PipeWire volume, brightness, and `playerctl`.
+Media keys control PipeWire volume and brightness through SwayOSD. Playback
+keys use `playerctl`.
 
 Screenshot paths save to `~/Pictures/Screenshots`, copy to clipboard, and notify.
 

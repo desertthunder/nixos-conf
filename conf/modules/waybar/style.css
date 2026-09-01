@@ -37,10 +37,14 @@ window#waybar.bottom {
 
 #workspaces,
 #mpris,
+#backlight,
 #battery,
 #bluetooth,
 #network,
 #pulseaudio,
+#idle_inhibitor,
+#custom-notifications,
+#tray,
 #clock,
 #custom-power,
 #custom-quote,
@@ -86,10 +90,14 @@ window#waybar.bottom {
   color: @fg;
 }
 
+#backlight,
 #battery,
 #bluetooth,
 #network,
 #pulseaudio,
+#idle_inhibitor,
+#custom-notifications,
+#tray,
 #clock {
   padding-right: 14px;
 }
@@ -105,6 +113,7 @@ window#waybar.bottom {
 #pulseaudio.muted,
 #bluetooth.disabled,
 #bluetooth.off,
+#idle_inhibitor.deactivated,
 #custom-quote,
 #custom-wm {
   color: @fg-dim;
