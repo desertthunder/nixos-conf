@@ -308,7 +308,7 @@
         just
         nix-output-monitor
         oh-my-zsh
-        pi-coding-agent
+        pkgsUnstable.pi-coding-agent
         ripgrep
         starship
         tree
