@@ -466,6 +466,11 @@
               font_family = "0xProto Nerd Font Propo";
               font_size = 17;
             };
+            project_panel = {
+              git_status_indicator = true;
+              bold_folder_labels = false;
+              button = true;
+            };
             tab_size = 2;
             hard_tabs = false;
             format_on_save = "on";
