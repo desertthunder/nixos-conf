@@ -557,11 +557,28 @@
         ++ media-pkgs
         ++ gui-pkgs;
 
-      home.activation.installSshConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        install -d -m 0700 "$HOME/.ssh"
-        rm -f "$HOME/.ssh/config"
-        install -m 0600 ${sshConfigText} "$HOME/.ssh/config"
-      '';
+      home.activation = {
+        enableObsidianCli = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          config_dir="$HOME/.config/obsidian"
+          config_file="$config_dir/obsidian.json"
+          install -d -m 0700 "$config_dir"
+
+          if [[ -f "$config_file" ]]; then
+            ${pkgs.jq}/bin/jq '.cli = true' "$config_file" > "$config_file.tmp"
+          else
+            ${pkgs.jq}/bin/jq -n '{ cli: true }' > "$config_file.tmp"
+          fi
+
+          mv "$config_file.tmp" "$config_file"
+          chmod 0600 "$config_file"
+        '';
+
+        installSshConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          install -d -m 0700 "$HOME/.ssh"
+          rm -f "$HOME/.ssh/config"
+          install -m 0600 ${sshConfigText} "$HOME/.ssh/config"
+        '';
+      };
 
       programs.bat = {
         enable = true;
@@ -659,7 +676,8 @@
           cat = "bat --paging=never --style=plain";
           less = "bat";
           preview = "bat --style=numbers,changes --color=always";
-          pfetch = "pokeget haxorus --hide-name | fastfetch --file-raw -";
+          # TODO: change the mon based on machine
+          pfetch = "pokeget haxorus -s --hide-name | fastfetch --file-raw -";
 
           zed = "zeditor";
           zedn = "zeditor --new";
