@@ -76,6 +76,7 @@ Use language-native installers for fast-moving ecosystems when needed:
 | Node/TypeScript | distro package, pnpm, or project-local tooling                        |
 | Zed             | upstream package                                                      |
 | Claude Code     | Nix, upstream package, or npm-style install depending on availability |
+| OpenCode        | Nix or upstream package                                               |
 
 Use Nix outside NixOS only when it clearly reduces drift. This repo does not
 currently expose a standalone `homeConfigurations.<user>` output, so Home

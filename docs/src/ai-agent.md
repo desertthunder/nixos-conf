@@ -35,56 +35,23 @@ updating it.
 
 ## Codex
 
-Login in through the TUI.
+Log in through the TUI.
 
 ## Claude Code
 
-Home Manager installs Claude Code and writes `~/.claude/settings.json`.
-Claude Code uses the Umans Anthropic-compatible API:
+Home Manager installs the standard Claude Code package from unstable Nixpkgs.
+No provider, model, or authentication settings are managed by this repo. Run
+`claude` and follow its login flow.
 
-```text
-https://api.code.umans.ai/v1/messages
-```
+## OpenCode
 
-The base URL in config is `https://api.code.umans.ai`; Claude Code appends the
-Anthropic API path itself.
-
-Authentication comes from `apiKeyHelper`, which reads:
-
-```text
-/run/secrets/umans_key
-```
-
-This keeps the API key out of the Nix store.
+Home Manager installs OpenCode from unstable Nixpkgs. Run `opencode` and follow
+its provider setup flow.
 
 ## Ownership
 
 - `conf/shared.nix`: `pkgsUnstable.claude-code`
-- `conf/shared.nix`: `home.file.".claude/settings.json"`
-- `conf/shared.nix`: `sops.secrets.umans_key`
-- `conf/secrets/owais.yaml`: encrypted `umans_key`
-
-## Models
-
-Default model:
-
-```text
-umans-glm-5.2
-```
-
-Fallback model:
-
-```text
-umans-coder
-```
-
-The settings map Claude Code's model aliases to Umans models:
-
-- `fable`, `opus`, and `sonnet`: `umans-glm-5.2`
-- `haiku`: `umans-coder`
-
-Gateway model discovery is enabled. No external search provider is configured;
-web search should come from the model/provider if Umans exposes it natively.
+- `conf/shared.nix`: `pkgsUnstable.opencode`
 
 ## Validate
 
@@ -92,16 +59,5 @@ After rebuilding, open a fresh shell and run:
 
 ```bash
 claude doctor
-claude
+opencode --version
 ```
-
-Inside Claude Code, run:
-
-```text
-/status
-/model
-```
-
-`/status` should show the Umans base URL.
-
-`/model` should show the configured models or the aliases mapped to those models.

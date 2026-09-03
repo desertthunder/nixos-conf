@@ -11,7 +11,6 @@ with the helper script.
 | `keys_gh`       | `/run/secrets/keys_gh`       | GitHub SSH            |
 | `keys_codeberg` | `/run/secrets/keys_codeberg` | Codeberg SSH          |
 | `keys_tangled`  | `/run/secrets/keys_tangled`  | Tangled and Knot SSH  |
-| `umans_key`     | `/run/secrets/umans_key`     | Claude Code Umans API |
 
 Files are owned by `owais:users` with mode `0600`.
 
@@ -24,7 +23,7 @@ Files are owned by `owais:users` with mode `0600`.
 | `/var/lib/sops-nix/key.txt` | Age key used by NixOS during activation.                   |
 | `conf/shared.nix`           | Declares which secrets should appear under `/run/secrets`. |
 
-SSH and Claude Code reference `/run/secrets` paths directly.
+SSH references `/run/secrets` paths directly.
 
 ## Local Editing
 
@@ -76,4 +75,3 @@ The script sets key file permissions to `0600`.
 | SOPS cannot decrypt locally     | `SOPS_AGE_KEY_FILE` points at the wrong key.       |
 | NixOS rebuild cannot decrypt    | `/var/lib/sops-nix/key.txt` is missing or wrong.   |
 | SSH ignores a key               | File permissions or `IdentityFile` path are wrong. |
-| Claude Code cannot authenticate | `/run/secrets/umans_key` is missing after rebuild. |

@@ -7,7 +7,7 @@ inspect.
 | Part                          | Role                                                        |
 | ----------------------------- | ----------------------------------------------------------- |
 | `inputs.nixpkgs`              | Main Nixpkgs channel for systems and packages.              |
-| `inputs.nixpkgs-unstable`     | Fast-moving packages, currently used for Zed & Claude Code. |
+| `inputs.nixpkgs-unstable`     | Fast-moving packages, including Zed and AI agent CLIs.      |
 | `inputs.home-manager`         | User environment as part of each NixOS system.              |
 | `inputs.sops-nix`             | Secret material decrypted onto NixOS hosts.                 |
 | `outputs.nixosConfigurations` | Buildable NixOS hosts.                                      |
