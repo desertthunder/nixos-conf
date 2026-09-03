@@ -138,6 +138,7 @@
         wireguard-tools
         proton-vpn
         qbittorrent
+        mediawriter
         vscode
         neovim
         zsh
