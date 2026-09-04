@@ -112,6 +112,13 @@ The same rule applies to related terms:
   description is clearer than "a bounded context at the boundary of the
   contract."
 
+## Empty Test Claims
+
+Test names such as "remains stable," "works correctly," and "behaves as
+expected" do not identify the requirement under test. Name the action, input,
+and observable result that distinguish the case. For a screenshot test, name
+the page, state, viewport, or theme captured for comparison.
+
 ## The "Serves As" Dodge
 
 AI replaces simple "is" or "are" with pompous alternatives. Use the simple verb.
