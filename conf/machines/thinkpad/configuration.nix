@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
     ../../modules/de/noct.nix
+    ../../modules/de/umb.nix
     ../../services/searxng.nix
   ];
 

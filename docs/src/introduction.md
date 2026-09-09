@@ -21,7 +21,7 @@ The deeper pages document the behavior worth remembering.
 | Area       | Current choice                                                                    |
 | ---------- | --------------------------------------------------------------------------------- |
 | System     | [NixOS](./nixos.md) or Fedora, flakes, Home Manager, and host-specific modules.   |
-| Desktop    | GNOME or [Noctalia with Umbriel](./programs/noctalia.md), by session.             |
+| Desktop    | GNOME or [Noctalia](./programs/noctalia.md) with [Umbriel](./programs/umbriel.md). |
 | Term       | [Ghostty](./programs/ghostty.md), usually running [Zellij](./programs/zellij.md). |
 | Shell      | [Zsh](./programs/zsh.md) with [Starship](./programs/starship.md).                 |
 | Editor     | [Neovim](./programs/neovim.md) & [Zed](./programs/zed.md) (vim-mode)              |

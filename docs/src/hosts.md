@@ -12,6 +12,7 @@ Files:
 - `conf/machines/thinkpad/configuration.nix`
 - `conf/machines/thinkpad/hardware-configuration.nix`
 - `conf/modules/de/noct.nix`
+- `conf/modules/de/umb.nix`
 - `conf/services/searxng.nix`
 
 Flake target:
