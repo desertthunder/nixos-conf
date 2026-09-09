@@ -42,4 +42,5 @@
   - [Obsidian](./programs/obsidian.md)
 - [Tools](./tools.md)
   - [Find TODO Comments with rg](./todo-comments.md)
+  - [Inspect Git History Before Reading Code](./git-history.md)
 - [Resources](./resources.md)

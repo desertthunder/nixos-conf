@@ -158,7 +158,10 @@ that the reader needs.
 - Avoid decorative Unicode and repeated em dashes.
 - Use lists for lists. Do not disguise them as paragraphs beginning "First,"
   "Second," and "Third."
-- Use semicolons and colons only when their grammatical function helps.
+- Use semicolons sparingly. Prefer separate sentences or bullets over repeatedly
+  joining independent points. Keep a semicolon when the close relationship
+  between clauses makes it useful, not merely because it is grammatical.
+- Use colons to introduce an explanation, example, or list.
 - Treat tables as structured data, not a place to compress prose.
 
 ## Editing method
