@@ -1,43 +1,48 @@
 # TODOs
 
-## Parking Lot
-
 ## Machines
 
 ### Haxorus
 
-Hyprland is the primary desktop. The completed setup includes:
-
-- UWSM-managed desktop services, Polkit authentication, idle locking and
-  suspend, clipboard history, SwayOSD, Mako, and Waybar status controls.
-- Described Hyprland bindings, searchable `Super-?` help, and a small Ignis
-  shortcut widget generated from the same binding data.
-- Packaged desktop helpers, shared theme values, and explicit laptop, docked,
-  and multi-monitor workspace behavior.
-- A restrained charcoal desktop theme built around `wall00.png`, with compact
-  Waybar and rofi surfaces, crisp application windows, a background-layer
-  shortcut reference, and a matching Hyprlock layout.
-
-References:
-
-- Hyprland UWSM: <https://wiki.hypr.land/Useful-Utilities/Systemd-start/>
-- hyprpolkitagent: <https://wiki.hypr.land/Hypr-Ecosystem/hyprpolkitagent/>
-- hypridle: <https://wiki.hypr.land/Hypr-Ecosystem/hypridle/>
-- cliphist: <https://github.com/sentriz/cliphist>
-- SwayOSD: <https://github.com/ErikReider/SwayOSD>
-- Ignis: <https://ignis-sh.github.io/ignis/>
-
-#### Verification
-
-- [ ] Test screen sharing, file pickers, authentication prompts, suspend and
-      resume, clipboard history, screenshots, and notification actions under
-      Hyprland.
-- [ ] Review the desktop at laptop resolution and confirm that `wall00.png`
-      remains dominant when no windows are open.
-- [ ] Confirm that Waybar, rofi, the Ignis widget, Mako, SwayOSD, and Hyprlock
-      read as one visual system.
-- [ ] Remove any visual element that duplicates information or draws attention
-      without helping normal use.
+|     | Current Haxorus component          | Target                                                            |
+| --: | ---------------------------------- | ----------------------------------------------------------------- |
+|     | Waybar                             | **Replace** with Noctalia bar                                     |
+|     | Rofi app launcher                  | **Replace** with Noctalia launcher                                |
+|     | Cliphist + Rofi                    | **Replace** with Noctalia clipboard                               |
+|     | Mako                               | **Replace** with Noctalia notification daemon/history             |
+|     | SwayOSD                            | **Replace** with Noctalia OSD/system controls                     |
+|     | Hyprpaper                          | **Replace** with Noctalia wallpaper service                       |
+|     | Hypridle                           | **Replace** with Noctalia idle service                            |
+|     | Hyprlock                           | **Replace** with Noctalia lockscreen                              |
+|     | `desktop-power-menu`               | **Replace** with Noctalia session/control panel                   |
+|     | Ignis desktop widget               | **Replace** with Noctalia desktop widgets/plugins                 |
+|     | `hypr-shot`                        | **Replace** with Noctalia screenshot/annotation support           |
+|     | `hyprpolkitagent`                  | **Replace** with Noctalia-compatible Polkit handling              |
+|     | Hyprland itself                    | **Replace** with Umbriel                                          |
+|     | Hyprland Lua window/layout config  | **Replace/port** to Umbriel TOML configuration                    |
+|     | Dwindle layout                     | **Port** to Umbriel `dwindle` layout                              |
+|     | Keybindings                        | **Port** to Umbriel keybinds/actions                              |
+|     | Monitor configuration              | **Port** to Umbriel output configuration                          |
+|     | Window rules                       | **Port** to Umbriel window rules                                  |
+|     | Workspace behavior                 | **Port** to Umbriel per-output workspaces                         |
+|     | Scratch workspace                  | **Replace/port** to Umbriel scratchpads                           |
+|     | Focus/move/resize behavior         | **Port** to Umbriel actions                                       |
+|     | Mouse window manipulation          | **Port** to Umbriel bindings                                      |
+|     | Touchpad/workspace gestures        | **Port** to Umbriel input/gesture configuration                   |
+|     | Floating/fullscreen/pinned windows | **Port** to Umbriel                                               |
+|     | Compositor visual effects          | **Port** to Umbriel appearance configuration                      |
+|     | Xwayland                           | **Replace** Hyprland Xwayland with Umbriel + `xwayland-satellite` |
+|     | `hyprctl`-based scripts            | **Replace/port** to `umbriel msg` IPC/actions                     |
+|     | Noctalia IPC bindings              | **Use directly** from Umbriel keybinds                            |
+|     | UWSM Hyprland session plumbing     | **Remove/rework** for Umbriel session startup                     |
+|   ✔ | TLP                                | **Keep**                                                          |
+|   ✔ | `power-profiles-daemon = false`    | **Keep**                                                          |
+|     | UPower                             | **Enable** for Noctalia battery integration                       |
+|   ✔ | NetworkManager                     | **Keep**                                                          |
+|   ✔ | Bluetooth                          | **Keep**                                                          |
+|   ✔ | ThinkPad hardware/fingerprint      | **Keep**                                                          |
+|   ✔ | PipeWire/audio                     | **Keep**                                                          |
+|   ✔ | Tailscale/networking               | **Keep**                                                          |
 
 ### Dragonite
 
@@ -224,3 +229,5 @@ Operations:
 - [ ] Monitor disk usage for media, covers, cache, and database.
 - [ ] Keep new downloads in an inbox and only move organized files into Kavita library roots.
 - [ ] Avoid automatic reboots during library scans or imports.
+
+## Parking Lot
