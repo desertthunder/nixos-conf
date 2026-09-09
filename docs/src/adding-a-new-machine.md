@@ -66,7 +66,7 @@ secrets in `conf/shared.nix`.
 ```
 
 For a host-specific desktop stack, import its system module here. `nix-haxorus`
-does this for Hyprland.
+does this for Umbriel and Noctalia.
 
 ## Flake Output
 

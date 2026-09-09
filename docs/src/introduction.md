@@ -11,9 +11,6 @@ The repo is written for two audiences:
 - anyone trying to copy pieces of the setup on NixOS, Fedora, Ubuntu, Debian, or
   another Linux distro
 
-![Hyprland desktop preview](./assets/images/desktop-hero.png)
-<small>Hyprland + Ghostty with fastfetch on `nix-haxorus`</small>
-
 ## Summary
 
 ### What I Use
@@ -24,7 +21,7 @@ The deeper pages document the behavior worth remembering.
 | Area       | Current choice                                                                    |
 | ---------- | --------------------------------------------------------------------------------- |
 | System     | [NixOS](./nixos.md) or Fedora, flakes, Home Manager, and host-specific modules.   |
-| DE         | GNOME, [Hyprland](./programs/hyprland.md), or XFCE (machine dependent)            |
+| Desktop    | GNOME or [Noctalia with Umbriel](./programs/noctalia.md), by session.             |
 | Term       | [Ghostty](./programs/ghostty.md), usually running [Zellij](./programs/zellij.md). |
 | Shell      | [Zsh](./programs/zsh.md) with [Starship](./programs/starship.md).                 |
 | Editor     | [Neovim](./programs/neovim.md) & [Zed](./programs/zed.md) (vim-mode)              |

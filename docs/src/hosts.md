@@ -11,8 +11,7 @@ Files:
 
 - `conf/machines/thinkpad/configuration.nix`
 - `conf/machines/thinkpad/hardware-configuration.nix`
-- `conf/modules/de/hypr.nix`
-- `conf/modules/de/hypr-home.nix`
+- `conf/modules/de/noct.nix`
 - `conf/services/searxng.nix`
 
 Flake target:
@@ -30,8 +29,8 @@ Host-specific settings:
 - `power-profiles-daemon` disabled
 - default TLP mode set to battery
 - CPU governor set to `performance` on AC and `powersave` on battery
-- fingerprint daemon enabled
-- Hyprland desktop enabled through host-specific modules
+- fingerprint daemon and UPower enabled
+- Umbriel compositor and Noctalia shell enabled through a host-specific module
 - SearXNG listening on `127.0.0.1:9090`
 
 ## nix-baxcalibur
@@ -55,7 +54,7 @@ Host-specific settings:
 - hostname: `nix-baxcalibur`
 
 The HP file imports shared config and hardware config. GNOME is enabled through
-shared config; Hyprland and SearXNG stay ThinkPad-specific.
+shared config; Umbriel, Noctalia, and SearXNG stay ThinkPad-specific.
 
 ## Add another host
 

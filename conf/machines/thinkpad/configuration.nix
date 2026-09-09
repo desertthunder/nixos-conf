@@ -4,7 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     (import ../../shared.nix).nixos
-    ../../modules/de/hypr.nix
+    ../../modules/de/noct.nix
     ../../services/searxng.nix
   ];
 

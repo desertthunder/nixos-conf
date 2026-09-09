@@ -9,7 +9,7 @@ directly.
 
 | Area         | Expected result                                                        |
 | ------------ | ---------------------------------------------------------------------- |
-| Desktop      | GNOME or Hyprland on Wayland, PipeWire, NetworkManager, printing, SSH. |
+| Desktop      | GNOME or Umbriel with Noctalia, PipeWire, NetworkManager, and SSH.      |
 | Shell        | Zsh login shell with Starship and a small alias set.                   |
 | Editors      | Neovim and Zed with language servers available on `PATH`.              |
 | Terminal     | Ghostty, usually launching Zsh and sometimes Zellij.                   |
@@ -45,7 +45,7 @@ directly.
 
 | Area            | Notes                                                                    |
 | --------------- | ------------------------------------------------------------------------ |
-| Desktop session | Install GNOME, Hyprland, portals, and login-manager pieces natively.     |
+| Desktop session | Install GNOME or Umbriel, Noctalia, portals, and a login manager.         |
 | System services | Enable Docker, PostgreSQL, Redis, SSH, CUPS, and Tailscale with systemd. |
 | Fonts           | Prefer distro packages; use user font installs for missing Nerd Fonts.   |
 | Language tools  | Use upstream installers where distro versions lag too far.               |

@@ -6,38 +6,38 @@
 
 |     | Current Haxorus component          | Target                                                            |
 | --: | ---------------------------------- | ----------------------------------------------------------------- |
-|     | Waybar                             | **Replace** with Noctalia bar                                     |
-|     | Rofi app launcher                  | **Replace** with Noctalia launcher                                |
-|     | Cliphist + Rofi                    | **Replace** with Noctalia clipboard                               |
-|     | Mako                               | **Replace** with Noctalia notification daemon/history             |
-|     | SwayOSD                            | **Replace** with Noctalia OSD/system controls                     |
-|     | Hyprpaper                          | **Replace** with Noctalia wallpaper service                       |
-|     | Hypridle                           | **Replace** with Noctalia idle service                            |
-|     | Hyprlock                           | **Replace** with Noctalia lockscreen                              |
-|     | `desktop-power-menu`               | **Replace** with Noctalia session/control panel                   |
-|     | Ignis desktop widget               | **Replace** with Noctalia desktop widgets/plugins                 |
-|     | `hypr-shot`                        | **Replace** with Noctalia screenshot/annotation support           |
-|     | `hyprpolkitagent`                  | **Replace** with Noctalia-compatible Polkit handling              |
-|     | Hyprland itself                    | **Replace** with Umbriel                                          |
-|     | Hyprland Lua window/layout config  | **Replace/port** to Umbriel TOML configuration                    |
-|     | Dwindle layout                     | **Port** to Umbriel `dwindle` layout                              |
-|     | Keybindings                        | **Port** to Umbriel keybinds/actions                              |
-|     | Monitor configuration              | **Port** to Umbriel output configuration                          |
-|     | Window rules                       | **Port** to Umbriel window rules                                  |
-|     | Workspace behavior                 | **Port** to Umbriel per-output workspaces                         |
-|     | Scratch workspace                  | **Replace/port** to Umbriel scratchpads                           |
-|     | Focus/move/resize behavior         | **Port** to Umbriel actions                                       |
-|     | Mouse window manipulation          | **Port** to Umbriel bindings                                      |
-|     | Touchpad/workspace gestures        | **Port** to Umbriel input/gesture configuration                   |
-|     | Floating/fullscreen/pinned windows | **Port** to Umbriel                                               |
-|     | Compositor visual effects          | **Port** to Umbriel appearance configuration                      |
-|     | Xwayland                           | **Replace** Hyprland Xwayland with Umbriel + `xwayland-satellite` |
-|     | `hyprctl`-based scripts            | **Replace/port** to `umbriel msg` IPC/actions                     |
-|     | Noctalia IPC bindings              | **Use directly** from Umbriel keybinds                            |
-|     | UWSM Hyprland session plumbing     | **Remove/rework** for Umbriel session startup                     |
+|   ✔ | Waybar                             | **Replace** with Noctalia bar                                     |
+|   ✔ | Rofi app launcher                  | **Replace** with Noctalia launcher                                |
+|   ✔ | Cliphist + Rofi                    | **Replace** with Noctalia clipboard                               |
+|   ✔ | Mako                               | **Replace** with Noctalia notification daemon/history             |
+|   ✔ | SwayOSD                            | **Replace** with Noctalia OSD/system controls                     |
+|   ✔ | Hyprpaper                          | **Replace** with Noctalia wallpaper service                       |
+|   ✔ | Hypridle                           | **Replace** with Noctalia idle service                            |
+|   ✔ | Hyprlock                           | **Replace** with Noctalia lockscreen                              |
+|   ✔ | `desktop-power-menu`               | **Replace** with Noctalia session/control panel                   |
+|   ✔ | Ignis desktop widget               | **Replace** with Noctalia desktop widgets/plugins                 |
+|   ✔ | `hypr-shot`                        | **Replace** with Noctalia screenshot/annotation support           |
+|   ✔ | `hyprpolkitagent`                  | **Replace** with Noctalia-compatible Polkit handling              |
+|   ✔ | Hyprland itself                    | **Replace** with Umbriel                                          |
+|   ✔ | Hyprland Lua window/layout config  | **Replace/port** to Umbriel TOML configuration                    |
+|   ✔ | Dwindle layout                     | **Port** to Umbriel `dwindle` layout                              |
+|   ✔ | Keybindings                        | **Port** to Umbriel keybinds/actions                              |
+|   ✔ | Monitor configuration              | **Port** to Umbriel output configuration                          |
+|   ✔ | Window rules                       | **Port** to Umbriel window rules                                  |
+|   ✔ | Workspace behavior                 | **Port** to Umbriel per-output workspaces                         |
+|   ✔ | Scratch workspace                  | **Replace/port** to Umbriel scratchpads                           |
+|   ✔ | Focus/move/resize behavior         | **Port** to Umbriel actions                                       |
+|   ✔ | Mouse window manipulation          | **Port** to Umbriel bindings                                      |
+|   ✔ | Touchpad/workspace gestures        | **Port** to Umbriel input/gesture configuration                   |
+|   ✔ | Floating/fullscreen/pinned windows | **Port** to Umbriel                                               |
+|   ✔ | Compositor visual effects          | **Port** to Umbriel appearance configuration                      |
+|   ✔ | Xwayland                           | **Replace** Hyprland Xwayland with Umbriel + `xwayland-satellite` |
+|   ✔ | `hyprctl`-based scripts            | **Replace/port** to `umbriel msg` IPC/actions                     |
+|   ✔ | Noctalia IPC bindings              | **Use directly** from Umbriel keybinds                            |
+|   ✔ | UWSM Hyprland session plumbing     | **Remove/rework** for Umbriel session startup                     |
 |   ✔ | TLP                                | **Keep**                                                          |
 |   ✔ | `power-profiles-daemon = false`    | **Keep**                                                          |
-|     | UPower                             | **Enable** for Noctalia battery integration                       |
+|   ✔ | UPower                             | **Enable** for Noctalia battery integration                       |
 |   ✔ | NetworkManager                     | **Keep**                                                          |
 |   ✔ | Bluetooth                          | **Keep**                                                          |
 |   ✔ | ThinkPad hardware/fingerprint      | **Keep**                                                          |

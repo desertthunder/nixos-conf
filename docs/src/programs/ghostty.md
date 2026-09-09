@@ -17,9 +17,9 @@ Home Manager owns the Ghostty settings and GNOME keyboard shortcuts.
 
 ## Launchers
 
-| Shortcut                | Command             |
-| ----------------------- | ------------------- |
-| `Ctrl-Alt-t`            | `ghostty`           |
-| `Super-z`               | `ghostty -e zellij` |
-| Hyprland `Super-Return` | `ghostty`           |
-| Hyprland `Super-Z`      | `ghostty -e zellij` |
+| Shortcut               | Command             |
+| ---------------------- | ------------------- |
+| GNOME `Ctrl-Alt-t`     | `ghostty`           |
+| GNOME `Super-z`        | `ghostty -e zellij` |
+| Umbriel `Super-Return` | `ghostty`           |
+| Umbriel `Super-Z`      | `ghostty -e zellij` |

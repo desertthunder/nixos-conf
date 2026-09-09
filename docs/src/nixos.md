@@ -4,7 +4,7 @@ This repo builds two NixOS hosts from one flake and a shared baseline.
 
 | Host | Machine directory | Notes |
 | ---- | ----------------- | ----- |
-| `nix-haxorus` | `conf/machines/thinkpad/` | ThinkPad workstation with Hyprland. |
+| `nix-haxorus` | `conf/machines/thinkpad/` | ThinkPad with Umbriel and Noctalia. |
 | `nix-baxcalibur` | `conf/machines/hp/` | HP host for shared services. |
 
 ## Repository Layout

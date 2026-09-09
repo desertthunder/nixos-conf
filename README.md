@@ -11,7 +11,7 @@ For system administration and multi-machine setup details, see the
 
 ![desktop](./docs/src/assets/images/desktop-screenshot.png)
 
-Wallpapers are [here](./conf/modules/hypr/wallpapers/)
+Wallpapers are [here](./conf/modules/wallpapers/).
 
 My neovim config as located in this [repo](https://github.com/desertthunder/nvim)
 

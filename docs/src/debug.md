@@ -19,8 +19,8 @@ systemctl --user --failed
 Inspect one unit and its recent logs:
 
 ```sh
-systemctl status waybar.service
-systemctl --user status hypridle.service
+systemctl status display-manager.service
+systemctl --user status noctalia.service
 ```
 
 Use `status` for a human-readable snapshot. It includes runtime state and recent
@@ -43,13 +43,13 @@ Filter to a unit:
 
 ```sh
 journalctl -b -u display-manager.service --no-pager
-journalctl --user -b --user-unit waybar.service --no-pager
+journalctl --user -b --user-unit noctalia.service --no-pager
 ```
 
 Search messages for a word or regex:
 
 ```sh
-journalctl -b -g 'hyprlock|loginctl|pam' --no-pager
+journalctl --user -b -g 'noctalia|umbriel|pam' --no-pager
 ```
 
 ## Crashes

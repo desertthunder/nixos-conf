@@ -1,6 +1,13 @@
 {
   description = "A simple NixOS flake";
 
+  nixConfig = {
+    extra-substituters = [ "https://noctalia.cachix.org" ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -35,11 +42,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Keep the stable Python implementation while Ignis is rewritten in Rust.
-    ignis = {
-      url = "github:ignis-sh/ignis/v0.5.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+
+    # Umbriel requires wlroots >= 0.20.1, newer than the pinned NixOS channel.
+    umbriel.url = "github:noctalia-dev/umbriel";
   };
 
   outputs =
@@ -79,7 +85,6 @@
               home-manager.users.owais = {
                 imports = [
                   (import ./conf/shared.nix).home
-                  ./conf/modules/de/hypr-home.nix
                 ];
               };
               # Do not move/overwrite existing home files during rebuilds; fail on conflicts instead.
