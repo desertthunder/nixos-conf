@@ -321,9 +321,11 @@
         clippy
         dotnet-sdk_9
         dune_3
+        gh
         gmp
         go-task
         harlequin
+        pkgsUnstable.hunk
         libev
         jdk17
         lazydocker
@@ -711,6 +713,31 @@
 
       home.file.".agents/skills" = {
         source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
+        force = true;
+      };
+
+      # Claude Code reads skills from ~/.claude/skills and its global
+      # instructions from ~/.claude/CLAUDE.md. Point both at the same source
+      # the other harnesses already use, so there is one copy to maintain.
+      home.file.".claude/skills" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
+        force = true;
+      };
+
+      home.file.".claude/CLAUDE.md" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/AGENTS.md";
+        force = true;
+      };
+
+      # Claude Code rewrites settings.json itself, so this links out of the
+      # store. Its edits land in the repository as a diff to keep or revert.
+      home.file.".claude/settings.json" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/claude-settings.json";
+        force = true;
+      };
+
+      home.file.".claude/statusline.sh" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/claude-statusline.sh";
         force = true;
       };
 

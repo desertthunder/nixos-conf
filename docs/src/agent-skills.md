@@ -89,8 +89,23 @@ an agent-specific directory is usually unnecessary. Review third-party skills
 before installing them because their instructions and scripts run with the
 agent's permissions.
 
-The script `conf/agent/link-global-instructions.sh` links `AGENTS.md` for Codex
-and Pi. It does not install skills.
+Claude Code does not read `~/.agents/skills/`. It scans `~/.claude/skills/`, so
+Home Manager publishes the same directory a second time:
+
+```nix
+home.file.".claude/skills" = {
+  source = config.lib.file.mkOutOfStoreSymlink "${agentConfigDir}/skills";
+  force = true;
+};
+```
+
+Both links point at `conf/agent/skills/`, so there is still one copy to edit.
+The frontmatter this repository already uses satisfies Claude Code, which
+requires `name` and `description` and nothing else.
+
+The script `conf/agent/link-global-instructions.sh` installs the same links on
+machines without Home Manager. It links `AGENTS.md` for Codex, Pi, and Claude
+Code, and links the skill directory for Claude Code.
 
 ## Updating a skill
 

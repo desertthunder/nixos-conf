@@ -32,7 +32,18 @@ let
 
   umbrielSettings = {
     general = {
-      autostart = [ ];
+      # Umbriel's built-in systemd synchronization makes only one attempt. Retry
+      # it so a user-manager startup race cannot leave the session without Noctalia.
+      autostart = [
+        ''
+          until systemctl --user import-environment WAYLAND_DISPLAY DISPLAY \
+            XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP XDG_SESSION_TYPE UMBRIEL_SOCKET \
+            && systemctl --user start umbriel-session.target
+          do
+            sleep 1
+          done
+        ''
+      ];
       mod_key = "Super";
       xwayland = true;
       show_cheatsheet = false;

@@ -22,7 +22,10 @@ if a reload fails.
 
 The repository sets the session environment, laptop output, workspace model,
 layout, colors, appearance, input, keybindings, window rules, and animations.
-Unspecified settings retain Umbriel's defaults. See the upstream
+An autostart command publishes the Wayland environment and retries
+`umbriel-session.target` until systemd accepts it. This prevents a user-manager
+startup race from leaving the session without Noctalia. Unspecified settings
+retain Umbriel's defaults. See the upstream
 [configuration reference](https://docs.noctalia.dev/umbriel/configuration/)
 when adding an option.
 
