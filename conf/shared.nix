@@ -766,7 +766,7 @@
         settings = {
           font-family = "0xProto Nerd Font";
           font-style = "Medium";
-          font-size = 16;
+          font-size = 14;
           window-padding-x = 8;
           window-padding-y = 8;
           background = "1b1b1b";
