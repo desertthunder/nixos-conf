@@ -11,7 +11,7 @@ identity, MagicDNS names, and encrypted paths to private services.
 | Tailscale admin console | MagicDNS, HTTPS, device approval, expiry, users, groups, ACLs. |
 | Service pages           | How individual services use tailnet access.                    |
 
-## How This Repo Uses It
+## How this repo uses it
 
 | Use                          | Policy                                          |
 | ---------------------------- | ----------------------------------------------- |
@@ -21,7 +21,7 @@ identity, MagicDNS names, and encrypted paths to private services.
 | Kavita                       | Publish private HTTPS through Tailscale Serve.  |
 | Public exposure              | Use Funnel only when intentionally needed.      |
 
-## Host Setup
+## Host setup
 
 After a rebuild on a new host, authenticate once with `sudo tailscale up`.
 Approve the device in the admin console if the tailnet requires it.

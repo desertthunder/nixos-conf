@@ -4,7 +4,7 @@ Home Manager writes SSH host entries for GitHub, Codeberg, Tangled, Forgejo, and
 the Tangled Knot. On NixOS, identities come from SOPS-Nix paths under
 `/run/secrets`.
 
-## Host Aliases
+## Host aliases
 
 | Host                     | User  | Identity        | Purpose                      |
 | ------------------------ | ----- | --------------- | ---------------------------- |
@@ -16,7 +16,7 @@ the Tangled Knot. On NixOS, identities come from SOPS-Nix paths under
 
 The shared config sets `IdentitiesOnly yes` and `AddKeysToAgent no`.
 
-## Secret Paths
+## Secret paths
 
 | Environment | Path style                   |
 | ----------- | ---------------------------- |

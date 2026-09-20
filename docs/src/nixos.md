@@ -2,25 +2,25 @@
 
 This repo builds two NixOS hosts from one flake and a shared baseline.
 
-| Host | Machine directory | Notes |
-| ---- | ----------------- | ----- |
-| `nix-haxorus` | `conf/machines/thinkpad/` | ThinkPad with Umbriel and Noctalia. |
-| `nix-baxcalibur` | `conf/machines/hp/` | HP host for shared services. |
+| Host             | Machine directory         | Notes                               |
+| ---------------- | ------------------------- | ----------------------------------- |
+| `nix-haxorus`    | `conf/machines/thinkpad/` | ThinkPad with Umbriel and Noctalia. |
+| `nix-baxcalibur` | `conf/machines/hp/`       | HP host for shared services.        |
 
-## Repository Layout
+## Repository layout
 
-| Path | Purpose |
-| ---- | ------- |
-| `flake.nix` | Host outputs, inputs, and Home Manager wiring. |
-| `flake.lock` | Exact upstream revisions. |
-| `conf/shared.nix` | Shared NixOS and Home Manager modules. |
-| `conf/machines/*/configuration.nix` | Host-specific system choices. |
-| `conf/machines/*/hardware-configuration.nix` | Generated hardware facts. |
-| `conf/modules/` | App config assets and focused local modules. |
-| `conf/services/` | Reusable service modules. |
-| `conf/secrets/owais.yaml` | SOPS-encrypted secrets. |
+| Path                                         | Purpose                                        |
+| -------------------------------------------- | ---------------------------------------------- |
+| `flake.nix`                                  | Host outputs, inputs, and Home Manager wiring. |
+| `flake.lock`                                 | Exact upstream revisions.                      |
+| `conf/shared.nix`                            | Shared NixOS and Home Manager modules.         |
+| `conf/machines/*/configuration.nix`          | Host-specific system choices.                  |
+| `conf/machines/*/hardware-configuration.nix` | Generated hardware facts.                      |
+| `conf/modules/`                              | App config assets and focused local modules.   |
+| `conf/services/`                             | Reusable service modules.                      |
+| `conf/secrets/owais.yaml`                    | SOPS-encrypted secrets.                        |
 
-For the concepts behind flakes and modules, see [Nix Concepts](./concepts.md).
+For the concepts behind flakes and modules, see [Nix concepts](./concepts.md).
 
 ## Rebuilds
 
@@ -61,7 +61,7 @@ SOPS-Nix decrypts configured secrets to `/run/secrets/` on NixOS hosts. See
 Shared service policy and host-specific service pages live under
 [Services](./services.md).
 
-## Adding Hosts
+## Adding hosts
 
-Use [Adding a New Machine](./adding-a-new-machine.md) for the operational
+Use [Adding a new machine](./adding-a-new-machine.md) for the operational
 checklist.

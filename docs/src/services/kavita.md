@@ -6,7 +6,7 @@ Access is tailnet-first. Use Tailscale Serve for private HTTPS access and
 Tailscale Funnel only when the library intentionally needs temporary public
 access.
 
-## Shape
+## State and media
 
 Kavita state and media should be treated separately. State contains app config,
 library metadata, covers, settings, logs, and the SQLite database. Media is the
@@ -20,8 +20,7 @@ The local module sets conservative service limits:
 - `IOSchedulingClass=best-effort`
 - `IOSchedulingPriority=6`
 
-These limits are mainly for first scans, cover generation, and imports. Idle
-load should be modest.
+These limits mostly matter during first scans, cover generation, and imports.
 
 ## Rebuild
 
@@ -33,7 +32,7 @@ journalctl -u kavita -f
 curl http://127.0.0.1:5000/site.webmanifest
 ```
 
-## Media Layout
+## Media layout
 
 Do not point Kavita at `~/Documents` or `~/Downloads`. Keep a staging inbox and
 only move organized files into Kavita's library roots:
@@ -60,7 +59,7 @@ Recommended layout:
 For comics and manga, use series folders. For books, author or collection
 folders are not strictly required, but they keep the library easier to maintain.
 
-Move it into the library roots with:
+Move staged files into the library roots:
 
 ```bash
 sudo mkdir -p /srv/media/books /srv/media/comics
@@ -77,9 +76,8 @@ rm -r ~/Downloads/inbox/kavita-ready
 
 ## Client model
 
-Primary readers should use the tailnet URL from desktop, Android, and tablet
-clients. OPDS or third-party clients can be added later if they are useful, but
-the web UI is the baseline supported client.
+Read from the tailnet URL on desktop, Android, and tablet clients. The web UI
+is the supported client; OPDS and third-party clients can be added later.
 
 The initial admin user is created from the web UI after the service is first
 available. Library scan schedules should avoid maintenance windows and large

@@ -1,8 +1,8 @@
-# Adding A New Machine
+# Adding a new machine
 
-This page is the operational checklist for adding a NixOS host to the flake.
+Checklist for adding a NixOS host to the flake.
 
-For why flakes, modules, and Home Manager work this way, see [Nix Concepts](./concepts.md).
+For why flakes, modules, and Home Manager work this way, see [Nix concepts](./concepts.md).
 
 ## Naming
 
@@ -29,7 +29,7 @@ Existing hosts use short hardware directory names and Pokemon hostnames.
 | Build temporarily        | `sudo nixos-rebuild test --flake .#{hostname}`   | Safer first activation.                        |
 | Make persistent          | `sudo nixos-rebuild switch --flake .#{hostname}` | Only after the test generation works.          |
 
-## Host Directory
+## Host directory
 
 Create:
 
@@ -50,7 +50,7 @@ machine.
 Keep general packages, users, shell defaults, editor defaults, and shared
 secrets in `conf/shared.nix`.
 
-## Minimal Host Module
+## Minimal host module
 
 ```nix
 { ... }:
@@ -68,7 +68,7 @@ secrets in `conf/shared.nix`.
 For a host-specific desktop stack, import its system module here. `nix-haxorus`
 does this for Umbriel and Noctalia.
 
-## Flake Output
+## Flake output
 
 Add a `nixosConfigurations.{hostname}` entry in `flake.nix`. Copy an existing
 host entry and adjust:
@@ -101,7 +101,7 @@ If a switched generation is bad:
 sudo nixos-rebuild switch --rollback
 ```
 
-## Final Review
+## Final review
 
 - Hardware config is present and machine-specific.
 - Host module imports shared NixOS config.

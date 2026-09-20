@@ -1,6 +1,6 @@
 # AI Agents
 
-Project-local skills are documented in [Agent Skills](./agent-skills.md).
+Project-local skills are documented in [Agent skills](./agent-skills.md).
 
 ## Pi
 
@@ -75,7 +75,7 @@ its provider setup flow.
 
 Home Manager installs [hunk](https://github.com/modem-dev/hunk) from unstable
 Nixpkgs on every machine. It is a terminal diff viewer for agent-authored
-changesets and reads Git, Jujutsu, and Sapling repositories. Every review takes
+changesets and reads Git, Jujutsu, and Sapling repositories. Every review starts from
 a subcommand:
 
 ```bash

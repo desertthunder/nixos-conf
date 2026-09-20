@@ -1,4 +1,4 @@
-# Language Basics
+# Language basics
 
 Nix is an expression language. Files evaluate to values: strings, paths, lists,
 attribute sets, functions, or larger structures built from those pieces.
@@ -58,7 +58,7 @@ Derivations also work in string interpolation. If `pkg` is a derivation,
 derivation refer to another derivation's output as an input while the Nix
 language still treats packages as composable values.
 
-## Common Idioms
+## Common idioms
 
 Imports compose modules:
 

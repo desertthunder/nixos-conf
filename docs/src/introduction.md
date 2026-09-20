@@ -13,39 +13,39 @@ The repo is written for two audiences:
 
 ## Summary
 
-### What I Use
+### What I use
 
-This is the working set behind the screenshot, not a full package inventory.
-The deeper pages document the behavior worth remembering.
+The working set, not a full package inventory. The program pages cover the
+settings and failure modes I think are worth remembering.
 
-| Area       | Current choice                                                                    |
-| ---------- | --------------------------------------------------------------------------------- |
-| System     | [NixOS](./nixos.md) or Fedora, flakes, Home Manager, and host-specific modules.   |
-| Desktop    | GNOME or [Noctalia](./programs/noctalia.md) with [Umbriel](./programs/umbriel.md). |
-| Term       | [Ghostty](./programs/ghostty.md), usually running [Zellij](./programs/zellij.md). |
-| Shell      | [Zsh](./programs/zsh.md) with [Starship](./programs/starship.md).                 |
-| Editor     | [Neovim](./programs/neovim.md) & [Zed](./programs/zed.md) (vim-mode)              |
-| Notes      | Neovim & [Obsidian](./programs/obsidian.md)                                       |
-| Reading    | [Zathura](./programs/zathura.md) with a compact dark interface.                   |
-| Networking | [Tailscale](./services/tailscale.md) for stable hostnames and private services.   |
+| Area       | Current choice                                                                     |
+| ---------- | ---------------------------------------------------------------------------------- |
+| System     | [NixOS](./nixos.md) or Fedora, flakes, Home Manager, and host-specific modules     |
+| Desktop    | GNOME, or [Umbriel](./programs/umbriel.md) with [Noctalia](./programs/noctalia.md) |
+| Terminal   | [Ghostty](./programs/ghostty.md), usually running [Zellij](./programs/zellij.md)   |
+| Shell      | [Zsh](./programs/zsh.md) with [Starship](./programs/starship.md)                   |
+| Editor     | [Neovim](./programs/neovim.md) and [Zed](./programs/zed.md) in vim mode            |
+| Notes      | Neovim and [Obsidian](./programs/obsidian.md)                                      |
+| Reading    | [Zathura](./programs/zathura.md) with a compact dark interface                     |
+| Networking | [Tailscale](./services/tailscale.md) for stable hostnames and private services     |
 
 ### Entrypoints
 
 - [Guides](./guides.md): common commands, checks, secrets, and migration notes
-- [Nix Concepts](./concepts.md)
-- [NixOS](./nixos.md): flakes, hosts, and SOPS
-- [Programs](./programs.md): Dotfiles
-- [Other Distros](./other.md): how to recreate the working setup without NixOS
+- [Nix concepts](./concepts.md): flakes, modules, and the language itself
+- [NixOS](./nixos.md): hosts, rebuilds, and SOPS
+- [Programs](./programs.md): per-application config and dotfiles
+- [Other distros](./other.md): how to recreate the setup without NixOS
 - [Tools](./tools.md): small command-line notes and scripts
 
-#### Guidelines
+### Where to start
 
 If you are on NixOS, start with [NixOS](./nixos.md), then read [Hosts](./hosts.md)
 and [Secrets](./secrets.md).
 
-If the underlying Nix ideas are unclear, read [Nix Concepts](./concepts.md).
+If the underlying Nix ideas are unclear, read [Nix concepts](./concepts.md).
 
-If you are not on NixOS, start with [Other Distros](./other.md). Then use the
+If you are not on NixOS, start with [Other distros](./other.md). Then use the
 program pages for the tools you want to copy.
 
 If you are editing this repo, read [Development](./development.md) and

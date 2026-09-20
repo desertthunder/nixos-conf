@@ -15,7 +15,7 @@ curl 'http://127.0.0.1:9090/search?q=nixos&format=json'
 curl 'http://127.0.0.1:9090/search?q=nixos&format=rss'
 ```
 
-The preferences page is unlocked so Users can change the theme, language,
+The preferences page is unlocked so you can change the theme, language,
 categories, safe search, autocomplete, and other exposed search settings.
 
 ## State and configuration

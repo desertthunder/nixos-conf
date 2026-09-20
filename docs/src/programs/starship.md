@@ -11,11 +11,10 @@ native TOML config, and Zsh initializes it.
 | Installed config  | `~/.config/starship.toml`     |
 | Shell integration | `eval "$(starship init zsh)"` |
 
-## Prompt Shape
+## Prompt shape
 
-The config keeps the prompt compact and development-focused. It emphasizes
-directory, Git state, language/runtime context, command duration, jobs, status,
-and shell character.
+The prompt shows the directory, Git state, language and runtime context,
+command duration, background jobs, exit status, and the shell character.
 
 For portable use, install Starship and copy the TOML config. The only shell
 requirement is that Zsh initializes Starship.

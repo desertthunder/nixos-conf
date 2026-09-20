@@ -10,7 +10,7 @@ Home Manager configures Git identity and a global ignore list.
 | SSH config        | [SSH](./ssh.md)                             |
 | Secret extraction | [Secrets](../secrets.md)                    |
 
-## Ignore Policy
+## Ignore policy
 
 The global ignore list covers OS/editor junk, local env files, Nix build
 results, direnv/devenv state, sandbox output, and local agent files such as

@@ -18,5 +18,5 @@ let the target machine own package installation and service management.
 
 Reusable agent instructions and skills live under `conf/agent`. Codex and Pi
 settings live in their native global directories because they contain
-machine-specific paths and application state. See [Agent Skills](./agent-skills.md)
+machine-specific paths and application state. See [Agent skills](./agent-skills.md)
 for the split and the reconstruction notes.

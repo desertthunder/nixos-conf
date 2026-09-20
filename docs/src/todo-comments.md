@@ -1,4 +1,4 @@
-# TODO Comment Search
+# TODO comment search
 
 Use `ripgrep` (`rg`) to find TODO-style comments quickly across projects. This
 is useful for local cleanup, release checks, and CI gates.

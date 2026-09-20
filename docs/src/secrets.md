@@ -4,7 +4,7 @@ Secrets are stored in `conf/secrets/owais.yaml` and encrypted with SOPS. NixOS
 hosts decrypt them with SOPS-Nix; non-NixOS machines can extract selected files
 with the helper script.
 
-## Active Secrets
+## Active secrets
 
 | Secret          | NixOS path                   | Used by               |
 | --------------- | ---------------------------- | --------------------- |
@@ -14,7 +14,7 @@ with the helper script.
 
 Files are owned by `owais:users` with mode `0600`.
 
-## NixOS Model
+## NixOS model
 
 | Piece                       | Role                                                       |
 | --------------------------- | ---------------------------------------------------------- |
@@ -25,7 +25,7 @@ Files are owned by `owais:users` with mode `0600`.
 
 SSH references `/run/secrets` paths directly.
 
-## Local Editing
+## Local editing
 
 Use the local age key when editing from the repo:
 
@@ -45,7 +45,7 @@ Update recipients after changing `.sops.yaml`:
 nix shell nixpkgs#sops -c sops updatekeys conf/secrets/owais.yaml
 ```
 
-## Non-NixOS Extraction
+## Non-NixOS extraction
 
 `conf/scripts/keys.sh` extracts Git SSH keys for machines that do not use
 SOPS-Nix.
@@ -68,7 +68,7 @@ cp age.txt ~/.config/sops/age/keys.txt
 
 The script sets key file permissions to `0600`.
 
-## Common Failure Modes
+## Common failure modes
 
 | Symptom                         | Likely cause                                       |
 | ------------------------------- | -------------------------------------------------- |

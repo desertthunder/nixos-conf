@@ -243,6 +243,9 @@ plugins {
 load_plugins {
 }
 
+pane_frames true
+pane_frame_style "full"
+
 theme "marble"
 
 default_mode "locked"

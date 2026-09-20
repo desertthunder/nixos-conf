@@ -7,12 +7,12 @@ themes {
             background 24 24 24
             // #51A4E7
             emphasis_0 81 164 231
-            // #7A7A7A
-            emphasis_1 122 122 122
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_1 141 141 141
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         text_selected {
             // #151516
@@ -21,8 +21,8 @@ themes {
             background 81 164 231
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #2A2A2A
             emphasis_2 42 42 42
             // #2A2A2A
@@ -35,8 +35,8 @@ themes {
             background 81 164 231
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #CFCFCF
             emphasis_2 207 207 207
             // #2A2A2A
@@ -49,12 +49,12 @@ themes {
             background 39 39 42
             // #51A4E7
             emphasis_0 81 164 231
-            // #7A7A7A
-            emphasis_1 122 122 122
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_1 141 141 141
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         table_title {
             // #51A4E7
@@ -63,12 +63,12 @@ themes {
             background 0
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #CFCFCF
             emphasis_2 207 207 207
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         table_cell_selected {
             // #151516
@@ -77,8 +77,8 @@ themes {
             background 81 164 231
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #2A2A2A
             emphasis_2 42 42 42
             // #2A2A2A
@@ -91,12 +91,12 @@ themes {
             background 24 24 24
             // #51A4E7
             emphasis_0 81 164 231
-            // #7A7A7A
-            emphasis_1 122 122 122
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_1 141 141 141
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         list_selected {
             // #151516
@@ -105,8 +105,8 @@ themes {
             background 81 164 231
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #2A2A2A
             emphasis_2 42 42 42
             // #2A2A2A
@@ -119,12 +119,26 @@ themes {
             background 24 24 24
             // #51A4E7
             emphasis_0 81 164 231
+            // #8D8D8D
+            emphasis_1 141 141 141
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
+        }
+        frame_unselected {
             // #7A7A7A
-            emphasis_1 122 122 122
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #2A2A2A
-            emphasis_3 42 42 42
+            base 122 122 122
+            // #000000
+            background 0
+            // #CFCFCF
+            emphasis_0 207 207 207
+            // #8D8D8D
+            emphasis_1 141 141 141
+            // #CFCFCF
+            emphasis_2 207 207 207
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         frame_selected {
             // #51A4E7
@@ -133,12 +147,12 @@ themes {
             background 0
             // #CFCFCF
             emphasis_0 207 207 207
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #CFCFCF
             emphasis_2 207 207 207
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         frame_highlight {
             // #51A4E7
@@ -147,12 +161,12 @@ themes {
             background 0
             // #51A4E7
             emphasis_0 81 164 231
-            // #7A7A7A
-            emphasis_1 122 122 122
+            // #8D8D8D
+            emphasis_1 141 141 141
             // #CFCFCF
             emphasis_2 207 207 207
-            // #2A2A2A
-            emphasis_3 42 42 42
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         exit_code_success {
             // #00D787
@@ -163,10 +177,10 @@ themes {
             emphasis_0 81 164 231
             // #CFCFCF
             emphasis_1 207 207 207
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #181818
-            emphasis_3 24 24 24
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         exit_code_error {
             // #E55F86
@@ -177,10 +191,10 @@ themes {
             emphasis_0 81 164 231
             // #CFCFCF
             emphasis_1 207 207 207
-            // #2A2A2A
-            emphasis_2 42 42 42
-            // #181818
-            emphasis_3 24 24 24
+            // #8D8D8D
+            emphasis_2 141 141 141
+            // #8D8D8D
+            emphasis_3 141 141 141
         }
         multiplayer_user_colors {
             // #51A4E7

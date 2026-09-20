@@ -5,10 +5,9 @@ Forgejo runs on Baxcalibur at `https://git.desertthunder.dev`.
 Public repositories may be readable over HTTPS. Writes, admin access, private
 repositories, SSH remotes, and private LFS paths stay on the tailnet.
 
-Tracked implementation tasks stay in `TODO.md`. This page is the durable
-service shape and operating model.
+Tracked implementation tasks stay in `TODO.md`.
 
-## Current Shape
+## Current shape
 
 | Area                  | Value                            |
 | --------------------- | -------------------------------- |
@@ -22,7 +21,7 @@ service shape and operating model.
 | Private control plane | Tailscale                        |
 | Registration          | Disabled                         |
 
-## Boundaries
+## Access paths
 
 | Path                       | Policy                                             |
 | -------------------------- | -------------------------------------------------- |
@@ -35,7 +34,7 @@ service shape and operating model.
 The Cloudflare tunnel should only route the intended hostname and return `404`
 for unmatched hostnames.
 
-## Client Model
+## Client model
 
 | Client         | Expected path                                            |
 | -------------- | -------------------------------------------------------- |
@@ -46,7 +45,7 @@ for unmatched hostnames.
 Use per-device SSH keys. They are easier to revoke than copied private keys
 when a device or Termux install is retired.
 
-## SSH Remotes
+## SSH remotes
 
 Forgejo advertises SSH clone URLs with:
 

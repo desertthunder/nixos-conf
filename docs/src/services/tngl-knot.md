@@ -4,13 +4,13 @@ The [Tangled](https://tangled.org) knot runs on Baxcalibur at `https://knot.dese
 
 This service hosts the repositories and SSH guard for the ATproto identity that owns the knot.
 
-## Current State
+## Current state
 
 The owner is configured as `did:plc:xg2vq45muivyy3xwatcehspu`, my ATproto handle `desertthunder.dev`.
 
 If the handle changes to a different DID, update `desert.services.tangledKnot.ownerDid`.
 
-## Boundaries
+## Ingress and SSH
 
 Cloudflare Tunnel fronts public HTTPS for `knot.desertthunder.dev` and maps it
 to `http://127.0.0.1:5555`.

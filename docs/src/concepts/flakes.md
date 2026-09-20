@@ -21,7 +21,7 @@ The important command target is:
 `nixos-rebuild --flake .#<hostname>` is shorthand for selecting one of those
 host outputs.
 
-## Lock File
+## Lock file
 
 `flake.lock` is part of the system definition. Rebuilding without changing it
 uses the same upstream source graph. Updating it changes package and module

@@ -1,4 +1,4 @@
-# Inspect Git History Before Reading Code
+# Inspect Git history before reading code
 
 Git history can help you choose which parts of an unfamiliar repository to read
 first. Use it to find files that change often, areas associated with bug fixes,
@@ -36,7 +36,7 @@ git shortlog -sn --no-merges --since="6 months ago"
 ```
 
 A large concentration of commits under one author can indicate that important
-knowledge depends on one person. An historically prominent author who is absent
+knowledge depends on one person. A historically prominent author who is absent
 from recent work may indicate a knowledge-transfer risk.
 
 Contributor counts need context. Squash merges and repository migrations can

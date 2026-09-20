@@ -1,11 +1,11 @@
-# Other Linux Distributions
+# Other Linux distributions
 
 This repo is a NixOS workstation, but many user-level choices translate to
 Fedora, Ubuntu, Debian, and other Linux distributions. Treat the Nix files as an
 inventory and policy reference, not as something another distro can apply
 directly.
 
-## Target Shape
+## Target shape
 
 | Area         | Expected result                                                        |
 | ------------ | ---------------------------------------------------------------------- |
@@ -18,7 +18,7 @@ directly.
 | Fonts        | Nerd fonts plus Inter, Open Sans, Noto, and other UI/code fonts.       |
 | Secrets      | SOPS-extracted SSH keys under a normal user-owned path.                |
 
-## Translation Map
+## Translation map
 
 | NixOS source                      | Portable equivalent                                            |
 | --------------------------------- | -------------------------------------------------------------- |
@@ -29,7 +29,7 @@ directly.
 | `sops.secrets.*`                  | Decrypt with SOPS to files under `~/.local/share/sops`.        |
 | `conf/modules/*`                  | Copy selected app config directories into `~/.config`.         |
 
-## What Copies Cleanly
+## What copies cleanly
 
 | Component | Portable approach                                               |
 | --------- | --------------------------------------------------------------- |
@@ -41,7 +41,7 @@ directly.
 | ripgrep   | Recreate the small config from the program page or source.      |
 | SSH keys  | Use `conf/scripts/keys.sh` after placing the age key.           |
 
-## What Needs Native Distro Setup
+## What needs native distro setup
 
 | Area            | Notes                                                                    |
 | --------------- | ------------------------------------------------------------------------ |
@@ -52,7 +52,7 @@ directly.
 | Secrets         | There is no `/run/secrets` unless you recreate that pattern yourself.    |
 | NixOS aliases   | Do not copy aliases that call `nixos-rebuild`.                           |
 
-## Recommended Path
+## Recommended path
 
 1. Start from the distro’s GNOME edition or another well-supported desktop.
 2. Install baseline CLI tools, editors, fonts, and development services.
@@ -61,7 +61,7 @@ directly.
 5. Extract SSH keys with SOPS if this machine should use repo-managed keys.
 6. Add Nix or Home Manager later only if native packages become too divergent.
 
-## Package Strategy
+## Package strategy
 
 Use native packages for the OS layer: desktop, printing, Bluetooth, networking,
 Docker, PostgreSQL, Redis, OpenSSH, and Tailscale.
@@ -82,7 +82,7 @@ Use Nix outside NixOS only when it clearly reduces drift. This repo does not
 currently expose a standalone `homeConfigurations.<user>` output, so Home
 Manager outside NixOS would need a small extra flake entry.
 
-## Secrets And SSH
+## Secrets and SSH
 
 NixOS uses SOPS-Nix to mount secrets at `/run/secrets`. Other distros should use
 normal user-owned files. The intended portable flow is:
@@ -96,7 +96,7 @@ normal user-owned files. The intended portable flow is:
 See [Secrets](./secrets.md) and [SSH](./programs/ssh.md) for current key names
 and host aliases.
 
-## Sanity Checks
+## Sanity checks
 
 After setup, confirm the shape rather than exact package parity:
 
@@ -111,5 +111,5 @@ After setup, confirm the shape rather than exact package parity:
 | Redis returns `PONG`                  | Local cache service is ready.                 |
 | SSH reaches Git hosts                 | SOPS-extracted keys and aliases are correct.  |
 
-Expect package substitutions. The goal is the same working environment, not an
-exact reproduction of NixOS internals.
+Expect package substitutions. Aim for the same working environment rather than
+an exact reproduction of NixOS internals.

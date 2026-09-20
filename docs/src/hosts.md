@@ -59,4 +59,4 @@ shared config; Umbriel, Noctalia, and SearXNG stay ThinkPad-specific.
 
 ## Add another host
 
-See [Adding a New Machine](./adding-a-new-machine.md) for the full workflow.
+See [Adding a new machine](./adding-a-new-machine.md) for the full workflow.

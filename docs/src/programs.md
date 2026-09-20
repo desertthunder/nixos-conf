@@ -1,8 +1,8 @@
 # Programs
 
-These pages document reusable app behavior. They should explain intent,
-ownership, key settings, and troubleshooting. They should not mirror whole
-config files or repeat package inventories already visible in Nix source.
+Each page covers intent, ownership, key settings, and troubleshooting. They do
+not mirror whole config files or repeat package lists already visible in the Nix
+source.
 
 - [Ghostty](./programs/ghostty.md)
 - [Fastfetch](./programs/fastfetch.md)
@@ -21,4 +21,4 @@ config files or repeat package inventories already visible in Nix source.
 - [Obsidian](./programs/obsidian.md)
 
 For simple tools, prefer summary tables over install scripts. Put exact config
-in source files and exact Nix internals in [Nix Concepts](./concepts.md).
+in source files and exact Nix internals in [Nix concepts](./concepts.md).

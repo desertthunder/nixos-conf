@@ -7,7 +7,7 @@ tree.
 This is why different files can contribute to the same service, package list,
 user account, or config file without manually concatenating everything.
 
-## Merge Model
+## Merge model
 
 | Concept       | Meaning                                                             |
 | ------------- | ------------------------------------------------------------------- |
@@ -23,7 +23,7 @@ user account, or config file without manually concatenating everything.
 - Some options define custom merge behavior.
 - Conflicting scalar values fail evaluation unless priority helpers are used.
 
-## Repository Shape
+## Repository shape
 
 `conf/shared.nix` exports two reusable modules:
 

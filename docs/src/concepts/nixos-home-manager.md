@@ -1,4 +1,4 @@
-# NixOS And Home Manager
+# NixOS and Home Manager
 
 NixOS owns system state. Home Manager owns user state. This repo wires Home
 Manager into each NixOS host, so one rebuild applies both.
@@ -18,7 +18,7 @@ This split keeps the source of truth clear:
   applications, it is usually Home Manager.
 - If only one machine should have it, keep it out of `conf/shared.nix`.
 
-## Rebuild Flow
+## Rebuild flow
 
 `test` activates a generation without making it the boot default:
 

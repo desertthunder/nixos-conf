@@ -1,8 +1,8 @@
-# Debugging System Services
+# Debugging system services
 
-This is a quick checklist for debugging services.
+A checklist for debugging system and user services.
 
-## Systemd Units
+## Systemd units
 
 List failed system services:
 
@@ -26,7 +26,7 @@ systemctl --user status noctalia.service
 Use `status` for a human-readable snapshot. It includes runtime state and recent
 journal lines, while `show` is better for scripts.[^systemctl-status]
 
-## Journal Logs
+## Journal logs
 
 `journalctl` reads systemd's structured journal and supports filters such as the
 current boot, system or user journal, unit names, and grep-style message
