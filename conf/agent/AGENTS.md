@@ -1,6 +1,6 @@
 # Agents
 
-Git is read-only.
+Git is read-only unless overriden explicitly by the user.
 
 Prefer simple, maintainable solutions. Correctness comes first, but thoroughness
 does not mean expanding the task. Trace the relevant flow, fix the root cause,
@@ -10,7 +10,8 @@ and stop when the requested deliverable is complete and verified.
 
 - Treat one conversation as one deliverable. Do not absorb unrelated backlog,
   cleanup, research, or polish without an explicit request.
-- Do not spawn subagents unless the user explicitly asks for them.
+- Do not spawn subagents unless the user explicitly asks for them or uses a workflow
+  that includes them.
 - Keep tool output narrow. Search targeted paths, read only relevant ranges, and
   cap logs or test output. Do not dump whole files, generated trees, dependency
   listings, or session transcripts when a smaller query answers the question.
