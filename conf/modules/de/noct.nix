@@ -157,7 +157,7 @@ let
       tooltip_format = "{:%Y-%m-%d}";
     };
     widget.media = {
-      max_length = 60;
+      max_length = 400;
     };
 
     control_center = {
