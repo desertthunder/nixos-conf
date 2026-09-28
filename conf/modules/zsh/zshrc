@@ -1,0 +1,32 @@
+# Zsh entry point for machines without Home Manager. It mirrors the zsh module
+# in conf/shared.nix: oh-my-zsh with the git and z plugins, autosuggestions,
+# direnv, the shared setup, and syntax highlighting last.
+
+for brew in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  [[ -x $brew ]] && eval "$($brew shellenv)" && break
+done
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+plugins=(git z)
+source "$ZSH/oh-my-zsh.sh"
+
+# Homebrew and most Linux distributions install zsh plugins under share/.
+plugin_roots=(${HOMEBREW_PREFIX:+$HOMEBREW_PREFIX/share} /usr/share)
+source_plugin() {
+  local root
+  for root in $plugin_roots; do
+    [[ -r $root/$1/$1.zsh ]] && source "$root/$1/$1.zsh" && return
+  done
+  print -u2 "zshrc: $1 is not installed"
+}
+
+source_plugin zsh-autosuggestions
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"
+
+# ~/.zshrc is a symlink into the repository; :A resolves it to find shared.zsh.
+source "${${(%):-%x}:A:h}/shared.zsh"
+
+source_plugin zsh-syntax-highlighting
+unset plugin_roots
+unfunction source_plugin

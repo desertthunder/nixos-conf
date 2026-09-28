@@ -230,4 +230,22 @@ Operations:
 - [ ] Keep new downloads in an inbox and only move organized files into Kavita library roots.
 - [ ] Avoid automatic reboots during library scans or imports.
 
+## Secrets on machines without Nix
+
+`dots` does not manage secrets or `~/.ssh` yet. The Mac mini keeps its own SSH
+keys and host aliases, and shell tokens live in `~/.config/zsh/local.zsh`.
+
+- [ ] Copy the age key to `~/.config/sops/age/keys.txt` on the Mac mini.
+- [ ] Add the GitHub token, OpenRouter key, and Repoflow password to
+      `conf/secrets/owais.yaml`.
+- [ ] Extend `conf/scripts/keys.sh` to write those tokens to a `chmod 600` file
+      that `local.zsh` sources.
+- [ ] Move the SSH host config out of the `installSshConfig` activation script
+      into `conf/modules/ssh/`, with key paths that work on both NixOS and
+      `~/.local/share/sops`.
+- [ ] Decide whether the `github.com-dt` and `github.com-pro` aliases stay; some
+      remotes on the Mac mini use them.
+- [ ] Add the SSH config to `conf/dots.toml` once it no longer depends on
+      `/run/secrets`.
+
 ## Parking Lot

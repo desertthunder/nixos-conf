@@ -1,0 +1,37 @@
+# Shared Ghostty config. NixOS loads it through config-file from Home Manager's
+# generated config, which also sets the login shell. On macOS, put
+# machine-only overrides in ~/Library/Application Support/com.mitchellh.ghostty/config,
+# which Ghostty reads after this file.
+
+font-family = 0xProto Nerd Font
+font-style = Medium
+font-size = 14
+window-padding-x = 8
+window-padding-y = 8
+
+background = 1b1b1b
+foreground = ffffff
+cursor-color = 78a9ff
+cursor-text = 161616
+
+palette = 0=#161616
+palette = 1=#ee5396
+palette = 2=#42be65
+palette = 3=#ff7eb6
+palette = 4=#33b1ff
+palette = 5=#be95ff
+palette = 6=#3ddbd9
+palette = 7=#ffffff
+palette = 8=#8d8d8d
+palette = 9=#ee5396
+palette = 10=#42be65
+palette = 11=#ff7eb6
+palette = 12=#33b1ff
+palette = 13=#be95ff
+palette = 14=#3ddbd9
+palette = 15=#ffffff
+
+shell-integration = zsh
+mouse-hide-while-typing = true
+copy-on-select = false
+confirm-close-surface = false

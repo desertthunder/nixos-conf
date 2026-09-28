@@ -1,0 +1,97 @@
+# Dotfile links for machines without Home Manager, applied with `dots link`.
+# NixOS hosts get the same source files through conf/shared.nix instead.
+#
+# [[link]] symlinks `source` (relative to the repository root) to `target`.
+# With `each = true`, every entry inside `source` gets its own link inside
+# `target`, and entries that other tools own there are left alone.
+# [[repo]] clones `url` to `target`.
+# `retire` lists files that shadow managed config; `dots link` moves them into
+# the run's backup directory.
+
+retire = [
+  "~/.gitconfig",  # shadows ~/.config/git/config
+  "~/.gitignore",  # only used through ~/.gitconfig's core.excludesfile
+  "~/.omp.json",   # oh-my-posh, replaced by Starship
+  "~/.p10k.zsh",   # powerlevel10k, replaced by Starship
+]
+
+[[link]]
+source = "conf/modules/zsh/zshrc"
+target = "~/.zshrc"
+
+[[link]]
+source = "conf/modules/git/config"
+target = "~/.config/git/config"
+
+[[link]]
+source = "conf/modules/git/ignore"
+target = "~/.config/git/ignore"
+
+[[link]]
+source = "conf/modules/starship.toml"
+target = "~/.config/starship.toml"
+
+[[link]]
+source = "conf/modules/ghostty/config"
+target = "~/.config/ghostty/config"
+
+[[link]]
+source = "conf/modules/zellij"
+target = "~/.config/zellij"
+
+[[link]]
+source = "conf/modules/tmux/tmux.conf"
+target = "~/.config/tmux/tmux.conf"
+
+[[link]]
+source = "conf/modules/zed/settings.json"
+target = "~/.config/zed/settings.json"
+
+[[link]]
+source = "conf/modules/ripgrep/config"
+target = "~/.config/ripgrep/config"
+
+[[link]]
+source = "conf/modules/fastfetch"
+target = "~/.config/fastfetch"
+
+[[link]]
+source = "conf/modules/zathura/zathurarc"
+target = "~/.config/zathura/zathurarc"
+
+[[repo]]
+url = "git@github.com:desertthunder/nvim.git"
+target = "~/.config/nvim"
+
+[[link]]
+source = "conf/agent/AGENTS.md"
+target = "~/.claude/CLAUDE.md"
+
+[[link]]
+source = "conf/agent/AGENTS.md"
+target = "~/.codex/AGENTS.md"
+
+[[link]]
+source = "conf/agent/AGENTS.md"
+target = "~/.pi/agent/AGENTS.md"
+
+[[link]]
+source = "conf/agent/claude-settings.json"
+target = "~/.claude/settings.json"
+
+[[link]]
+source = "conf/agent/claude-statusline.sh"
+target = "~/.claude/statusline.sh"
+
+# Claude Code keeps its own synced skills in ~/.claude/skills, and the skills
+# CLI installs into ~/.agents/skills, so each repository skill is linked
+# individually.
+[[link]]
+source = "conf/agent/skills"
+target = "~/.claude/skills"
+each = true
+
+[[link]]
+source = "conf/agent/skills"
+target = "~/.agents/skills"
+each = true

@@ -307,6 +307,7 @@
         charm-freeze
         glow
         gum
+        tmux
         vhs
         zellij
       ];
@@ -414,58 +415,11 @@
         programs.zed-editor = {
           enable = true;
           package = pkgsUnstable.zed-editor;
-          extensions = [
-            "basher"
-            "dart"
-            "deno"
-            "elixir"
-            "flutter-snippets"
-            "gleam"
-            "lua"
-            "nix"
-            "ocaml"
-            "oxocarbon"
-            "zig"
-          ];
           extraPackages = editor-tool-pkgs;
-          userSettings = {
-            theme = "Carbonfox - opaque";
-            vim_mode = true;
-            ui_font_family = ".ZedSans";
-            ui_font_size = 18.0;
-            buffer_font_family = "CommitMono Nerd Font";
-            buffer_font_fallbacks = [ "0xProto Nerd Font Propo" ];
-            buffer_font_size = 18;
-            terminal = {
-              font_family = "0xProto Nerd Font Propo";
-              font_size = 17;
-            };
-            project_panel = {
-              git_status_indicator = true;
-              bold_folder_labels = false;
-              button = true;
-            };
-            tab_size = 2;
-            hard_tabs = false;
-            format_on_save = "on";
-            telemetry = {
-              diagnostics = false;
-              metrics = false;
-            };
-            # TODO: do I need this?
-            lsp.deno.settings.deno = {
-              enable = true;
-              lint = true;
-            };
-            toolbar = {
-              breadcrumbs = false;
-              quick_actions = false;
-            };
-            tab_bar = {
-              show = true;
-              show_nav_history_buttons = false;
-            };
-          };
+          # Shared with macOS. Extensions are listed under
+          # auto_install_extensions in the JSON file.
+          # TODO: do I need the lsp.deno settings in it?
+          userSettings = lib.importJSON ./modules/zed/settings.json;
         };
       };
     in
@@ -576,52 +530,7 @@
         nix-direnv.enable = true;
       };
 
-      programs.tmux = {
-        enable = true;
-        baseIndex = 1;
-        clock24 = true;
-        customPaneNavigationAndResize = true;
-        escapeTime = 0;
-        focusEvents = true;
-        historyLimit = 100000;
-        keyMode = "vi";
-        mouse = true;
-        resizeAmount = 5;
-        secureSocket = false;
-        terminal = "tmux-256color";
-
-        extraConfig = ''
-          set -as terminal-features ',xterm*:RGB'
-          set -g renumber-windows on
-          set -g set-clipboard off
-          set -s copy-command '${pkgs.wl-clipboard}/bin/wl-copy'
-
-          bind c new-window -c '#{pane_current_path}'
-          bind | split-window -h -c '#{pane_current_path}'
-          bind - split-window -v -c '#{pane_current_path}'
-
-          bind -T copy-mode-vi v send -X begin-selection
-          bind -T copy-mode-vi V send -X select-line
-          bind -T copy-mode-vi C-v send -X rectangle-toggle
-          bind -T copy-mode-vi y send -X copy-pipe-and-cancel
-          bind -T copy-mode-vi Enter send -X copy-pipe-and-cancel
-
-          set -g status-position bottom
-          set -g status-style 'bg=#151516,fg=#cfcfcf'
-          set -g status-left-length 30
-          set -g status-left '#[bg=#51a4e7,fg=#151516,bold] #S #[bg=#151516] '
-          set -g status-right '#[fg=#7a7a7a] %Y-%m-%d #[fg=#cfcfcf] %H:%M '
-          set -g window-status-separator ""
-          set -g window-status-format '#[bg=#151516,fg=#7a7a7a] #I:#W '
-          set -g window-status-current-format '#[bg=#51a4e7,fg=#151516,bold] #I:#W '
-
-          set -g pane-border-style 'fg=#2a2a2a'
-          set -g pane-active-border-style 'fg=#51a4e7'
-          set -g message-style 'bg=#181818,fg=#cfcfcf'
-          set -g message-command-style 'bg=#181818,fg=#51a4e7'
-          set -g mode-style 'bg=#51a4e7,fg=#151516,bold'
-        '';
-      };
+      xdg.configFile."tmux/tmux.conf".source = ./modules/tmux/tmux.conf;
 
       catppuccin = {
         enable = true;
@@ -645,16 +554,12 @@
           theme = "";
         };
         shellAliases = {
-          ll = "ls -l";
           rebuild = ''sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
           switch = ''sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
           update = ''nix flake update --flake "$NIXOS_CONFIG" && sudo nixos-rebuild switch --flake "$NIXOS_CONFIG#$(hostname)"'';
           nboot = ''sudo nixos-rebuild boot --flake "$NIXOS_CONFIG#$(hostname)"'';
           tbuild = ''sudo nixos-rebuild test --flake "$NIXOS_CONFIG#$(hostname)"'';
 
-          cat = "bat --paging=never --style=plain";
-          less = "bat";
-          preview = "bat --style=numbers,changes --color=always";
           # TODO: change the mon based on machine
           pfetch = "pokeget haxorus -s --hide-name | fastfetch --file-raw -";
 
@@ -663,36 +568,12 @@
         };
         initContent = ''
           export NIXOS_CONFIG=''${NIXOS_CONFIG:-$HOME/Projects/nixos-conf}
-          PATH=$HOME/.local/bin:$PATH
-          PATH="$HOME/.cargo/bin:$PATH"
-          export PATH="$HOME/go/bin:$PATH"
-          eval "$(starship init zsh)"
+          source ${./modules/zsh/shared.zsh}
         '';
       };
 
-      programs.git = {
-        enable = true;
-        settings.user.name = "Owais Jamil";
-        settings.user.email = "desertthunder.dev@gmail.com";
-        ignores = [
-          ".DS_Store"
-          "Thumbs.db"
-          "*~"
-          "*.swp"
-          "*.swo"
-          ".env"
-          ".env.*"
-          "!.env.example"
-          ".direnv/"
-          ".devenv/"
-          "result"
-          "result-*"
-          ".sandbox/"
-          "AGENTS.md"
-          "CLAUDE.md"
-          "**/.claude/settings.local.json"
-        ];
-      };
+      xdg.configFile."git/config".source = ./modules/git/config;
+      xdg.configFile."git/ignore".source = ./modules/git/ignore;
 
       home.file.".config/zellij" = {
         source = ./modules/zellij;
@@ -746,17 +627,7 @@
         force = true;
       };
 
-      home.file.".config/ripgrep/config".text = ''
-        --line-number
-        --smart-case
-        --max-columns=120
-        --max-columns-preview
-        --type-add=nix:*.nix
-        --glob=!.git/*
-        --glob=!**/node_modules/**
-        --glob=!**/target/**
-        --glob=!**/.build/**
-      '';
+      xdg.configFile."ripgrep/config".source = ./modules/ripgrep/config;
 
       programs.ghostty = {
         enable = true;
@@ -764,38 +635,8 @@
         installBatSyntax = true;
         installVimSyntax = true;
         settings = {
-          font-family = "0xProto Nerd Font";
-          font-style = "Medium";
-          font-size = 14;
-          window-padding-x = 8;
-          window-padding-y = 8;
-          background = "1b1b1b";
-          foreground = "ffffff";
-          cursor-color = "78a9ff";
-          cursor-text = "161616";
-          palette = [
-            "0=#161616"
-            "1=#ee5396"
-            "2=#42be65"
-            "3=#ff7eb6"
-            "4=#33b1ff"
-            "5=#be95ff"
-            "6=#3ddbd9"
-            "7=#ffffff"
-            "8=#8d8d8d"
-            "9=#ee5396"
-            "10=#42be65"
-            "11=#ff7eb6"
-            "12=#33b1ff"
-            "13=#be95ff"
-            "14=#3ddbd9"
-            "15=#ffffff"
-          ];
+          config-file = "${./modules/ghostty/config}";
           command = "/run/current-system/sw/bin/zsh --login";
-          shell-integration = "zsh";
-          mouse-hide-while-typing = true;
-          copy-on-select = false;
-          confirm-close-surface = false;
         };
       };
 

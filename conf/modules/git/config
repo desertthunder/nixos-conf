@@ -1,0 +1,18 @@
+[user]
+	name = Owais Jamil
+	email = desertthunder.dev@gmail.com
+[init]
+	defaultBranch = main
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3
+# Machine-only settings, such as a different signing key or editor.
+[include]
+	path = ~/.config/git/local

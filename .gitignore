@@ -84,3 +84,8 @@ overrides.nix
 dist
 !conf/agent/AGENTS.md
 .pi
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/

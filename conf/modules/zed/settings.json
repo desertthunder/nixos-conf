@@ -1,0 +1,77 @@
+{
+  "cli_default_open_behavior": "new_window",
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "left",
+    "favorite_models": [],
+    "model_parameters": [],
+    "commit_message_model": {
+      "provider": "openai-subscribed",
+      "model": "gpt-5.5"
+    }
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "theme": "Carbonfox - opaque",
+  "vim_mode": true,
+  "ui_font_family": ".ZedSans",
+  "ui_font_size": 18.0,
+  "buffer_font_family": "CommitMono Nerd Font",
+  "buffer_font_fallbacks": ["0xProto Nerd Font Propo"],
+  "buffer_font_size": 18,
+  "terminal": {
+    "font_family": "0xProto Nerd Font Propo",
+    "font_size": 17
+  },
+  "project_panel": {
+    "dock": "right",
+    "git_status_indicator": true,
+    "bold_folder_labels": false,
+    "button": true
+  },
+  "tab_size": 2,
+  "hard_tabs": false,
+  "format_on_save": "on",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "lsp": {
+    "deno": {
+      "settings": {
+        "deno": {
+          "enable": true,
+          "lint": true
+        }
+      }
+    }
+  },
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false
+  },
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false
+  },
+  "auto_install_extensions": {
+    "basher": true,
+    "dart": true,
+    "deno": true,
+    "elixir": true,
+    "flutter-snippets": true,
+    "gleam": true,
+    "lua": true,
+    "nix": true,
+    "nvim-nightfox": true,
+    "ocaml": true,
+    "oxocarbon": true,
+    "zig": true
+  }
+}

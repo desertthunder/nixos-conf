@@ -1,0 +1,62 @@
+# Packages for macOS hosts. Mirrors the portable parts of the package lists in
+# conf/shared.nix; language toolchains stay with their own installers.
+# Check with `dots doctor`, install with `dots doctor --install`.
+
+# Shell
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+brew "starship"
+brew "direnv"
+
+# CLI tools
+brew "bat"
+brew "dust"
+brew "fd"
+brew "fzf"
+brew "gnupg"
+brew "hurl"
+brew "jq"
+brew "just"
+brew "ripgrep"
+brew "tree"
+brew "yq"
+brew "fastfetch"
+
+# Git and secrets
+brew "gh"
+brew "git-delta"
+brew "sops"
+brew "age"
+
+# Terminal workspace
+brew "neovim"
+brew "tree-sitter-cli"
+brew "tmux"
+brew "zellij"
+brew "btop"
+brew "glow"
+brew "gum"
+brew "vhs"
+brew "asciinema"
+
+# Docs and linting
+brew "mdbook"
+brew "markdownlint-cli2"
+brew "shellcheck"
+brew "shfmt"
+brew "typst"
+
+# Python tooling and disk cleanup
+brew "uv"
+brew "mole"
+
+# Apps. adopt takes over copies that were installed without Homebrew.
+cask "ghostty", args: { adopt: true }
+cask "zed", args: { adopt: true }
+
+# Fonts used by the Ghostty and Zed configs
+cask "font-0xproto-nerd-font"
+cask "font-commit-mono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-maple-mono-nf"
+cask "font-inter"
