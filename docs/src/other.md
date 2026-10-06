@@ -73,7 +73,7 @@ Use language-native installers for fast-moving ecosystems when needed:
 | Rust            | `rustup`                                                              |
 | Bun             | upstream installer                                                    |
 | uv              | upstream installer                                                    |
-| Node/TypeScript | distro package, pnpm, or project-local tooling                        |
+| Node/TypeScript | mise, see [Dotfiles](./dotfiles.md#node-and-npm-tools)                |
 | Zed             | upstream package                                                      |
 | Claude Code     | Nix, upstream package, or npm-style install depending on availability |
 | OpenCode        | Nix or upstream package                                               |

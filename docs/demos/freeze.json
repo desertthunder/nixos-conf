@@ -1,0 +1,10 @@
+{
+  "window": true,
+  "background": "#1b1b1b",
+  "border": { "radius": 8, "width": 1, "color": "#393939" },
+  "shadow": { "blur": 0, "x": 0, "y": 0 },
+  "padding": [20, 40, 20, 20],
+  "margin": 0,
+  "font": { "family": "0xProto Nerd Font", "size": 14, "ligatures": false },
+  "line_height": 1.3
+}

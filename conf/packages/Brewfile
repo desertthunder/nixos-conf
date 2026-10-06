@@ -1,6 +1,10 @@
 # Packages for macOS hosts. Mirrors the portable parts of the package lists in
-# conf/shared.nix; language toolchains stay with their own installers.
+# conf/shared.nix; language toolchains stay with their own installers, and mise
+# installs Node and npm tools from conf/modules/mise/config.toml.
 # Check with `dots doctor`, install with `dots doctor --install`.
+#
+# Entries from third-party taps need `trusted: true`, which tells Homebrew they
+# were reviewed. `dots doctor --install` asks before adding it to a new entry.
 
 # Shell
 brew "zsh-autosuggestions"
@@ -36,7 +40,6 @@ brew "zellij"
 brew "btop"
 brew "glow"
 brew "gum"
-brew "vhs"
 brew "asciinema"
 
 # Docs and linting
@@ -46,13 +49,20 @@ brew "shellcheck"
 brew "shfmt"
 brew "typst"
 
-# Python tooling and disk cleanup
+# Demo recording, see docs/demos
+brew "charmbracelet/tap/vhs", trusted: true
+brew "charmbracelet/tap/freeze", trusted: true
+brew "librsvg"
+
+# Language tooling and disk cleanup
 brew "uv"
+brew "mise"
 brew "mole"
 
 # Apps. adopt takes over copies that were installed without Homebrew.
 cask "ghostty", args: { adopt: true }
 cask "zed", args: { adopt: true }
+cask "openpencil", args: { adopt: true }
 
 # Fonts used by the Ghostty and Zed configs
 cask "font-0xproto-nerd-font"

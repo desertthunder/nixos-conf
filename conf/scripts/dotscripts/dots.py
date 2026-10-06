@@ -1,6 +1,6 @@
 """Link this repository's dotfiles into place on machines without Home Manager.
 
-`conf/dots.toml` lists three kinds of entries:
+`conf/dots.toml` lists these kinds of entries:
 
 - `[[link]]` symlinks a repository file or directory to a target path. With
   `each = true`, every child of the source directory gets its own link inside
@@ -8,6 +8,7 @@
 - `[[repo]]` clones a Git repository to a target path.
 - `retire` lists files that shadow managed config, such as `~/.gitconfig`
   shadowing `~/.config/git/config`.
+- `[[mcp]]` names an MCP server to register with Claude Code.
 
 Every command that changes the home directory is a dry run until `--apply` is
 passed. An applied run moves each replaced file into
@@ -18,6 +19,7 @@ it, so `dots restore` can put the previous files back.
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 import tomllib
@@ -61,10 +63,17 @@ class Repo:
 
 
 @dataclass(frozen=True)
+class McpServer:
+    name: str
+    command: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class Manifest:
     links: tuple[Link, ...]
     repos: tuple[Repo, ...]
     retire: tuple[Path, ...]
+    mcp_servers: tuple[McpServer, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -93,7 +102,11 @@ def load_manifest(path: Path, repo_root: Path) -> Manifest:
         for entry in data.get("repo", [])
     )
     retire = tuple(_home_path(raw) for raw in data.get("retire", []))
-    return Manifest(links, repos, retire)
+    mcp_servers = tuple(
+        McpServer(_require(entry, "name", "mcp"), tuple(_require(entry, "command", "mcp")))
+        for entry in data.get("mcp", [])
+    )
+    return Manifest(links, repos, retire, mcp_servers)
 
 
 def _require(entry: dict, key: str, kind: str) -> str:
@@ -283,6 +296,41 @@ def _copy_over(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
+BREWFILE_ENTRY = re.compile(r'^\s*(tap|brew|cask)\s+"([^"]+)"')
+
+
+def untrusted_entries(lines: list[str]) -> list[int]:
+    """Return the indexes of Brewfile lines that use a third-party tap without `trusted:`.
+
+    A `tap` line always names a tap; a formula or cask comes from one when its
+    name is qualified as `owner/repo/name`. Official `homebrew/` taps are trusted.
+    """
+    untrusted = []
+    for index, line in enumerate(lines):
+        entry = BREWFILE_ENTRY.match(line)
+        if entry is None or "trusted:" in line or entry[2].startswith("homebrew/"):
+            continue
+        if entry[1] == "tap" or entry[2].count("/") == 2:
+            untrusted.append(index)
+    return untrusted
+
+
+def trust_entry(line: str) -> str:
+    """Add `trusted: true` to a Brewfile line, keeping any trailing comment."""
+    code, hash_sign, comment = line.rstrip("\n").partition("#")
+    trusted = f"{code.rstrip()}, trusted: true"
+    return (f"{trusted}  #{comment}" if hash_sign else trusted) + "\n"
+
+
+def mcp_registered(claude: str, server: McpServer) -> bool:
+    found = subprocess.run([claude, "mcp", "get", server.name], capture_output=True)
+    return found.returncode == 0
+
+
+def mcp_add_command(claude: str, server: McpServer) -> list[str]:
+    return [claude, "mcp", "add", "--scope", "user", server.name, "--", *server.command]
+
+
 def _refuse_on_nixos() -> None:
     if Path("/etc/NIXOS").exists():
         raise DotsError("This is a NixOS host. Home Manager owns these files; run nixos-rebuild instead.")
@@ -408,22 +456,83 @@ def adopt_command(target: Path) -> None:
     console.print(f"Adopted {_display(target)} into {_display(matches[0].source)}. Review with: git diff")
 
 
+@cli.command(name="mcp")
+@click.option("--apply", "apply_changes", is_flag=True, help="Register the servers instead of only listing them.")
+def mcp_command(apply_changes: bool) -> None:
+    """Register the manifest's MCP servers with Claude Code at user scope."""
+    _refuse_on_nixos()
+    claude = shutil.which("claude")
+    if claude is None:
+        raise DotsError("Claude Code is not installed, so there is nothing to register MCP servers with.")
+    servers = load_manifest(MANIFEST_PATH, REPO_ROOT).mcp_servers
+    missing = [server for server in servers if not mcp_registered(claude, server)]
+    if not missing:
+        console.print("Nothing to do.")
+        return
+    for server in missing:
+        console.print("claude " + " ".join(mcp_add_command("claude", server)[1:]), markup=False)
+    if not apply_changes:
+        console.print("Dry run. Re-run with --apply to register these servers.")
+        return
+    for server in missing:
+        if subprocess.run(mcp_add_command(claude, server)).returncode != 0:
+            raise DotsError(f"Registering the {server.name} MCP server failed")
+    console.print("Registered. Restart Claude Code sessions to load the servers.")
+
+
 @cli.command()
-@click.option("--install", is_flag=True, help="Install missing Brewfile packages. Never upgrades or removes anything.")
+@click.option("--install", is_flag=True, help="Install missing Brewfile packages and mise tools. Never upgrades or removes anything.")
 def doctor(install: bool) -> None:
-    """Check that the tools the dotfiles expect are installed."""
+    """Check that the tools and MCP servers the dotfiles expect are installed."""
     brew = shutil.which("brew")
     if brew is None:
         raise DotsError(
             "Homebrew is not installed. Install it from https://brew.sh, or install the "
             f"packages in {_display(BREWFILE_PATH)} with your distribution's package manager."
         )
+    lines = BREWFILE_PATH.read_text().splitlines(keepends=True)
+    for index in untrusted_entries(lines):
+        entry = lines[index].strip()
+        if not install or not click.confirm(f"{entry} comes from a third-party tap. Trust it?"):
+            raise DotsError(
+                f"{entry} is not trusted. Review its tap, then trust it with dots doctor --install "
+                f"or by adding trusted: true to its line in {_display(BREWFILE_PATH)}."
+            )
+        lines[index] = trust_entry(lines[index])
+        BREWFILE_PATH.write_text("".join(lines))
+        console.print(f"Marked it trusted in {_display(BREWFILE_PATH)}. Commit that change with the entry.")
+
+    manifest = load_manifest(MANIFEST_PATH, REPO_ROOT)
+
+    healthy = True
     command = [brew, "bundle", "install", "--no-upgrade"] if install else [brew, "bundle", "check", "--verbose", "--no-upgrade"]
-    bundle = subprocess.run([*command, "--file", str(BREWFILE_PATH)])
-    oh_my_zsh = (Path.home() / ".oh-my-zsh").is_dir()
-    if not oh_my_zsh:
+    if subprocess.run([*command, "--file", str(BREWFILE_PATH)]).returncode != 0:
+        healthy = False
+        if not install:
+            console.print("Install the missing packages with: dots doctor --install")
+
+    if not (Path.home() / ".oh-my-zsh").is_dir():
+        healthy = False
         console.print("[red]oh-my-zsh is missing.[/] Install it from https://ohmyz.sh; the zshrc requires it.")
-    if bundle.returncode != 0 and not install:
-        console.print("Install the missing packages with: dots doctor --install")
-    if bundle.returncode != 0 or not oh_my_zsh:
+
+    # Run from home so a project's mise.toml does not stand in for the global tools.
+    mise = shutil.which("mise")
+    if mise is None:
+        healthy = False
+        console.print("[red]mise is missing.[/] It installs Node and the npm tools in conf/modules/mise/config.toml.")
+    else:
+        command = [mise, "install"] if install else [mise, "install", "--dry-run-code"]
+        if subprocess.run(command, cwd=Path.home()).returncode != 0:
+            healthy = False
+            if not install:
+                console.print("Install the missing mise tools with: dots doctor --install")
+
+    claude = shutil.which("claude")
+    if claude is not None:
+        missing = [server.name for server in manifest.mcp_servers if not mcp_registered(claude, server)]
+        if missing:
+            healthy = False
+            console.print(f"[red]Claude Code is missing MCP servers:[/] {', '.join(missing)}. Register them with: dots mcp --apply")
+
+    if not healthy:
         raise SystemExit(1)

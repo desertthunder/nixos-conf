@@ -1,0 +1,8 @@
+# Global mise tools for machines without Home Manager, linked to
+# ~/.config/mise/config.toml by `dots link`. Install them with
+# `dots doctor --install` or `mise install`.
+
+[tools]
+node = "lts"
+"npm:@open-pencil/cli" = "latest"
+"npm:@open-pencil/mcp" = "latest"

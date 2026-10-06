@@ -1,13 +1,21 @@
 # Agent skills
 
-This repository maintains four reusable skills under `conf/agent/skills/`:
+This repository keeps these skills under `conf/agent/skills/`:
 
 | Skill             | Use it for                                                                                       |
 | ----------------- | ------------------------------------------------------------------------------------------------ |
 | `css`             | Vanilla CSS structure, component classes, tokens, accessible colours, and replacing utility CSS. |
+| `disk-cleanup`    | Freeing disk space without losing work.                                                          |
 | `frontend-design` | Building, redesigning, reviewing, and polishing accessible, responsive web interfaces.           |
+| `open-pencil`     | Inspecting, exporting, and editing `.fig` designs and driving the OpenPencil editor.             |
 | `svelte-testing`  | Svelte and SvelteKit unit, component, server, SSR, browser, and end-to-end testing.              |
 | `writing`         | Drafting and revising prose in a direct human voice.                                             |
+
+`open-pencil` is a copy of the upstream skill in
+[open-pencil/open-pencil](https://github.com/open-pencil/open-pencil/tree/master/skills/open-pencil),
+taken at commit `09accf78df`. Refresh it by copying that directory again rather
+than editing it here. Its install commands use Bun; on machines without Nix,
+mise installs the same packages instead (see [Dotfiles](./dotfiles.md#openpencil)).
 
 Each skill has a `SKILL.md` file and can include supporting files:
 
@@ -75,14 +83,10 @@ This configuration is defined in `conf/shared.nix`. Changes under
 `conf/agent/skills/` become available through the symlink without copying the
 files.
 
-On machines not managed by this Home Manager configuration, link each desired
-skill into `~/.agents/skills/`. Linking skills individually allows repository
-skills and machine-installed skills to share the directory:
-
-```bash
-mkdir -p ~/.agents/skills
-ln -s "$PWD/conf/agent/skills/writing" ~/.agents/skills/writing
-```
+On machines not managed by this Home Manager configuration, `dots link` links
+each skill into `~/.agents/skills/` and `~/.claude/skills/` individually, so
+repository skills and machine-installed skills share those directories. See
+[Dotfiles](./dotfiles.md).
 
 Pi and Codex both discover skills from `~/.agents/skills/`, so a second copy in
 an agent-specific directory is usually unnecessary. Review third-party skills
@@ -102,10 +106,6 @@ home.file.".claude/skills" = {
 Both links point at `conf/agent/skills/`, so there is still one copy to edit.
 The frontmatter this repository already uses satisfies Claude Code, which
 requires `name` and `description` and nothing else.
-
-The script `conf/agent/link-global-instructions.sh` installs the same links on
-machines without Home Manager. It links `AGENTS.md` for Codex, Pi, and Claude
-Code, and links the skill directory for Claude Code.
 
 ## Updating a skill
 

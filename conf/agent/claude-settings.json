@@ -8,5 +8,9 @@
       "effortLevel": "high"
     }
   },
-  "theme": "dark-ansi"
+  "permissions": {
+    "allow": ["mcp__open-pencil__*"]
+  },
+  "theme": "dark-ansi",
+  "skipWorkflowUsageWarning": true
 }

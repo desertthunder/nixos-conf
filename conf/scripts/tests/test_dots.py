@@ -7,6 +7,7 @@ from dotscripts.dots import (
     Action,
     DotsError,
     Link,
+    McpServer,
     Run,
     State,
     adopt,
@@ -14,7 +15,10 @@ from dotscripts.dots import (
     latest_run,
     link_state,
     load_manifest,
+    mcp_add_command,
     plan,
+    trust_entry,
+    untrusted_entries,
     repo_state,
     restore,
 )
@@ -160,3 +164,38 @@ def test_clone_repo_and_detect_foreign_checkout(tmp_path, home):
     assert actions == [Action("clone", home / ".config/nvim", url=str(upstream), replaces=True)]
     apply_actions(actions, Run(home / "state", home))
     assert repo_state(manifest.repos[0]) is State.OK
+
+
+def test_untrusted_entries_are_third_party_lines_without_trusted():
+    lines = [
+        'tap "stormlightlabs/tap"\n',
+        'tap "homebrew/cask-versions"\n',
+        'brew "ripgrep"\n',
+        'brew "charmbracelet/tap/vhs", trusted: true\n',
+        'brew "charmbracelet/tap/freeze"\n',
+        'cask "homeport/tap/dyff", args: { adopt: true }\n',
+        '# brew "commented/tap/out"\n',
+    ]
+    assert untrusted_entries(lines) == [0, 4, 5]
+
+
+def test_trust_entry_keeps_arguments_and_comments():
+    assert trust_entry('brew "a/b/c"\n') == 'brew "a/b/c", trusted: true\n'
+    assert trust_entry('cask "a/b/c", args: { adopt: true }  # app\n') == (
+        'cask "a/b/c", args: { adopt: true }, trusted: true  # app\n'
+    )
+
+
+def test_mcp_server_registers_at_user_scope(repo):
+    manifest = manifest_for(
+        repo,
+        """
+[[mcp]]
+name = "open-pencil"
+command = ["mise", "exec", "--", "openpencil-mcp"]
+""",
+    )
+    assert manifest.mcp_servers == (McpServer("open-pencil", ("mise", "exec", "--", "openpencil-mcp")),)
+    assert mcp_add_command("claude", manifest.mcp_servers[0]) == [
+        "claude", "mcp", "add", "--scope", "user", "open-pencil", "--", "mise", "exec", "--", "openpencil-mcp",
+    ]

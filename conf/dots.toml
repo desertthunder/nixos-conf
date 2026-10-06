@@ -5,6 +5,8 @@
 # With `each = true`, every entry inside `source` gets its own link inside
 # `target`, and entries that other tools own there are left alone.
 # [[repo]] clones `url` to `target`.
+# [[mcp]] registers an MCP server with Claude Code at user scope, applied with
+# `dots mcp`.
 # `retire` lists files that shadow managed config; `dots link` moves them into
 # the run's backup directory.
 
@@ -59,6 +61,10 @@ target = "~/.config/fastfetch"
 source = "conf/modules/zathura/zathurarc"
 target = "~/.config/zathura/zathurarc"
 
+[[link]]
+source = "conf/modules/mise/config.toml"
+target = "~/.config/mise/config.toml"
+
 [[repo]]
 url = "git@github.com:desertthunder/nvim.git"
 target = "~/.config/nvim"
@@ -95,3 +101,9 @@ each = true
 source = "conf/agent/skills"
 target = "~/.agents/skills"
 each = true
+
+# mise exec finds the npm tool even when the agent was not started from a
+# shell that activated mise.
+[[mcp]]
+name = "open-pencil"
+command = ["mise", "exec", "--", "openpencil-mcp"]

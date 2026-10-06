@@ -1,6 +1,6 @@
 # Zsh entry point for machines without Home Manager. It mirrors the zsh module
 # in conf/shared.nix: oh-my-zsh with the git and z plugins, autosuggestions,
-# direnv, the shared setup, and syntax highlighting last.
+# direnv, mise, the shared setup, and syntax highlighting last.
 
 for brew in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   [[ -x $brew ]] && eval "$($brew shellenv)" && break
@@ -23,6 +23,7 @@ source_plugin() {
 
 source_plugin zsh-autosuggestions
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 # ~/.zshrc is a symlink into the repository; :A resolves it to find shared.zsh.
 source "${${(%):-%x}:A:h}/shared.zsh"
