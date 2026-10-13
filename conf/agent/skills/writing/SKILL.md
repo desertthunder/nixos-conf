@@ -14,6 +14,7 @@ This skill applies to the answer as well as the requested prose.
 
 Read only the references the task needs:
 
+- `references/voice.md`: Owais's voice for blog posts, essays, and narration.
 - `references/tropes.md`: current catalog of AI writing behaviors and tells.
 - `references/technical-english.md`: plain technical English, controlled writing,
   and Orwell's rules.
@@ -45,8 +46,9 @@ Read only the references the task needs:
 
 Use for essays, blog posts, notes, reports, and personal writing.
 
-- When writing for Owais, treat his edited prose as the style authority. Match
-  its density, rhythm, vocabulary, and tolerance for informality.
+- When writing for Owais, read `references/voice.md` and treat his edited
+  prose as the style authority. Match its density, rhythm, vocabulary, and
+  tolerance for informality.
 - Preserve distinctive phrasing when it works. Do not flatten the author's
   voice into controlled English.
 - Vary sentence length naturally. Avoid both long chains and manufactured
