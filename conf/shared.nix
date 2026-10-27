@@ -173,6 +173,11 @@
             group = "users";
             mode = "0600";
           };
+          bws_access_token = {
+            owner = "owais";
+            group = "users";
+            mode = "0600";
+          };
         };
       };
     };
@@ -193,6 +198,12 @@
       elixir-ls-bin = pkgs.runCommand "elixir-ls-bin" { } ''
         mkdir -p $out/bin
         ln -s ${pkgs.elixir-ls}/bin/* $out/bin/
+      '';
+
+      # Reads the token only while bws runs, so it never sits in the shell environment
+      bws-bin = pkgs.writeShellScriptBin "bws" ''
+        BWS_ACCESS_TOKEN="$(< /run/secrets/bws_access_token)" \
+          exec ${pkgs.bws}/bin/bws "$@"
       '';
 
       sshConfigText = pkgs.writeText "ssh-config" ''
@@ -266,6 +277,7 @@
       #  some of these could be dev-tool-pkgs (hurl, jq, just, etc.)
       cli-tool-pkgs = with pkgs; [
         bat
+        bws-bin
         pkgsUnstable.claude-code
         codex
         dust
@@ -277,6 +289,7 @@
         hurl
         jq
         just
+        libsecret
         nix-output-monitor
         oh-my-zsh
         pkgsUnstable.opencode

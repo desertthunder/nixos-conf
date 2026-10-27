@@ -6,11 +6,12 @@ with the helper script.
 
 ## Active secrets
 
-| Secret          | NixOS path                   | Used by               |
-| --------------- | ---------------------------- | --------------------- |
-| `keys_gh`       | `/run/secrets/keys_gh`       | GitHub SSH            |
-| `keys_codeberg` | `/run/secrets/keys_codeberg` | Codeberg SSH          |
-| `keys_tangled`  | `/run/secrets/keys_tangled`  | Tangled and Knot SSH  |
+| Secret             | NixOS path                      | Used by              |
+| ------------------ | ------------------------------- | -------------------- |
+| `keys_gh`          | `/run/secrets/keys_gh`          | GitHub SSH           |
+| `keys_codeberg`    | `/run/secrets/keys_codeberg`    | Codeberg SSH         |
+| `keys_tangled`     | `/run/secrets/keys_tangled`     | Tangled and Knot SSH |
+| `bws_access_token` | `/run/secrets/bws_access_token` | `bws` wrapper        |
 
 Files are owned by `owais:users` with mode `0600`.
 
@@ -23,7 +24,12 @@ Files are owned by `owais:users` with mode `0600`.
 | `/var/lib/sops-nix/key.txt` | Age key used by NixOS during activation.                   |
 | `conf/shared.nix`           | Declares which secrets should appear under `/run/secrets`. |
 
-SSH references `/run/secrets` paths directly.
+SSH references `/run/secrets` paths directly. The `bws` command is a wrapper that
+reads `bws_access_token` only while it runs, so the token is not exported into
+every shell.
+
+Add a secret's value to `owais.yaml` before rebuilding with its declaration.
+Activation fails if a declared key is missing from the file.
 
 ## Local editing
 

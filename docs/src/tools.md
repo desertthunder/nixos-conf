@@ -66,4 +66,6 @@ opam install . --deps-only --with-test --with-doc
 
 Home Manager installs common helpers including `fd`, `jq`, `yq`, `fzf`, `bat`,
 `dust`, `tree`, `zellij`, `gum`, `glow`, `vhs`, `btop`, `cava`, `shellcheck`,
-`shfmt`, `zig`, `zls`, `lldb`, `typst`, and `mdbook`.
+`shfmt`, `zig`, `zls`, `lldb`, `typst`, and `mdbook`. It also installs `bws`
+(Bitwarden Secrets Manager CLI, token from [Secrets](./secrets.md)) and
+`secret-tool` from `libsecret`, which reads and writes the GNOME keyring.
