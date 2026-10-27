@@ -65,9 +65,8 @@ Center history. Do Not Disturb suppresses new toasts without stopping history.
 
 The dock and desktop widgets are disabled.
 
-The lock screen uses `wall00.png`, a dark tint, password authentication, and
-fingerprint authentication. Noctalia locks before suspend, including suspend
-caused by closing the lid.
+The lock screen uses `wall00.png`, a dark tint, and password authentication.
+Noctalia locks before suspend, including suspend caused by closing the lid.
 
 ## Theme
 

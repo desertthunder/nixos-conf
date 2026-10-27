@@ -85,6 +85,9 @@ dist
 !conf/agent/AGENTS.md
 .pi
 
+# Claude Code downloads claude.ai account skills here via ~/.claude/skills
+conf/agent/skills/synced/
+
 # Python
 .venv/
 __pycache__/

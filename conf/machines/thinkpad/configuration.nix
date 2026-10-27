@@ -22,7 +22,5 @@
     };
   };
 
-  services.fprintd.enable = true;
-
   desert.services.searxng.enable = true;
 }

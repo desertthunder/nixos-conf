@@ -82,8 +82,6 @@ let
       border = {
         focused = "#${colors.accent}FF";
         unfocused = "#${colors.border}FF";
-        scratchpad_focused = "#${colors.warning}FF";
-        scratchpad_unfocused = "#${colors.border}FF";
         outer = "#${colors.background}FF";
       };
     };
@@ -119,7 +117,7 @@ let
     layout = {
       mode = "dwindle";
       gap = 4;
-      width_presets = [
+      extent_presets = [
         0.333
         0.5
         0.667
@@ -163,10 +161,10 @@ let
       "Mod+K" = "window-focus-up";
       "Mod+L" = "window-focus-right";
 
-      "Mod+Ctrl+H" = "window-modify-width:-0.1";
-      "Mod+Ctrl+J" = "window-modify-height:0.1";
-      "Mod+Ctrl+K" = "window-modify-height:-0.1";
-      "Mod+Ctrl+L" = "window-modify-width:0.1";
+      "Mod+Ctrl+H" = "window-modify-primary-extent:-0.1";
+      "Mod+Ctrl+J" = "window-modify-secondary-extent:0.1";
+      "Mod+Ctrl+K" = "window-modify-secondary-extent:-0.1";
+      "Mod+Ctrl+L" = "window-modify-primary-extent:0.1";
       "Mod+Alt+H" = "column-move-left";
       "Mod+Alt+J" = "window-move-down";
       "Mod+Alt+K" = "window-move-up";
@@ -243,18 +241,18 @@ let
       {
         match.app_id = "^dev[.]noctalia[.]Noctalia$";
         default_floating = true;
-        default_size = [
-          1020
-          900
-        ];
+        default_floating_size_px = {
+          width = 1020;
+          height = 900;
+        };
       }
       {
         match.app_id = "^dev[.]noctalia[.]UmbrielSharePicker$";
         default_floating = true;
-        default_size = [
-          800
-          600
-        ];
+        default_floating_size_px = {
+          width = 800;
+          height = 600;
+        };
       }
       {
         match.app_id = "^(org[.]gnome[.]Calculator|org[.]gnome[.]Nautilus|org[.]pulseaudio[.]pavucontrol|pavucontrol|nm-connection-editor|org[.]gnome[.]Settings|xdg-desktop-portal.*)$";

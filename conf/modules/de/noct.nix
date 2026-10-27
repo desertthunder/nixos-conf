@@ -89,7 +89,7 @@ let
     lockscreen = {
       enabled = true;
       lock_before_suspend = true;
-      fingerprint = true;
+      fingerprint = false;
       blurred_desktop = false;
       wallpaper = toString wallpaper;
       blur_intensity = 0.0;

@@ -30,7 +30,7 @@ Host-specific settings:
 - `power-profiles-daemon` disabled
 - default TLP mode set to battery
 - CPU governor set to `performance` on AC and `powersave` on battery
-- fingerprint daemon and UPower enabled
+- UPower enabled
 - Umbriel compositor and Noctalia shell enabled through a host-specific module
 - SearXNG listening on `127.0.0.1:9090`
 
